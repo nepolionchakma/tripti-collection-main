@@ -1,11 +1,5 @@
 import { CartProduct, Product } from "@/types/Types";
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 interface ShopContextProps {
   children: ReactNode;
@@ -40,15 +34,6 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       ? JSON.parse(localStorage.getItem("wishlist") || "")
       : []
   );
-
-  // useEffect(() => {
-  //   const localCart = localStorage.getItem("cart");
-  //   if (localCart) setCart(JSON.parse(localCart));
-  // }, [cart.length]);
-  // useEffect(() => {
-  //   const localWishlist = localStorage.getItem("wishlist");
-  //   if (localWishlist) setWishlist(JSON.parse(localWishlist));
-  // }, [wishlist.length]);
 
   const values = {
     selectedItem,
