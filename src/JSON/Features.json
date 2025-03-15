@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Discount",
+    "description": "Every week new sales",
+    "img": "https://i.ibb.co.com/VW2J4Bxf/image.png"
+  },
+  {
+    "id": 2,
+    "title": "Fast Delivery",
+    "description": "100% Free for all orders",
+    "img": "https://i.ibb.co.com/VW2J4Bxf/image.png"
+  },
+  {
+    "id": 3,
+    "title": "Great Support 24/7 ",
+    "description": "We care your experiences",
+    "img": "https://i.ibb.co.com/VW2J4Bxf/image.png"
+  },
+  {
+    "id": 4,
+    "title": "Secure Payment",
+    "description": "100% Secure Payment Method",
+    "img": "https://i.ibb.co.com/VW2J4Bxf/image.png"
+  }
+]

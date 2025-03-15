@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "category": "Tops",
+    "description": "Clothing items worn on the upper body.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 150
+  },
+  {
+    "id": 2,
+    "category": "Bottoms",
+    "description": "Clothing items worn on the lower body.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 200
+  },
+  {
+    "id": 3,
+    "category": "Outerwear",
+    "description": "Clothing items worn over other clothes for warmth or style.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 80
+  },
+  {
+    "id": 4,
+    "category": "Footwear",
+    "description": "Shoes and other items worn on the feet.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 120
+  },
+  {
+    "id": 5,
+    "category": "Accessories",
+    "description": "Items used to complement an outfit like hats, bags, and jewelry.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 90
+  },
+  {
+    "id": 6,
+    "category": "Dresses",
+    "description": "A one-piece garment worn by women or girls.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 50
+  },
+  {
+    "id": 7,
+    "category": "Swimwear",
+    "description": "Clothing designed for swimming or water-related activities.",
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "quantity": 60
+  }
+]

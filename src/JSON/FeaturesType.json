@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "type": "Newest",
+    "link": "/newest",
+    "description": "Free shipping on all orders over $100"
+  },
+  {
+    "id": 2,
+    "type": "Trending",
+    "link": "/trending",
+    "description": "Free shipping on all orders over $100"
+  },
+  {
+    "id": 3,
+    "type": "Best Sellers",
+    "link": "/best-sellers",
+    "description": "Free shipping on all orders over $100"
+  },
+  {
+    "id": 4,
+    "type": "Featured",
+    "link": "/featured",
+    "description": "Free shipping on all orders over $100"
+  }
+]
