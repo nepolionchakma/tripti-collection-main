@@ -6,6 +6,7 @@ import Contact from "@/Pages/Contact/Contact";
 import Features from "@/Pages/Features/Features";
 import Shop from "@/Pages/Shop/Shop";
 import Error from "@/Pages/Error/Error";
+import Login from "@/Pages/Login/Login";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
     ],
   },
