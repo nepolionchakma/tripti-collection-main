@@ -19,7 +19,7 @@ import {
 const Navigation = () => {
   const { cart, wishlist, user, logout } = useShopContext();
   const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
-
+  console.log(user, "user");
   return (
     <div className="flex justify-between items-center border-b shadow px-9 py-2">
       <div>
