@@ -7,6 +7,7 @@ import Features from "@/Pages/Features/Features";
 import Shop from "@/Pages/Shop/Shop";
 import Error from "@/Pages/Error/Error";
 import Login from "@/Pages/Login/Login";
+import Profile from "@/Pages/Profile/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,10 +34,14 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "login",
-        element: <Login />,
+        path: "profile",
+        element: <Profile />,
       },
     ],
+  },
+  {
+    path: "login",
+    element: <Login />,
   },
   {
     path: "*",

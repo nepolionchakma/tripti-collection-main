@@ -22,3 +22,12 @@ export interface CartProduct {
   quantity: number;
   sizes?: string;
 }
+export interface IUser {
+  id: number;
+  user_name: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  picture: string;
+  create_at: string;
+}

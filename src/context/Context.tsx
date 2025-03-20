@@ -1,4 +1,4 @@
-import { CartProduct, Product } from "@/types/Types";
+import { CartProduct, IUser, Product } from "@/types/Types";
 import {
   createContext,
   ReactNode,
@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 interface ShopContextProps {
   children: ReactNode;
 }
@@ -19,6 +20,8 @@ interface ShopContextType {
   setCart: React.Dispatch<React.SetStateAction<CartProduct[]>>;
   wishlist: Product[];
   setWishlist: React.Dispatch<React.SetStateAction<Product[]>>;
+  user: IUser | undefined;
+  logout: () => void;
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -42,8 +45,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       : []
   );
 
-  const [user, setUser] = useState(null);
-  console.log(user, "user");
+  const [user, setUser] = useState<IUser | undefined>(undefined);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -61,18 +64,18 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     fetchUser();
   }, []);
 
-  (async () => {
+  const logout = async () => {
     try {
-      const response = await axios.get(
-        "https://tripti-collection-server.onrender.com/products"
-      );
-      console.log(response.data, "response.data");
-      return response.data;
+      const res = await axios.get(`${url}/auth/logout`, {
+        withCredentials: true,
+      });
+      console.log(res, "res");
+      setUser(undefined);
+      toast(`${res.data.message}`);
     } catch (error) {
-      console.error("Error fetching products:", error);
-      return [];
+      console.error("Failed to logout", error);
     }
-  })();
+  };
 
   const values = {
     selectedItem,
@@ -83,6 +86,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     setCart,
     wishlist,
     setWishlist,
+    user,
+    logout,
   };
 
   return <ShopContext.Provider value={values}>{children}</ShopContext.Provider>;

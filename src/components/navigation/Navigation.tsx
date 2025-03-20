@@ -1,11 +1,25 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logo from "/vite.svg";
 import { Link } from "react-router";
-import { CircleUserRound, Search, ShoppingCart, Star } from "lucide-react";
+import {
+  LogOut,
+  Search,
+  Settings,
+  ShoppingCart,
+  Star,
+  UserCircle,
+} from "lucide-react";
 import { useShopContext } from "@/context/Context";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 const Navigation = () => {
-  const { cart, wishlist } = useShopContext();
+  const { cart, wishlist, user, logout } = useShopContext();
   const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <div className="flex justify-between items-center border-b shadow px-9 py-2">
       <div>
@@ -41,9 +55,53 @@ const Navigation = () => {
             </span>
           )}
         </div>
-        <div className="bg-slate-200 p-1 rounded-full cursor-pointer">
-          <CircleUserRound size={18} />
-        </div>
+        {user ? (
+          <Popover>
+            <PopoverTrigger>
+              <div className="bg-slate-200 p-1 rounded-full cursor-pointer hover:bg-amber-200">
+                <Avatar className="w-6 h-6">
+                  <AvatarImage src={user?.picture} />
+                  <AvatarFallback>
+                    {user?.first_name.slice(0, 1)}
+                    {user?.last_name.slice(0, 1)}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="mr-2">
+              <div className="flex flex-col gap-2">
+                <Link
+                  to="/profile"
+                  className="flex gap-2 items-center hover:bg-amber-200 px-2 rounded-md duration-300"
+                >
+                  <UserCircle size={18} />
+                  <h5>Profile</h5>
+                </Link>
+                <button
+                  disabled
+                  className="flex gap-2 items-center hover:bg-amber-200 px-2 rounded-md duration-300 cursor-not-allowed"
+                >
+                  <Settings size={18} />
+                  <h5>Settings</h5>
+                </button>
+                <button
+                  className="flex gap-2 items-center bg-amber-400 hover:bg-amber-500 text-white px-2 rounded-md duration-300 cursor-pointer"
+                  onClick={logout}
+                >
+                  <LogOut size={18} />
+                  <h5>Logout</h5>
+                </button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        ) : (
+          <Link
+            to="/login"
+            className="bg-amber-400 hover:bg-amber-500 text-white border px-1 rounded"
+          >
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
