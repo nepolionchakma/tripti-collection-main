@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation/Navigation";
+import Navigation from "@/components/Navigation/NavigationMenu";
 import { Outlet } from "react-router";
 
 const Layout = () => {
