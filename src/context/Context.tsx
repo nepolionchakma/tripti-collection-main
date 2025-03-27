@@ -62,7 +62,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     };
 
     fetchUser();
-  }, []);
+  }, [user?.email]);
 
   const logout = async () => {
     try {

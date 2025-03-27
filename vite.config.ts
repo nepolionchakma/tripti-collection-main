@@ -11,4 +11,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src/"),
     },
   },
+
+  build: {
+    minify: false, // Disable minification for the build
+  },
 });

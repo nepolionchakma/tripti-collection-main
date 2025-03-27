@@ -59,7 +59,7 @@ const Navigation = () => {
           <Popover>
             <PopoverTrigger>
               <div className="bg-slate-200 p-1 rounded-full cursor-pointer hover:bg-amber-200">
-                <Avatar className="w-6 h-6">
+                <Avatar className="w-6 h-6 bg-white">
                   <AvatarImage src={user?.picture} />
                   <AvatarFallback>
                     {user?.first_name.slice(0, 1)}
