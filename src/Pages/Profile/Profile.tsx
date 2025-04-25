@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const Profile = () => {
   const { user } = useShopContext();
   const navigate = useNavigate();
-
+  console.log(user, "user");
   useEffect(() => {
     if (!user) {
       navigate("/");
