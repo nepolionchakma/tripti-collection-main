@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import Categories from "../../JSON/Categories.json";
-
+const logo = "vite.svg";
 const Footer = () => {
   return (
     <div className="flex flex-col gap-2 px-4 py-8">
@@ -16,9 +16,9 @@ const Footer = () => {
             laudantium necessitatibus, perspiciatis alias dolor quos dicta nisi.
           </p>
           <div className="flex gap-2">
-            <img src="facebook.svg" alt="" />
-            <img src="twitter.svg" alt="" />
-            <img src="instagram.svg" alt="" />
+            <img src={logo} alt="facebook" />
+            <img src={logo} alt="twitter" />
+            <img src={logo} alt="instagram" />
           </div>
         </div>
         <div className="col-span-1 flex flex-col gap-2">

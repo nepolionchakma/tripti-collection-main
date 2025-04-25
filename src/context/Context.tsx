@@ -62,8 +62,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     };
 
     fetchUser();
-  }, [user?.email]);
-
+  }, [url, user?.email]);
+  console.log(user, "user");
   const logout = async () => {
     try {
       const res = await axios.get(`${url}/auth/logout`, {
