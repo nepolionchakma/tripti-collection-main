@@ -19,7 +19,6 @@ import {
 const Navigation = () => {
   const { cart, wishlist, user, logout } = useShopContext();
   const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
-  console.log(user, "user");
   return (
     <div className="flex justify-between items-center border-b shadow px-9 py-2">
       <div>
@@ -60,10 +59,10 @@ const Navigation = () => {
             <PopoverTrigger>
               <div className="bg-slate-200 p-1 rounded-full cursor-pointer hover:bg-amber-200">
                 <Avatar className="w-6 h-6 bg-white">
-                  <AvatarImage src={user?.picture} />
+                  <AvatarImage src={user.picture} />
                   <AvatarFallback>
-                    {user?.first_name.slice(0, 1)}
-                    {user?.last_name.slice(0, 1)}
+                    {user.first_name.slice(0, 1)}
+                    {user.last_name.slice(0, 1)}
                   </AvatarFallback>
                 </Avatar>
               </div>
