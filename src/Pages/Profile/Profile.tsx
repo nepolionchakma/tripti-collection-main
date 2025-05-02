@@ -16,6 +16,7 @@ const Profile = () => {
   if (!user) {
     return null;
   }
+  console.log(user, "user");
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="col-span-1 py-4 h-[calc(100vh-80px)] border-l">
@@ -33,10 +34,10 @@ const Profile = () => {
           <div className="flex gap-4 items-center bg-amber-50 border rounded-2xl p-4 cursor-pointer hover:shadow-2xl hover:scale-105 duration-300">
             <div>
               <Avatar className="w-20 h-20 border bg-white">
-                <AvatarImage src={user?.picture} alt="User Profile" />
+                <AvatarImage src={user.picture} alt="User Profile" />
                 <AvatarFallback>
-                  {user?.first_name.slice(0, 1)}
-                  {user?.last_name.slice(0, 1)}
+                  {user.first_name.slice(0, 1)}
+                  {user.last_name.slice(0, 1)}
                 </AvatarFallback>
               </Avatar>
             </div>
