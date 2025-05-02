@@ -8,9 +8,11 @@ import {
 } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+
 interface ShopContextProps {
   children: ReactNode;
 }
+
 interface ShopContextType {
   selectedItem: Product | undefined;
   setSelectedItem: React.Dispatch<React.SetStateAction<Product | undefined>>;
@@ -30,8 +32,10 @@ const ShopContext = createContext({} as ShopContextType);
 export const useShopContext = () => {
   return useContext(ShopContext);
 };
+
 export const ShopContextProvider = ({ children }: ShopContextProps) => {
   const url = import.meta.env.VITE_API_URL;
+
   const [selectedItem, setSelectedItem] = useState<Product>();
   const [count, setCount] = useState<number>(1);
   const [cart, setCart] = useState<CartProduct[]>(
@@ -44,7 +48,6 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       ? JSON.parse(localStorage.getItem("wishlist") || "")
       : []
   );
-
   const [user, setUser] = useState<IUser | undefined>(undefined);
 
   useEffect(() => {
@@ -53,7 +56,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         const res = await axios.get(`${url}/auth/me`, {
           withCredentials: true,
         });
-        if (res) {
+        console.log(res, "res");
+        if (res.status === 200) {
           setUser(res.data.user);
         }
       } catch (error) {
@@ -62,8 +66,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     };
 
     fetchUser();
-  }, [url, user?.email]);
-  console.log(user, "user");
+  }, [url]); // Only trigger the effect on `url` change, not `user`
+
   const logout = async () => {
     try {
       const res = await axios.get(`${url}/auth/logout`, {
