@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 
 interface ShopContextProps {
@@ -61,7 +61,9 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
           setUser(res.data.user);
         }
       } catch (error) {
-        console.error("Failed to fetch user", error);
+        if (error instanceof AxiosError) {
+          console.log("Failed to fetch user", error.message);
+        }
       }
     };
 
