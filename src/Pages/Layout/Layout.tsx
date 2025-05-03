@@ -3,12 +3,12 @@ import { Outlet } from "react-router";
 
 const Layout = () => {
   return (
-    <div className="mx-auto">
+    <div className=" ">
       <div>
         <nav className="sticky top-0 z-50 bg-white">
           <Navigation />
         </nav>
-        <div className="w-[1100px] mx-auto py-2">
+        <div className="full max-w-[1100px] mx-auto py-2 overflow-hidden">
           <Outlet />
         </div>
       </div>

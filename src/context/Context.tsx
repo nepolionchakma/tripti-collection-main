@@ -76,8 +76,10 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         withCredentials: true,
       });
       console.log(res, "res");
-      setUser(undefined);
-      toast(`${res.data.message}`);
+      if (res.status === 200) {
+        setUser(undefined);
+        toast(`${res.data.message}`);
+      }
     } catch (error) {
       console.error("Failed to logout", error);
     }

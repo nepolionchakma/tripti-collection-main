@@ -1,10 +1,16 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logo from "/vite.svg";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import {
+  Contact,
+  Feather,
+  Home,
+  Info,
   LogOut,
+  Menu,
   Search,
   Settings,
+  ShoppingBag,
   ShoppingCart,
   Star,
   UserCircle,
@@ -19,20 +25,80 @@ import {
 const Navigation = () => {
   const { cart, wishlist, user, logout } = useShopContext();
   const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const searchParams = useLocation();
+  console.log(searchParams, "searchParams");
+  const menus = [
+    {
+      name: "Home",
+      path: "/",
+      icon: <Home size={16} />,
+    },
+    {
+      name: "Shop",
+      path: "/shop",
+      icon: <ShoppingBag size={16} />,
+    },
+    {
+      name: "Features",
+      path: "/features",
+      icon: <Feather size={16} />,
+    },
+    {
+      name: "Contact",
+      path: "/contact",
+      icon: <Contact size={16} />,
+    },
+    {
+      name: "About",
+      path: "/about",
+      icon: <Info size={16} />,
+    },
+  ];
   return (
-    <div className="flex justify-between items-center border-b shadow px-9 py-2">
-      <div>
+    <div className="flex justify-between items-center border-b shadow px-9 py-2 w-full">
+      <div className="flex gap-3 items-center">
+        <div className="md:hidden ">
+          <Popover>
+            <PopoverTrigger className="flex items-center">
+              <Menu className="cursor-pointer" />
+            </PopoverTrigger>
+            <PopoverContent className="ml-2 w-40">
+              <div className=" ">
+                {menus.map((menu) => (
+                  <Link
+                    key={menu.name}
+                    to={menu.path}
+                    className={`flex items-center gap-2 hover:text-amber-400 duration-300 hover:ml-1 ${
+                      searchParams.pathname === menu.path
+                        ? "text-amber-400"
+                        : ""
+                    }`}
+                  >
+                    <span className="inline-block">{menu.icon}</span>
+                    <span>{menu.name}</span>
+                  </Link>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
         <Avatar>
           <AvatarImage src={Logo} className="w-5" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
-      <div className="uppercase flex gap-4">
-        <Link to="/">Home</Link>
-        <Link to="/shop">Shop</Link>
-        <Link to="/features">Features</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/about">About</Link>
+      <div className="uppercase md:flex lg:*:flex gap-4 hidden">
+        {menus.map((menu) => (
+          <Link
+            key={menu.name}
+            to={menu.path}
+            className={`hover:text-amber-400 hover:underline duration-300 ${
+              searchParams.pathname === menu.path ? "text-amber-400" : ""
+            }`}
+          >
+            {menu.name}
+          </Link>
+        ))}
       </div>
       <div className="flex gap-3 items-center">
         <div className="bg-slate-200 p-1 rounded-full cursor-pointer">
@@ -67,7 +133,7 @@ const Navigation = () => {
                 </Avatar>
               </div>
             </PopoverTrigger>
-            <PopoverContent className="mr-2">
+            <PopoverContent className="mr-2 w-60">
               <div className="flex flex-col gap-2">
                 <Link
                   to="/profile"

@@ -38,20 +38,21 @@ const HeroHeader = [
 ];
 const Hero = () => {
   return (
-    <div className="py-9 bg-amber-100 ">
+    <div className="py-9 bg-amber-100 mx-2 rounded">
       <Carousel
         plugins={[
           Autoplay({
             delay: 2000,
           }),
         ]}
+        className=" "
       >
         <CarouselContent>
           {HeroHeader.map((item, index) => (
             <CarouselItem key={index}>
-              <div className="py-9 grid grid-cols-3 w-[800px] mx-auto">
+              <div className="py-9 px-6 md:px-auto grid grid-cols-3 ">
                 <div
-                  className="col-span-2 flex items-center "
+                  className="col-span-3 md:col-span-2 flex items-center "
                   // style={{
                   //   backgroundImage: `url(${item.img})`,
                   //   backgroundSize: "cover",
@@ -60,7 +61,20 @@ const Hero = () => {
                 >
                   <div className="flex flex-col justify-between h-full">
                     <h1 className="text-3xl uppercase">{item.title}</h1>
-                    <p className=" ">{item.description}</p>
+                    <div className=" md:hidden flex gap-4 items-center">
+                      <p className="col-span-2 sm:hidden">
+                        {item.description.slice(0, 90) + " ..."}
+                      </p>
+                      <p className="col-span-2 sm:block hidden">
+                        {item.description.slice(0, 150) + " ..."}
+                      </p>
+                      <img
+                        src={item.img}
+                        alt="Image"
+                        className="w-30 h-30 sm:w-40 sm:h-40"
+                      />
+                    </div>
+                    <p className="hidden md:block">{item.description}</p>
                     <div className="flex gap-4 items-center">
                       <p className="bg-amber-300 text-white px-4 py-2 rounded cursor-pointer">
                         {item.learMore}
@@ -69,7 +83,7 @@ const Hero = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-span-1 grid justify-center items-center">
+                <div className="col-span-1 md:grid justify-center items-center hidden">
                   <img src={item.img} alt="Image" className="w-56 h-48" />
                 </div>
               </div>

@@ -53,7 +53,7 @@ const CustomModalDetails = () => {
   };
   return (
     <div className="p-2">
-      <div className="flex flex-row-reverse items-center gap-2">
+      <div className="flex flex-row-reverse items-center gap-2 rounded-md">
         <X
           size={19}
           onClick={() => setSelectedItem(undefined)}
@@ -103,7 +103,12 @@ const CustomModalDetails = () => {
           <hr />
           <div>
             <h3 className="text-lg font-semibold">Description</h3>
-            <>{selectedItem?.description.slice(0, 200)}</>
+            <p className="sm:block">
+              {selectedItem?.description.slice(0, 100)}
+            </p>
+            <p className="sm:block hidden">
+              {selectedItem?.description.slice(0, 200)}
+            </p>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger className="text-start">
@@ -123,7 +128,7 @@ const CustomModalDetails = () => {
           </div>
           <hr />
           <div className="flex flex-col gap-2">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
               <div className="flex items-center gap-4 border px-3 py-1 rounded-full hover:shadow">
                 <button
                   disabled={count === 1}
