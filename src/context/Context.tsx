@@ -8,6 +8,7 @@ import {
 } from "react";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
+import { redirect } from "react-router";
 
 interface ShopContextProps {
   children: ReactNode;
@@ -84,6 +85,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       if (res.status === 200) {
         setUser(undefined);
         toast(`${res.data.message}`);
+        redirect("/");
       }
     } catch (error) {
       console.error("Failed to logout", error);

@@ -58,8 +58,8 @@ const Navigation = () => {
   ];
   const dropdownMenus = [
     {
-      name: "Deshboard",
-      path: "/deshboard",
+      name: "Dashboard",
+      path: "/dashboard",
       icon: <Shapes size={18} />,
       condition: (user: IUser) => user.profile_type === "admin", // Only show for admin
     },

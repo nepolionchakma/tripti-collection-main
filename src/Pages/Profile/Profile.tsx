@@ -17,9 +17,9 @@ const Profile = () => {
 
   // Redirect to login page if user data is not available
   if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/" replace />;
   }
-  console.log(user, "user");
+
   // If user is fetched successfully, show profile page
   return (
     <div className="grid grid-cols-4 gap-4">
