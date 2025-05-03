@@ -1,5 +1,5 @@
 const Features = () => {
-  return <div>Features</div>;
+  return <div className="h-screen">Features</div>;
 };
 
 export default Features;

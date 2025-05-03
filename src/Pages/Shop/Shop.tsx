@@ -15,7 +15,7 @@ const Shop = () => {
     })();
   }, []);
   console.log(products, "products");
-  return <div>Shop</div>;
+  return <div className="h-screen">Shop</div>;
 };
 
 export default Shop;
