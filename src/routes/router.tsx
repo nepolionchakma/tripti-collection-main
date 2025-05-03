@@ -8,6 +8,8 @@ import Shop from "@/Pages/Shop/Shop";
 import Error from "@/Pages/Error/Error";
 import Login from "@/Pages/Login/Login";
 import Profile from "@/Pages/Profile/Profile";
+import Verify from "@/Pages/Admin/Verify";
+import Deshboard from "@/Pages/Admin/Page/Deshboard/Deshboard";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +44,16 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "deshboard",
+    element: <Verify />,
+    children: [
+      {
+        path: "",
+        element: <Deshboard />,
+      },
+    ],
   },
   {
     path: "*",

@@ -10,7 +10,6 @@ import {
   Menu,
   Search,
   Settings,
-  Shapes,
   ShoppingBag,
   ShoppingCart,
   Star,
@@ -22,14 +21,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { IUser } from "@/types/Types";
 
 const Navigation = () => {
   const { cart, wishlist, user, logout } = useShopContext();
   const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
   const searchParams = useLocation();
-
-  const navMenus = [
+  console.log(searchParams, "searchParams");
+  const menus = [
     {
       name: "Home",
       path: "/",
@@ -56,34 +54,6 @@ const Navigation = () => {
       icon: <Info size={16} />,
     },
   ];
-  const dropdownMenus = [
-    {
-      name: "Deshboard",
-      path: "/deshboard",
-      icon: <Shapes size={18} />,
-      condition: (user: IUser) => user.profile_type === "admin", // Only show for admin
-    },
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: <UserCircle size={18} />,
-      condition: () => true, // Always show
-    },
-    {
-      name: "Settings",
-      path: "#", // Disabled path or "#" to indicate no route
-      icon: <Settings size={18} />,
-      condition: () => false, // Disable this button
-      disabled: true, // Disable the button visually
-    },
-    {
-      name: "Logout",
-      path: "#", // No path for logout, handled by onClick
-      icon: <LogOut size={18} />,
-      condition: () => true, // Always show
-      onClick: () => logout(), // Define logout function
-    },
-  ];
   return (
     <div className="flex justify-between items-center border-b shadow px-9 py-2 w-full">
       <div className="flex gap-3 items-center">
@@ -94,7 +64,7 @@ const Navigation = () => {
             </PopoverTrigger>
             <PopoverContent className="ml-2 w-40">
               <div className=" ">
-                {navMenus.map((menu) => (
+                {menus.map((menu) => (
                   <Link
                     key={menu.name}
                     to={menu.path}
@@ -118,7 +88,7 @@ const Navigation = () => {
         </Avatar>
       </div>
       <div className="uppercase md:flex lg:*:flex gap-4 hidden">
-        {navMenus.map((menu) => (
+        {menus.map((menu) => (
           <Link
             key={menu.name}
             to={menu.path}
@@ -165,35 +135,27 @@ const Navigation = () => {
             </PopoverTrigger>
             <PopoverContent className="mr-2 w-60">
               <div className="flex flex-col gap-2">
-                {dropdownMenus.map(
-                  (menu) =>
-                    // Render only if the condition is true
-                    menu.condition(user) &&
-                    (menu.disabled ? (
-                      <button
-                        key={menu.name}
-                        disabled
-                        className="flex gap-2 items-center hover:bg-amber-200 px-2 rounded-md duration-300 cursor-not-allowed py-1"
-                      >
-                        <span className="inline-block">{menu.icon}</span>
-                        <span>{menu.name}</span>
-                      </button>
-                    ) : (
-                      <Link
-                        key={menu.name}
-                        to={menu.path}
-                        className={`flex items-center gap-2 hover:text-amber-400 duration-300 hover:ml-1 ${
-                          searchParams.pathname === menu.path
-                            ? "text-amber-400"
-                            : ""
-                        }`}
-                        onClick={menu.onClick} // Handle logout onClick
-                      >
-                        <span className="inline-block">{menu.icon}</span>
-                        <span>{menu.name}</span>
-                      </Link>
-                    ))
-                )}
+                <Link
+                  to="/profile"
+                  className="flex gap-2 items-center hover:bg-amber-200 px-2 rounded-md duration-300"
+                >
+                  <UserCircle size={18} />
+                  <h5>Profile</h5>
+                </Link>
+                <button
+                  disabled
+                  className="flex gap-2 items-center hover:bg-amber-200 px-2 rounded-md duration-300 cursor-not-allowed"
+                >
+                  <Settings size={18} />
+                  <h5>Settings</h5>
+                </button>
+                <button
+                  className="flex gap-2 items-center bg-amber-400 hover:bg-amber-500 text-white px-2 rounded-md duration-300 cursor-pointer"
+                  onClick={logout}
+                >
+                  <LogOut size={18} />
+                  <h5>Logout</h5>
+                </button>
               </div>
             </PopoverContent>
           </Popover>
