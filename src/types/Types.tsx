@@ -29,7 +29,7 @@ export interface IUser {
   last_name: string;
   email: string;
   picture: string;
-  profile_type: string[];
+  profile_type: string;
   access_token: string;
   create_at: string;
 }

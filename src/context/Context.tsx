@@ -8,6 +8,7 @@ import {
 } from "react";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
+import { redirect } from "react-router";
 
 interface ShopContextProps {
   children: ReactNode;
@@ -24,6 +25,7 @@ interface ShopContextType {
   setWishlist: React.Dispatch<React.SetStateAction<Product[]>>;
   user: IUser | undefined;
   logout: () => void;
+  isLoading: boolean;
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -49,10 +51,12 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       : []
   );
   const [user, setUser] = useState<IUser | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get(`${url}/auth/me`, {
           withCredentials: true,
         });
@@ -64,6 +68,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         if (error instanceof AxiosError) {
           console.log("Failed to fetch user", error.message);
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -79,6 +85,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       if (res.status === 200) {
         setUser(undefined);
         toast(`${res.data.message}`);
+        redirect("/");
       }
     } catch (error) {
       console.error("Failed to logout", error);
@@ -96,6 +103,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     setWishlist,
     user,
     logout,
+    isLoading,
   };
 
   return <ShopContext.Provider value={values}>{children}</ShopContext.Provider>;

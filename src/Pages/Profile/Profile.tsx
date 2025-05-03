@@ -1,22 +1,26 @@
-import { useShopContext } from "@/context/Context";
+import { Navigate } from "react-router";
+import Spinner from "@/components/Spinner/Spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useShopContext } from "@/context/Context";
 
 const Profile = () => {
-  const { user } = useShopContext();
-  const navigate = useNavigate();
-  console.log(user, "user");
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user, navigate]);
+  const { user, isLoading } = useShopContext();
 
-  if (!user) {
-    return null;
+  // Show spinner while data is loading
+  if (isLoading) {
+    return (
+      <div className="flex flex-row min-h-screen justify-center items-center">
+        <Spinner size="100" color="orange" speed="1.75"></Spinner>
+      </div>
+    );
   }
-  console.log(user, "user");
+
+  // Redirect to login page if user data is not available
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+
+  // If user is fetched successfully, show profile page
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="col-span-1 py-4 h-[calc(100vh-80px)] border-l">
@@ -34,10 +38,10 @@ const Profile = () => {
           <div className="flex gap-4 items-center bg-amber-50 border rounded-2xl p-4 cursor-pointer hover:shadow-2xl hover:scale-105 duration-300">
             <div>
               <Avatar className="w-20 h-20 border bg-white">
-                <AvatarImage src={user.picture} alt="User Profile" />
+                <AvatarImage src={user?.picture} alt="User Profile" />
                 <AvatarFallback>
-                  {user.first_name.slice(0, 1)}
-                  {user.last_name.slice(0, 1)}
+                  {user?.first_name.slice(0, 1)}
+                  {user?.last_name.slice(0, 1)}
                 </AvatarFallback>
               </Avatar>
             </div>
