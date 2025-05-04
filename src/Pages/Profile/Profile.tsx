@@ -1,7 +1,7 @@
 import { Navigate } from "react-router";
 import Spinner from "@/components/Spinner/Spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 
 const Profile = () => {
   const { user, isLoading } = useShopContext();
@@ -17,7 +17,7 @@ const Profile = () => {
 
   // Redirect to login page if user data is not available
   if (!user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   // If user is fetched successfully, show profile page

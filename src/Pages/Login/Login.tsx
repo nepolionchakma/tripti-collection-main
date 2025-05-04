@@ -1,4 +1,4 @@
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import Google from "/social-icons/google.svg";
 import Spinner from "@/components/Spinner/Spinner";
 import { Navigate } from "react-router";
@@ -14,7 +14,7 @@ const Login = () => {
       </div>
     );
   }
-  if (user?.email||user?.first_name||user?.id) {
+  if (user?.email || user?.first_name || user?.id) {
     return <Navigate state={location.pathname} to="/" replace />;
   }
   const handleLogin = () => {

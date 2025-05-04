@@ -1,5 +1,5 @@
 import Spinner from "@/components/Spinner/Spinner";
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";

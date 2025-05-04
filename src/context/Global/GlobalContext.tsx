@@ -9,6 +9,7 @@ import {
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { redirect } from "react-router";
+import { AdminContextProvider } from "../Admin/AdminContext";
 
 interface ShopContextProps {
   children: ReactNode;
@@ -106,5 +107,9 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     isLoading,
   };
 
-  return <ShopContext.Provider value={values}>{children}</ShopContext.Provider>;
+  return (
+    <ShopContext.Provider value={values}>
+      <AdminContextProvider>{children}</AdminContextProvider>
+    </ShopContext.Provider>
+  );
 };

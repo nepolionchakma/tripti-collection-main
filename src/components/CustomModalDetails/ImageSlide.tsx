@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import { useState } from "react";
 const ImageSlide = () => {
   const { selectedItem } = useShopContext();

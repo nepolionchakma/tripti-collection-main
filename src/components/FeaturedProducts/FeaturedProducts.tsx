@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import Items from "../../JSON/Items.json";
 import { ShoppingCart } from "lucide-react";
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import CustomModal from "../CustomModal/CustomModal";
 import CustomModalDetails from "../CustomModalDetails/CustomModalDetails";
 
