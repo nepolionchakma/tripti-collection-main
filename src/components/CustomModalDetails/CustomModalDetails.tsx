@@ -1,4 +1,4 @@
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import { Minus, Plus, ShoppingCart, Star, X } from "lucide-react";
 import ImageSlide from "./ImageSlide";
 import { useState } from "react";

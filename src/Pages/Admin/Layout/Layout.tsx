@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation/NavigationMenu";
 import { Outlet } from "react-router";
+import SidebarMenu from "../Components/Sidebar/SidebarMenu";
 
 const Layout = () => {
   return (
@@ -8,8 +9,12 @@ const Layout = () => {
         <nav className="sticky top-0 z-50 bg-white">
           <Navigation />
         </nav>
-        <div className="full max-w-[1100px] mx-auto py-2 overflow-hidden">
-          <Outlet />
+        <div className="full max-w-[1100px] mx-auto py-2 overflow-hidden ">
+          {/* <Breadcurmbs /> */}
+          <div className="flex gap-4">
+            <SidebarMenu />
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

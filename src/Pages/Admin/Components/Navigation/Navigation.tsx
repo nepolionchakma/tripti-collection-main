@@ -15,7 +15,7 @@ import {
   Star,
   UserCircle,
 } from "lucide-react";
-import { useShopContext } from "@/context/Context";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import {
   Popover,
   PopoverContent,
