@@ -18,7 +18,7 @@ export const useAdminContext = () => {
 
 export const AdminContextProvider = ({ children }: IAdminContextProps) => {
   // const url = import.meta.env.VITE_API_URL;
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const values = { isSidebarOpen, setIsSidebarOpen };
 
   return (
