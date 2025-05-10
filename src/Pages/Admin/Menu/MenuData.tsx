@@ -1,6 +1,7 @@
 import {
   BadgeDollarSign,
   Bug,
+  CassetteTape,
   ChartNoAxesCombined,
   FileText,
   LayoutDashboard,
@@ -37,9 +38,15 @@ export const menuData = [
   // },
   {
     id: 5,
-    title: "Products",
-    path: "/dashboard/products",
+    title: "Manage Products",
+    path: "/dashboard/manage-products",
     icon: <ShoppingCart size={20} />,
+  },
+  {
+    id: 12,
+    title: "Features Products",
+    path: "/dashboard/features-products",
+    icon: <CassetteTape size={20} />,
   },
   {
     id: 6,

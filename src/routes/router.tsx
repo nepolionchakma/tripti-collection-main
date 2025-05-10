@@ -3,7 +3,6 @@ import Root from "../Pages/Root/Root";
 import Home from "@/Pages/Home/Home";
 import About from "@/Pages/About/About";
 import Contact from "@/Pages/Contact/Contact";
-import Features from "@/Pages/Features/Features";
 import Shop from "@/Pages/Shop/Shop";
 import Error from "@/Pages/Error/Error";
 import Login from "@/Pages/Login/Login";
@@ -17,7 +16,10 @@ import { Transaction } from "@/Pages/Admin/Page/Transaction/Transaction";
 import { Customer } from "@/Pages/Admin/Page/Customer/Customer";
 import { Messages } from "@/Pages/Admin/Page/Messages/Messages";
 import { Reports } from "@/Pages/Admin/Page/Reports/Reports";
-import { Products } from "@/Pages/Admin/Page/Products/Products";
+import { ManageProducts } from "@/Pages/Admin/Page/ManageProducts/ManageProducts";
+import Features from "@/components/Features/Features";
+import { FeaturesProducts } from "@/Pages/FeaturesProducts/FeaturesProducts";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,8 +72,12 @@ const router = createBrowserRouter([
         element: <Sales />,
       },
       {
-        path: "products",
-        element: <Products />,
+        path: "manage-products",
+        element: <ManageProducts />,
+      },
+      {
+        path: "features-products",
+        element: <FeaturesProducts />,
       },
       {
         path: "customer",

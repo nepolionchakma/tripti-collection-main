@@ -8,6 +8,7 @@ import {
   Info,
   LogOut,
   Menu,
+  Projector,
   Search,
   Settings,
   Shapes,
@@ -61,6 +62,12 @@ const Navigation = () => {
       name: "Dashboard",
       path: "/dashboard",
       icon: <Shapes size={18} />,
+      condition: (user: IUser) => user.profile_type === "admin", // Only show for admin
+    },
+    {
+      name: "Manage Products",
+      path: "/dashboard/manage-products",
+      icon: <Projector size={18} />,
       condition: (user: IUser) => user.profile_type === "admin", // Only show for admin
     },
     {
