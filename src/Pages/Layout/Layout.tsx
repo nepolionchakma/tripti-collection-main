@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <div className=" ">
       <div>
-        <nav className="sticky top-0 bg-white">
+        <nav className="sticky top-0 bg-white z-50">
           <Navigation />
         </nav>
         <div className="full max-w-[1100px] mx-auto py-2 overflow-hidden">

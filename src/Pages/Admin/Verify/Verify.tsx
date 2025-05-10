@@ -3,7 +3,7 @@ import { useShopContext } from "@/context/Global/GlobalContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import Layout from "./Layout/Layout";
+import Layout from "../Layout/Layout";
 
 const Verify = () => {
   const { user, isLoading } = useShopContext();
