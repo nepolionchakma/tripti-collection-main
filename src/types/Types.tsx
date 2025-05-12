@@ -17,6 +17,25 @@ export interface Product {
   quantity: number;
   description: string;
 }
+export interface ProductNow {
+  id: number;
+  title: string;
+  category: string;
+  original_price: number;
+  new_price: number;
+  size: string[];
+  colors: string[];
+  material: string;
+  is_available: boolean;
+  edition: string;
+  offer: string;
+  features: boolean;
+  img: string;
+  images: string[];
+  quantity: number;
+  description: string;
+  visibility: boolean;
+}
 export interface CartProduct {
   product: Product | undefined;
   quantity: number;

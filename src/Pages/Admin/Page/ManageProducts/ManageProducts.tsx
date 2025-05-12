@@ -1,3 +1,9 @@
+import { ManageProductsTable } from "./ManageProductsTable";
+
 export const ManageProducts = () => {
-  return <div>ManageProducts</div>;
+  return (
+    <div>
+      <ManageProductsTable />
+    </div>
+  );
 };
