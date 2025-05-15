@@ -28,22 +28,37 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { columns } from "./ManageProductsColumn";
+import { columns as getColumns } from "./ManageProductsColumn";
 import { ProductNow } from "@/types/Types";
+import Pagination from "@/components/Pagination/Pagination";
+import axios from "axios";
+import Spinner from "@/components/Spinner/Spinner";
 
 export function ManageProductsTable() {
+  const url = import.meta.env.VITE_API_URL;
   const [data, setData] = React.useState<ProductNow[]>([]);
+  const [page, setPage] = React.useState(1);
+  const [totalPageNumbers, setTotalPageNumbers] = React.useState(1);
+  const limit = 10;
+  const [isLoading, setIsLoading] = React.useState(false);
+
   React.useEffect(() => {
     (async () => {
       try {
-        const response = await fetch("http://localhost:3000/products");
-        const data = await response.json();
-        setData(data);
+        setIsLoading(true);
+        const response = await axios(
+          `${url}/products/lazyloading/${page}/${limit}`
+        );
+        setData(response.data.result);
+        setPage(response.data.page);
+        setTotalPageNumbers(response.data.totalPageNumbers);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
       }
     })();
-  }, []);
+  }, [page, url]);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -55,7 +70,7 @@ export function ManageProductsTable() {
 
   const table = useReactTable({
     data,
-    columns,
+    columns: getColumns(data, setData),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -131,7 +146,13 @@ export function ManageProductsTable() {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={10} className="h-64 text-center">
+                  <Spinner size="100" color="orange" speed="1.75" />
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -150,7 +171,7 @@ export function ManageProductsTable() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={getColumns.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -160,29 +181,16 @@ export function ManageProductsTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+      <div className="flex justify-between p-1">
+        <div className="flex-1 text-sm text-gray-600">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
+        <Pagination
+          currentPage={page}
+          setCurrentPage={setPage}
+          totalPageNumbers={totalPageNumbers}
+        />
       </div>
     </div>
   );
