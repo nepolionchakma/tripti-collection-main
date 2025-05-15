@@ -1,9 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { ProductNow } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
+import axios from "axios";
 import { ArrowUpDown } from "lucide-react";
-export const columns: ColumnDef<ProductNow>[] = [
+import { toast } from "sonner";
+export const columns = (
+  data: ProductNow[],
+  setData: React.Dispatch<React.SetStateAction<ProductNow[]>>
+): ColumnDef<ProductNow>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -22,7 +28,7 @@ export const columns: ColumnDef<ProductNow>[] = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
-        className="mr-2"
+        className="mr-2 cursor-pointer"
       />
     ),
     enableSorting: false,
@@ -41,7 +47,9 @@ export const columns: ColumnDef<ProductNow>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("title")}</div>
+    ),
   },
   {
     accessorKey: "category",
@@ -81,7 +89,43 @@ export const columns: ColumnDef<ProductNow>[] = [
     header: "Available",
     cell: ({ row }) => {
       const is_available: boolean = row.getValue("is_available");
-      return <div className="capitalize">{is_available.toString()}</div>;
+      const url = import.meta.env.VITE_API_URL;
+      const handleSwitchChange = async (newValue: boolean) => {
+        const updatedData = await Promise.all(
+          data.map(async (item) => {
+            if (item.id === row.original.id) {
+              try {
+                const result = await axios.put(
+                  `${url}/products/update/${item.id}`,
+                  { is_available: newValue }
+                );
+                if (result.status === 200) {
+                  toast(`${result.data.message}`);
+                }
+              } catch (error) {
+                toast.error(`${error}`);
+                console.error("Error updating availability:", error);
+              }
+            }
+            // Return the updated item
+            return item.id === row.original.id
+              ? { ...item, is_available: newValue }
+              : item;
+          })
+        );
+
+        setData(updatedData);
+      };
+
+      return (
+        <div className="flex items-center justify-center">
+          <Switch
+            checked={is_available}
+            className="cursor-pointer"
+            onCheckedChange={handleSwitchChange}
+          />
+        </div>
+      );
     },
   },
   {
@@ -96,7 +140,43 @@ export const columns: ColumnDef<ProductNow>[] = [
     header: "Visibility",
     cell: ({ row }) => {
       const visibility: boolean = row.getValue("visibility");
-      return <div className="capitalize">{visibility.toString()}</div>;
+      const url = import.meta.env.VITE_API_URL;
+      const handleSwitchChange = async (newValue: boolean) => {
+        const updatedData = await Promise.all(
+          data.map(async (item) => {
+            if (item.id === row.original.id) {
+              try {
+                const result = await axios.put(
+                  `${url}/products/update/${item.id}`,
+                  { visibility: newValue }
+                );
+                if (result.status === 200) {
+                  toast(`${result.data.message}`);
+                }
+              } catch (error) {
+                toast.error(`${error}`);
+                console.error("Error updating availability:", error);
+              }
+            }
+            // Return the updated item
+            return item.id === row.original.id
+              ? { ...item, visibility: newValue }
+              : item;
+          })
+        );
+
+        setData(updatedData);
+      };
+
+      return (
+        <div className="flex items-center justify-center">
+          <Switch
+            checked={visibility}
+            className="cursor-pointer"
+            onCheckedChange={handleSwitchChange}
+          />
+        </div>
+      );
     },
   },
 ];

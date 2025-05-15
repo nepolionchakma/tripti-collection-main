@@ -10,7 +10,7 @@ const SidebarMenu = () => {
 
   return (
     <div className="relative">
-      <div className="absolute top-0 -right-2 z-[60]">
+      <div className="absolute top-0 -right-2 z-40">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="cursor-pointer p-1 border rounded-full bg-white"

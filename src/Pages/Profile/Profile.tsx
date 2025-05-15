@@ -10,7 +10,7 @@ const Profile = () => {
   if (isLoading) {
     return (
       <div className="flex flex-row min-h-screen justify-center items-center">
-        <Spinner size="100" color="orange" speed="1.75"></Spinner>
+        <Spinner size="100" color="orange" speed="1.75" />
       </div>
     );
   }
