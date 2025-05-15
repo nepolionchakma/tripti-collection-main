@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Edit, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -89,7 +89,15 @@ export function ManageProductsTable() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 gap-2">
+        <div className="flex gap-2 px-2 py-1.5 border rounded-md">
+          <button disabled>
+            <Plus />
+          </button>
+          <button disabled>
+            <Edit />
+          </button>
+        </div>
         <Input
           placeholder="Filter title..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
