@@ -72,7 +72,11 @@ const Pagination = ({
         <ChevronFirst
           strokeWidth={1.5}
           size={15}
-          className={currentPage === 1 ? "text-slate-300" : "text-black"}
+          className={
+            currentPage === 1
+              ? "text-slate-300 cursor-not-allowed"
+              : "text-black cursor-pointer"
+          }
         />
       </button>
       <button
@@ -87,7 +91,11 @@ const Pagination = ({
         <ChevronLeft
           strokeWidth={1.5}
           size={15}
-          className={currentPage === 1 ? "text-slate-300" : "text-black"}
+          className={
+            currentPage === 1
+              ? "text-slate-300 cursor-not-allowed"
+              : "text-black cursor-pointer"
+          }
         />
       </button>
       <div className="flex gap-2 items-center">
@@ -142,7 +150,9 @@ const Pagination = ({
           strokeWidth={1.5}
           size={15}
           className={
-            currentPage === totalPageNumbers ? "text-slate-300" : "text-black"
+            currentPage === totalPageNumbers
+              ? "text-slate-300 cursor-not-allowed"
+              : "text-black cursor-pointer"
           }
         />
       </button>
@@ -159,7 +169,9 @@ const Pagination = ({
           strokeWidth={1.5}
           size={15}
           className={
-            currentPage === totalPageNumbers ? "text-slate-300" : "text-black"
+            currentPage === totalPageNumbers
+              ? "text-slate-300 cursor-not-allowed"
+              : "text-black cursor-pointer"
           }
         />
       </button>
