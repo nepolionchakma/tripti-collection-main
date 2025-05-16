@@ -75,14 +75,26 @@ export const columns = (
   {
     accessorKey: "size",
     header: "Size",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("size")}</div>,
+    cell: ({ row }) => {
+      const size: string[] = row.getValue("size");
+      return <div className="capitalize">{size.join(", ")}</div>;
+    },
   },
   {
     accessorKey: "colors",
     header: "Colors",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("colors")}</div>
-    ),
+    cell: ({ row }) => {
+      const colors: string[] = row.getValue("colors");
+      return <div className="capitalize">{colors.join(", ")}</div>;
+    },
+  },
+  {
+    accessorKey: "material",
+    header: "Material",
+    cell: ({ row }) => {
+      const material: string[] = row.getValue("material");
+      return <div className="capitalize">{material.join(", ")}</div>;
+    },
   },
   {
     accessorKey: "is_available",
@@ -129,10 +141,40 @@ export const columns = (
     },
   },
   {
+    accessorKey: "edition",
+    header: "Edition",
+    cell: ({ row }) => {
+      const edition: string[] = row.getValue("edition");
+      return <div className="capitalize">{edition.join(", ")}</div>;
+    },
+  },
+  {
+    accessorKey: "offer",
+    header: "Offer",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("offer")}</div>
+    ),
+  },
+  {
+    accessorKey: "features",
+    header: "Features",
+    cell: ({ row }) => {
+      const features: string[] = row.getValue("features");
+      return <div className="capitalize">{features.join(", ")}</div>;
+    },
+  },
+  {
     accessorKey: "quantity",
     header: "Quantity",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("quantity")}</div>
+    ),
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("description")}</div>
     ),
   },
   {

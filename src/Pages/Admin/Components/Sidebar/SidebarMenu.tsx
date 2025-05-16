@@ -22,34 +22,32 @@ const SidebarMenu = () => {
           )}
         </button>
       </div>
-      <div>
-        <div style={{ display: "flex", height: "100%" }}>
-          <Sidebar
-            collapsed={!isSidebarOpen}
-            transitionDuration={1000}
-            className="h-[calc(100vh-3rem)] text-[14px]"
-          >
-            <Menu>
-              <Menu>
-                {menuData.map((item) => (
-                  <MenuItem
-                    key={item.id}
-                    component={<Link to={item.path}>{item.title}</Link>}
-                    icon={item.icon}
-                    className={`${
-                      item.path === searchParams.pathname
-                        ? "bg-amber-400 text-white font-bold"
-                        : " "
-                    }`}
-                  >
-                    {item.title}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Menu>
-          </Sidebar>
-        </div>
-      </div>
+      <Sidebar
+        collapsed={!isSidebarOpen}
+        transitionDuration={1000}
+        className="
+        h-[calc(100vh-3.1rem)]
+        text-[14px]"
+      >
+        <Menu>
+          <Menu>
+            {menuData.map((item) => (
+              <MenuItem
+                key={item.id}
+                component={<Link to={item.path}>{item.title}</Link>}
+                icon={item.icon}
+                className={`${
+                  item.path === searchParams.pathname
+                    ? "bg-amber-400 text-white font-bold"
+                    : " "
+                }`}
+              >
+                {item.title}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Menu>
+      </Sidebar>
     </div>
   );
 };
