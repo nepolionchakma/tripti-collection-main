@@ -87,8 +87,25 @@ export function ManageProductsTable() {
     },
   });
 
+  const hiddenColumns = [
+    "original_price",
+    "new_price",
+    "edition",
+    "offer",
+    "features",
+    "description",
+  ];
+
+  React.useEffect(() => {
+    table.getAllColumns().forEach((column) => {
+      if (hiddenColumns.includes(column.id)) {
+        column.toggleVisibility(false);
+      }
+    });
+  }, [table]);
+
   return (
-    <div className="w-full">
+    <div className=" ">
       <div className="flex items-center py-4 gap-2">
         <div className="flex gap-2 px-2 py-1.5 border rounded-md">
           <button disabled>
@@ -112,7 +129,7 @@ export function ManageProductsTable() {
               Columns <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="max-h-72 overflow-y-auto">
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
