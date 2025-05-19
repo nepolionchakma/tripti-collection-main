@@ -1,4 +1,4 @@
-import { ManageProductsTable } from "./ManageProductsTable";
+import { ManageProductsTable } from "./Table/ManageProductsTable";
 
 export const ManageProducts = () => {
   return (
