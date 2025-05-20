@@ -157,7 +157,10 @@ export function ManageProductsTable() {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="border bg-amber-100">
+                    <TableHead
+                      key={header.id}
+                      className="border border-black bg-amber-200"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -184,7 +187,7 @@ export function ManageProductsTable() {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border">
+                    <TableCell key={cell.id} className="border border-black">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
