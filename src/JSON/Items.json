@@ -1,23 +1,19 @@
 [
   {
     "id": 1,
-    "name": "Men's T-Shirt",
+    "title": "Men's T-Shirt",
     "category": "Tops",
-    "originalPrice": 49.99,
-    "newPrice": 11,
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
+    "original_price": 49.99,
+    "new_price": 11,
+    "colors": [
+      "Blue"
     ],
-    "color": "Blue",
     "material": "Cotton",
-    "available": true,
+    "is_available": true,
     "edition": "",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Featured"
@@ -38,27 +34,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 2,
-    "name": "Women's Jeans",
+    "title": "Women's Jeans",
     "category": "Bottoms",
-    "originalPrice": 49.99,
-    "newPrice": 11,
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
+    "original_price": 49.99,
+    "new_price": 11,
+    "colors": [
+      "Black"
     ],
-    "color": "Black",
     "material": "Denim",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending",
@@ -77,26 +70,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 3,
-    "name": "Unisex Hoodie",
+    "title": "Unisex Hoodie",
     "category": "Outerwear",
-    "originalPrice": 39.99,
-    "newPrice": 11,
-    "sizes": [
-      "M",
-      "L",
-      "XL"
+    "original_price": 39.99,
+    "new_price": 11,
+    "colors": [
+      "Gray"
     ],
-    "color": "Gray",
     "material": "Polyester",
-    "available": false,
+    "is_available": false,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending",
@@ -115,27 +106,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 4,
-    "name": "Women's Dress",
+    "title": "Women's Dress",
     "category": "Dresses",
-    "originalPrice": 59.99,
-    "newPrice": 11,
-    "sizes": [
-      "XS",
-      "S",
-      "M",
-      "L"
+    "original_price": 59.99,
+    "new_price": 11,
+    "colors": [
+      "Red"
     ],
-    "color": "Red",
     "material": "Silk",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending",
@@ -154,28 +142,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 5,
-    "name": "Men's Sneakers",
+    "title": "Men's Sneakers",
     "category": "Footwear",
-    "originalPrice": 69.99,
-    "newPrice": 11,
-    "sizes": [
-      "8",
-      "9",
-      "10",
-      "11",
-      "12"
+    "original_price": 69.99,
+    "new_price": 11,
+    "colors": [
+      "White"
     ],
-    "color": "White",
     "material": "Leather",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending",
@@ -194,26 +178,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 6,
-    "name": "Women's Cardigan",
+    "title": "Women's Cardigan",
     "category": "Outerwear",
-    "originalPrice": 29.99,
-    "newPrice": 11,
-    "sizes": [
-      "S",
-      "M",
-      "L"
+    "original_price": 29.99,
+    "new_price": 11,
+    "colors": [
+      "Pink"
     ],
-    "color": "Pink",
     "material": "Wool",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending",
@@ -232,26 +214,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 7,
-    "name": "Men's Leather Jacket",
+    "title": "Men's Leather Jacket",
     "category": "Outerwear",
-    "originalPrice": 129.99,
-    "newPrice": 11,
-    "sizes": [
-      "M",
-      "L",
-      "XL"
+    "original_price": 129.99,
+    "new_price": 11,
+    "colors": [
+      "Black"
     ],
-    "color": "Black",
     "material": "Leather",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending",
@@ -270,27 +250,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 8,
-    "name": "Women’s Sandals",
+    "title": "Women’s Sandals",
     "category": "Footwear",
-    "originalPrice": 24.99,
-    "newPrice": 11,
-    "sizes": [
-      "6",
-      "7",
-      "8",
-      "9"
+    "original_price": 24.99,
+    "new_price": 11,
+    "colors": [
+      "Brown"
     ],
-    "color": "Brown",
     "material": "Suede",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending"
@@ -308,24 +285,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 9,
-    "name": "Unisex Baseball Cap",
+    "title": "Unisex Baseball Cap",
     "category": "Accessories",
-    "originalPrice": 14.99,
-    "newPrice": 11,
-    "sizes": [
-      "One Size"
+    "original_price": 14.99,
+    "new_price": 11,
+    "colors": [
+      "Black"
     ],
-    "color": "Black",
     "material": "Cotton",
-    "available": true,
+    "is_available": true,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending"
@@ -343,26 +320,24 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   },
   {
     "id": 10,
-    "name": "Men's Swim Trunks",
+    "title": "Men's Swim Trunks",
     "category": "Swimwear",
-    "originalPrice": 24.99,
-    "newPrice": 11,
-    "sizes": [
-      "M",
-      "L",
-      "XL"
+    "original_price": 24.99,
+    "new_price": 11,
+    "colors": [
+      "Navy"
     ],
-    "color": "Navy",
     "material": "Spandex",
-    "available": false,
+    "is_available": false,
     "edition": "New",
     "offer": "50% off",
-    "featuresProduct": true,
-    "featuresType": [
+    "visibility": true,
+    "features": [
       "All",
       "Newest",
       "Trending"
@@ -380,6 +355,7 @@
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men."
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "timestamp": "5/26/2025, 11:49:03 PM"
   }
 ]

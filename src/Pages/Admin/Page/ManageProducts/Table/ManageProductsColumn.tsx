@@ -1,15 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
-import { ProductNow } from "@/types/Types";
+import { Product } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
 import { ArrowUpDown } from "lucide-react";
 import { toast } from "sonner";
 export const columns = (
-  data: ProductNow[],
-  setData: React.Dispatch<React.SetStateAction<ProductNow[]>>
-): ColumnDef<ProductNow>[] => [
+  data: Product[],
+  setData: React.Dispatch<React.SetStateAction<Product[]>>,
+  setSelectedData: React.Dispatch<React.SetStateAction<Product[]>>
+): ColumnDef<Product>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -26,7 +27,11 @@ export const columns = (
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => {
+          console.log(row.original, "row.original");
+          row.toggleSelected(!!value);
+          setSelectedData([row.original]);
+        }}
         aria-label="Select row"
         className="mr-2 cursor-pointer"
       />
