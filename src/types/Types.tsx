@@ -1,24 +1,24 @@
+// export interface Product {
+//   id: number;
+//   title: string;
+//   category: string;
+//   original_price: number;
+//   new_price: number;
+//   sizes?: string[];
+//   color: string;
+//   material: string;
+//   available: boolean;
+//   edition: string;
+//   offer: string;
+//   featuresProduct: boolean;
+//   featuresType: string[];
+//   img: string;
+//   images: string[];
+//   quantity: number;
+//   description: string;
+//   timestamp: string;
+// }
 export interface Product {
-  id: number;
-  name: string;
-  category: string;
-  originalPrice: number;
-  newPrice: number;
-  sizes?: string[];
-  color: string;
-  material: string;
-  available: boolean;
-  edition: string;
-  offer: string;
-  featuresProduct: boolean;
-  featuresType: string[];
-  img: string;
-  images: string[];
-  quantity: number;
-  description: string;
-  timestamp: string;
-}
-export interface ProductNow {
   id: number;
   title: string;
   category: string;
@@ -30,12 +30,13 @@ export interface ProductNow {
   is_available: boolean;
   edition: string;
   offer: string;
-  features: boolean;
+  features: string[];
   img: string;
   images: string[];
   quantity: number;
   description: string;
   visibility: boolean;
+  timestamp: string;
 }
 export interface CartProduct {
   product: Product | undefined;

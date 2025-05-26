@@ -57,21 +57,21 @@ const FeaturedProducts = () => {
                 </figure>
                 <div className="flex justify-between gap-2 w-full">
                   <div className="flex flex-col gap-1">
-                    <h3 className="font-semibold"> {item.name}</h3>
+                    <h3 className="font-semibold"> {item.title}</h3>
                     <div className="flex gap-3 items-center">
-                      {item["newPrice"] && (
+                      {item["new_price"] && (
                         <p className="text-amber-500 font-semibold">
-                          ${item["newPrice"]}
+                          ${item["new_price"]}
                         </p>
                       )}
                       <p
                         className={`${
-                          item["newPrice"]
+                          item["new_price"]
                             ? "line-through text-slate-500 text-[11px]"
                             : ""
                         }`}
                       >
-                        ${item["originalPrice"]}
+                        ${item["original_price"]}
                       </p>
                     </div>
                     <p className="text-sm text-slate-400">{item.category}</p>

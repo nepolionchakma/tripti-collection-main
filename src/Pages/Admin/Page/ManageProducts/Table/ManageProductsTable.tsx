@@ -29,7 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { columns as getColumns } from "./ManageProductsColumn";
-import { Product, ProductNow } from "@/types/Types";
+import { Product } from "@/types/Types";
 import Pagination from "@/components/Pagination/Pagination";
 import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
@@ -38,7 +38,7 @@ import AddProduct from "../AddProduct/AddProduct";
 
 export function ManageProductsTable() {
   const url = import.meta.env.VITE_API_URL;
-  const [data, setData] = React.useState<ProductNow[]>([]);
+  const [data, setData] = React.useState<Product[]>([]);
   const [page, setPage] = React.useState(1);
   const [totalPageNumbers, setTotalPageNumbers] = React.useState(1);
   const limit = 10;
@@ -74,7 +74,7 @@ export function ManageProductsTable() {
 
   const table = useReactTable({
     data,
-    columns: getColumns(data, setData),
+    columns: getColumns(data, setData, setSelectedData),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
