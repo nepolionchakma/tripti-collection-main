@@ -16,6 +16,7 @@ export interface Product {
   images: string[];
   quantity: number;
   description: string;
+  timestamp: string;
 }
 export interface ProductNow {
   id: number;

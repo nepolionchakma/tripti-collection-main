@@ -29,10 +29,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { columns as getColumns } from "./ManageProductsColumn";
-import { ProductNow } from "@/types/Types";
+import { Product, ProductNow } from "@/types/Types";
 import Pagination from "@/components/Pagination/Pagination";
 import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
+import EditProduct from "../EditProduct/EditProduct";
+import AddProduct from "../AddProduct/AddProduct";
 
 export function ManageProductsTable() {
   const url = import.meta.env.VITE_API_URL;
@@ -41,6 +43,8 @@ export function ManageProductsTable() {
   const [totalPageNumbers, setTotalPageNumbers] = React.useState(1);
   const limit = 10;
   const [isLoading, setIsLoading] = React.useState(false);
+  const [actionName, setActionName] = React.useState("");
+  const [selectedData, setSelectedData] = React.useState<Product[]>([]);
 
   React.useEffect(() => {
     (async () => {
@@ -106,12 +110,29 @@ export function ManageProductsTable() {
 
   return (
     <div className=" ">
+      {/* Action */}
+      {actionName === "add" ? (
+        <AddProduct setActionName={setActionName} />
+      ) : (
+        actionName === "edit" && (
+          <EditProduct
+            selectedData={selectedData}
+            setActionName={setActionName}
+          />
+        )
+      )}
       <div className="flex items-center py-4 gap-2">
         <div className="flex gap-2 px-2 py-1.5 border rounded-md">
-          <button disabled>
+          <button
+            onClick={() => setActionName("add")}
+            className="cursor-pointer"
+          >
             <Plus />
           </button>
-          <button disabled>
+          <button
+            onClick={() => setActionName("edit")}
+            className="cursor-pointer"
+          >
             <Edit />
           </button>
         </div>
