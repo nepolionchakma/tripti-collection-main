@@ -20,7 +20,7 @@ export const columns = (
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
-        className="mr-2"
+        className="mr-2 cursor-pointer"
       />
     ),
     cell: ({ row }) => (
@@ -40,6 +40,7 @@ export const columns = (
       return (
         <Button
           variant="ghost"
+          className="hover:bg-transparent cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Title
