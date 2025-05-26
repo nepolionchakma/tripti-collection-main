@@ -12,7 +12,7 @@ const Layout = () => {
           <Navigation />
         </nav>
 
-        <div className="flex gap-4 sm:w-[640px] md:w-[768px] lg:w-[1020px] w-auto 2xl:w-[1536px] mx-auto">
+        <div className="flex gap-4 sm:w-[640px] md:w-[768px] lg:w-[1020px] w-auto 2xl:w-[1536px]">
           <SidebarMenu />
           <div
             className={
