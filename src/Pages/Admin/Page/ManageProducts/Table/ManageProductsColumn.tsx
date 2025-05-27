@@ -54,7 +54,7 @@ export const columns = (
       );
     },
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("title")}</div>
+      <div className="capitalize w-[15rem] ">{row.getValue("title")}</div>
     ),
   },
   {

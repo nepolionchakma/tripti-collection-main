@@ -12,13 +12,13 @@ const Layout = () => {
           <Navigation />
         </nav>
 
-        <div className="flex gap-4 sm:w-[640px] md:w-[768px] lg:w-[1020px] w-auto 2xl:w-[1536px]">
+        <div className="flex gap-4">
           <SidebarMenu />
           <div
             className={
               isSidebarOpen
-                ? "w-[calc(100vw-19rem)] min-h-[calc(100vh-4rem)] duration-1000"
-                : "w-[calc(100vw-8rem)] min-h-[calc(100vh-4rem)] duration-1000"
+                ? "w-[calc(101vw-18.2rem)] min-h-[calc(100vh-4rem)] duration-1000"
+                : "w-[calc(101vw-7.5rem)] min-h-[calc(100vh-4rem)] duration-1000"
             }
           >
             <Outlet />
