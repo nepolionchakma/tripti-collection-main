@@ -1,0 +1,25 @@
+/* Firefox */
+.ps-sidebar-container {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+  overflow-y: auto;
+  /* Ensure vertical scrolling is enabled */
+}
+
+/* Chrome, Safari, Edge */
+.ps-sidebar-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ps-sidebar-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.ps-sidebar-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.ps-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

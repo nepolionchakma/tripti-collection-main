@@ -3,13 +3,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router";
 import { menuData } from "../../Menu/MenuData.tsx";
+import "../../sidebar-scrollbar.css";
 
 const SidebarMenu = () => {
   const { isSidebarOpen, setIsSidebarOpen } = useAdminContext();
   const searchParams = useLocation();
 
   return (
-    <div className="relative">
+    <div className="relative bg-amber-200">
       <div className="absolute top-0 -right-2 z-40">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -27,7 +28,7 @@ const SidebarMenu = () => {
         transitionDuration={1000}
         className="
         h-[calc(100vh-3.1rem)]
-        text-[14px]"
+        text-[14px] "
       >
         <Menu>
           <Menu>

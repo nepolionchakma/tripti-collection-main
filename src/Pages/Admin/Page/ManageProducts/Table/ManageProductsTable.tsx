@@ -98,7 +98,7 @@ export function ManageProductsTable() {
     "offer",
     "features",
     "description",
-    // "material",
+    "material",
   ];
 
   React.useEffect(() => {
