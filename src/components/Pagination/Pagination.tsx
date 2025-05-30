@@ -74,7 +74,7 @@ const Pagination = ({
           size={20}
           className={
             currentPage === 1
-              ? "cursor-not-allowed p-1 rounded bg-amber-200 text-white"
+              ? "cursor-not-allowed p-1 rounded bg-amber-100 text-white"
               : "cursor-pointer p-1 rounded bg-amber-300 text-white"
           }
         />
