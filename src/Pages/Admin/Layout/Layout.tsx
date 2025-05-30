@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation/NavigationMenu";
 import { Outlet } from "react-router";
 import SidebarMenu from "../Components/Sidebar/SidebarMenu";
-import { useAdminContext } from "@/context/Admin/AdminContext";
+import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext";
 
 const Layout = () => {
   const { isSidebarOpen } = useAdminContext();

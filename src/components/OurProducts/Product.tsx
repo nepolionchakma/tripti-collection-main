@@ -20,7 +20,7 @@ const Product = ({ featureType }: Props) => {
                   <div>
                     <p
                       className={`absolute top-0 left-0 py-1 px-2 rounded text-[9px] ${
-                        item.edition !== "" ? " bg-green-300" : ""
+                        item.edition.length ? " bg-green-300" : ""
                       }`}
                     >
                       {item.edition}

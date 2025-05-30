@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Edit, Plus } from "lucide-react";
+import { ChevronDown, Edit, Plus, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,11 +33,12 @@ import { Product } from "@/types/Types";
 import Pagination from "@/components/Pagination/Pagination";
 import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
-import EditProduct from "../EditProduct/EditProduct";
-import AddProduct from "../AddProduct/AddProduct";
+import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext";
+import AddAndEditProduct from "@/Pages/Admin/Components/Product/AddAndEditProduct";
 
 export function ManageProductsTable() {
   const url = import.meta.env.VITE_API_URL;
+  const { changeState } = useAdminContext();
   const [data, setData] = React.useState<Product[]>([]);
   const [page, setPage] = React.useState(1);
   const [totalPageNumbers, setTotalPageNumbers] = React.useState(1);
@@ -62,7 +63,7 @@ export function ManageProductsTable() {
         setIsLoading(false);
       }
     })();
-  }, [page, url]);
+  }, [page, url, changeState]);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -108,20 +109,21 @@ export function ManageProductsTable() {
       }
     });
   }, [table]);
-
+  console.log(selectedData, "selectedData");
   return (
     <div className=" ">
-      {/* Action */}
+      {/* Action Modal*/}
       {actionName === "add" ? (
-        <AddProduct setActionName={setActionName} />
+        <AddAndEditProduct setActionName={setActionName} />
       ) : (
         actionName === "edit" && (
-          <EditProduct
+          <AddAndEditProduct
             selectedData={selectedData}
             setActionName={setActionName}
           />
         )
       )}
+      {/* Table Header */}
       <div className="flex items-center py-4 gap-2">
         <div className="flex gap-2 px-2 py-1.5 border rounded-md">
           <button
@@ -130,11 +132,18 @@ export function ManageProductsTable() {
           >
             <Plus />
           </button>
-          <button
-            onClick={() => setActionName("edit")}
-            className="cursor-pointer"
-          >
-            <Edit />
+          <button disabled={selectedData.length !== 1}>
+            <Edit
+              onClick={() => setActionName("edit")}
+              className={`${
+                selectedData.length !== 1
+                  ? "cursor-not-allowed text-slate-300"
+                  : "cursor-pointer text-black"
+              }`}
+            />
+          </button>
+          <button disabled>
+            <Trash className={`cursor-not-allowed text-slate-300`} />
           </button>
         </div>
         <Input

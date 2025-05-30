@@ -28,9 +28,15 @@ export const columns = (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => {
-          console.log(row.original, "row.original");
+          // console.log(row.original, "row.original");
           row.toggleSelected(!!value);
-          setSelectedData([row.original]);
+          setSelectedData((prev) => {
+            if (prev.includes(row.original)) {
+              return prev.filter((item) => item.id !== row.original.id);
+            } else {
+              return [...prev, row.original];
+            }
+          });
         }}
         aria-label="Select row"
         className="mr-2 cursor-pointer"
