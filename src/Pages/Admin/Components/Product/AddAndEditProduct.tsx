@@ -28,11 +28,13 @@ import { Product } from "@/types/Types";
 
 interface IAddProductProps {
   setActionName: React.Dispatch<React.SetStateAction<string>>;
-  selectedData?: Product[];
+  selectedData?: Product[] | [];
+  setSelectedData?: React.Dispatch<React.SetStateAction<Product[] | []>>;
 }
 const AddAndEditProduct = ({
   setActionName,
   selectedData,
+  setSelectedData,
 }: IAddProductProps) => {
   const VITE_API_URL = import.meta.env.VITE_API_URL;
   const { setChangeState } = useAdminContext();
@@ -128,6 +130,7 @@ const AddAndEditProduct = ({
       if (res.status === 200) {
         toast(`${res.data.message}`);
         setActionName("");
+        setSelectedData?.([]);
       }
     } catch (error) {
       toast(`Error: ${error}`);

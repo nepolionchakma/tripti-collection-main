@@ -71,11 +71,11 @@ const Pagination = ({
       >
         <ChevronFirst
           strokeWidth={1.5}
-          size={15}
+          size={20}
           className={
             currentPage === 1
-              ? "text-slate-300 cursor-not-allowed"
-              : "text-black cursor-pointer"
+              ? "cursor-not-allowed p-1 rounded bg-amber-200 text-white"
+              : "cursor-pointer p-1 rounded bg-amber-300 text-white"
           }
         />
       </button>
@@ -90,11 +90,11 @@ const Pagination = ({
       >
         <ChevronLeft
           strokeWidth={1.5}
-          size={15}
+          size={20}
           className={
             currentPage === 1
-              ? "text-slate-300 cursor-not-allowed"
-              : "text-black cursor-pointer"
+              ? "cursor-not-allowed p-1 rounded bg-amber-100 text-white"
+              : "cursor-pointer p-1 rounded bg-amber-300 text-white"
           }
         />
       </button>
@@ -148,11 +148,11 @@ const Pagination = ({
       >
         <ChevronRight
           strokeWidth={1.5}
-          size={15}
+          size={20}
           className={
             currentPage === totalPageNumbers
-              ? "text-slate-300 cursor-not-allowed"
-              : "text-black cursor-pointer"
+              ? "cursor-not-allowed p-1 rounded bg-amber-100 text-white"
+              : "cursor-pointer p-1 rounded bg-amber-300 text-white"
           }
         />
       </button>
@@ -167,11 +167,11 @@ const Pagination = ({
       >
         <ChevronLast
           strokeWidth={1.5}
-          size={15}
+          size={20}
           className={
             currentPage === totalPageNumbers
-              ? "text-slate-300 cursor-not-allowed"
-              : "text-black cursor-pointer"
+              ? "cursor-not-allowed p-1 rounded bg-amber-100 text-white"
+              : "cursor-pointer p-1 rounded bg-amber-300 text-white"
           }
         />
       </button>

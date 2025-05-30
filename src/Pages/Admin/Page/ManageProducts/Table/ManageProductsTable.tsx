@@ -11,7 +11,17 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronDown, Edit, Plus, Trash } from "lucide-react";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -35,17 +45,18 @@ import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
 import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext";
 import AddAndEditProduct from "@/Pages/Admin/Components/Product/AddAndEditProduct";
+import { toast } from "sonner";
 
 export function ManageProductsTable() {
   const url = import.meta.env.VITE_API_URL;
-  const { changeState } = useAdminContext();
+  const { changeState, setChangeState } = useAdminContext();
   const [data, setData] = React.useState<Product[]>([]);
   const [page, setPage] = React.useState(1);
   const [totalPageNumbers, setTotalPageNumbers] = React.useState(1);
   const limit = 10;
   const [isLoading, setIsLoading] = React.useState(false);
   const [actionName, setActionName] = React.useState("");
-  const [selectedData, setSelectedData] = React.useState<Product[]>([]);
+  const [selectedData, setSelectedData] = React.useState<Product[] | []>([]);
 
   React.useEffect(() => {
     (async () => {
@@ -57,6 +68,7 @@ export function ManageProductsTable() {
         setData(response.data.result);
         setPage(response.data.page);
         setTotalPageNumbers(response.data.totalPageNumbers);
+        table.toggleAllRowsSelected(false);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -109,7 +121,26 @@ export function ManageProductsTable() {
       }
     });
   }, [table]);
-  console.log(selectedData, "selectedData");
+
+  const handleDelete = async () => {
+    try {
+      setIsLoading(true);
+      selectedData.forEach(async (item) => {
+        const res = await axios.delete(`${url}/products/delete/${item.id}`);
+        if (res.status === 200) {
+          toast(`${res.data.message}`);
+          setChangeState(() => Math.random() + 1000 * 100);
+          table.toggleAllRowsSelected(false);
+          setSelectedData([]);
+        }
+      });
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className=" ">
       {/* Action Modal*/}
@@ -119,6 +150,7 @@ export function ManageProductsTable() {
         actionName === "edit" && (
           <AddAndEditProduct
             selectedData={selectedData}
+            setSelectedData={setSelectedData}
             setActionName={setActionName}
           />
         )
@@ -142,9 +174,37 @@ export function ManageProductsTable() {
               }`}
             />
           </button>
-          <button disabled>
-            <Trash className={`cursor-not-allowed text-slate-300`} />
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <button
+                disabled={selectedData.length === 0}
+                className="flex items-center"
+              >
+                <Trash
+                  className={`${
+                    selectedData.length === 0
+                      ? "cursor-not-allowed text-slate-300"
+                      : "cursor-pointer text-black"
+                  }`}
+                />
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
         <Input
           placeholder="Filter title..."
