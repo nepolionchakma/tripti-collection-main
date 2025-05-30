@@ -69,6 +69,7 @@ export function ManageProductsTable() {
         setPage(response.data.page);
         setTotalPageNumbers(response.data.totalPageNumbers);
         table.toggleAllRowsSelected(false);
+        setSelectedData([]);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -103,7 +104,7 @@ export function ManageProductsTable() {
       rowSelection,
     },
   });
-
+  console.log(selectedData, "selectedData");
   const hiddenColumns = [
     "original_price",
     "new_price",
@@ -175,19 +176,17 @@ export function ManageProductsTable() {
             />
           </button>
           <AlertDialog>
-            <AlertDialogTrigger>
-              <button
-                disabled={selectedData.length === 0}
-                className="flex items-center"
-              >
-                <Trash
-                  className={`${
-                    selectedData.length === 0
-                      ? "cursor-not-allowed text-slate-300"
-                      : "cursor-pointer text-black"
-                  }`}
-                />
-              </button>
+            <AlertDialogTrigger
+              disabled={selectedData.length === 0}
+              className="flex items-center"
+            >
+              <Trash
+                className={`${
+                  selectedData.length === 0
+                    ? "cursor-not-allowed text-slate-300"
+                    : "cursor-pointer text-black"
+                }`}
+              />
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>

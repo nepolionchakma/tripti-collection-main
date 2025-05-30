@@ -19,7 +19,23 @@ export const columns = (
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        // onCheckedChange={(value) => {
+        //   table.toggleAllPageRowsSelected(!!value);
+        //   const selectedRows = table
+        //     .getSelectedRowModel()
+        //     .rows.map((row) => row.original);
+        //   setSelectedData(selectedRows);
+        // }}
+        onCheckedChange={(value) => {
+          // Toggle all page rows selected
+          table.toggleAllPageRowsSelected(!!value);
+          setTimeout(() => {
+            const selectedRows = table
+              .getSelectedRowModel()
+              .rows.map((row) => row.original);
+            setSelectedData(selectedRows);
+          });
+        }}
         aria-label="Select all"
         className="mr-2 cursor-pointer"
       />
