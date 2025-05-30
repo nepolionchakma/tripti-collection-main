@@ -26,9 +26,9 @@ export interface Product {
   new_price: number;
   size: string[];
   colors: string[];
-  material: string;
+  material: string[];
   is_available: boolean;
-  edition: string;
+  edition: string[];
   offer: string;
   features: string[];
   img: string;

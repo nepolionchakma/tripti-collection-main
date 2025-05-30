@@ -9,7 +9,7 @@ import {
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { redirect } from "react-router";
-import { AdminContextProvider } from "../Admin/AdminContext";
+import { AdminContextProvider } from "../../Pages/Admin/Contexts/Admin/AdminContext";
 
 interface ShopContextProps {
   children: ReactNode;

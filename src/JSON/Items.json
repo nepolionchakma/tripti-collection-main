@@ -8,9 +8,11 @@
     "colors": [
       "Blue"
     ],
-    "material": "Cotton",
+    "material": [
+      "Cotton"
+    ],
     "is_available": true,
-    "edition": "",
+    "edition": [],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -46,9 +48,13 @@
     "colors": [
       "Black"
     ],
-    "material": "Denim",
+    "material": [
+      "Denim"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -82,9 +88,13 @@
     "colors": [
       "Gray"
     ],
-    "material": "Polyester",
+    "material": [
+      "Polyester"
+    ],
     "is_available": false,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -118,9 +128,13 @@
     "colors": [
       "Red"
     ],
-    "material": "Silk",
+    "material": [
+      "Silk"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -154,9 +168,13 @@
     "colors": [
       "White"
     ],
-    "material": "Leather",
+    "material": [
+      "Leather"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -190,9 +208,13 @@
     "colors": [
       "Pink"
     ],
-    "material": "Wool",
+    "material": [
+      "Wool"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -226,9 +248,13 @@
     "colors": [
       "Black"
     ],
-    "material": "Leather",
+    "material": [
+      "Leather"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -262,9 +288,13 @@
     "colors": [
       "Brown"
     ],
-    "material": "Suede",
+    "material": [
+      "Suede"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -297,9 +327,13 @@
     "colors": [
       "Black"
     ],
-    "material": "Cotton",
+    "material": [
+      "Cotton"
+    ],
     "is_available": true,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [
@@ -332,9 +366,13 @@
     "colors": [
       "Navy"
     ],
-    "material": "Spandex",
+    "material": [
+      "Spandex"
+    ],
     "is_available": false,
-    "edition": "New",
+    "edition": [
+      "New"
+    ],
     "offer": "50% off",
     "visibility": true,
     "features": [

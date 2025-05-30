@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
 interface IAdminContextProps {
   children: ReactNode;
@@ -7,6 +14,8 @@ interface IAdminContextProps {
 interface IAdminContextType {
   isSidebarOpen: boolean;
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  changeState: number;
+  setChangeState: Dispatch<SetStateAction<number>>;
 }
 
 const AdminContext = createContext({} as IAdminContextType);
@@ -19,7 +28,14 @@ export const useAdminContext = () => {
 export const AdminContextProvider = ({ children }: IAdminContextProps) => {
   // const url = import.meta.env.VITE_API_URL;
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const values = { isSidebarOpen, setIsSidebarOpen };
+  const [changeState, setChangeState] = useState(0);
+
+  const values = {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    changeState,
+    setChangeState,
+  };
 
   return (
     <AdminContext.Provider value={values}>{children}</AdminContext.Provider>

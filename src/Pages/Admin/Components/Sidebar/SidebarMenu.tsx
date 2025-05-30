@@ -1,4 +1,4 @@
-import { useAdminContext } from "@/context/Admin/AdminContext";
+import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext.tsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router";
