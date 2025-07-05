@@ -18,25 +18,42 @@
 //   description: string;
 //   timestamp: string;
 // }
-export interface Product {
-  id: number;
-  title: string;
-  category: string;
+interface Prices {
   original_price: number;
   new_price: number;
-  size: string[];
+}
+interface Offer {
+  type: string;
+  amount: number;
+  expires_at: string;
+}
+export interface Product {
+  product_id: number;
+  title: string;
+  categories: string[];
+  collection: string[];
+  prices: Prices;
+  sizes: string[];
   colors: string[];
   material: string[];
-  is_available: boolean;
   edition: string[];
-  offer: string;
+  offer: Offer;
   features: string[];
   img: string;
   images: string[];
-  quantity: number;
+  stock_quantity: number;
+  rating: Rating;
   description: string;
+  tags: string[];
   visibility: boolean;
-  timestamp: string;
+  is_available_product: boolean;
+  is_featured_product: boolean;
+  created_at: string;
+  updated_at: string;
+}
+interface Rating {
+  total_reviews: number;
+  average_rating: number;
 }
 export interface CartProduct {
   product: Product | undefined;

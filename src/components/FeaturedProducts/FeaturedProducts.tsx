@@ -13,6 +13,8 @@ import CustomModalDetails from "../CustomModalDetails/CustomModalDetails";
 
 const FeaturedProducts = () => {
   const { selectedItem, setSelectedItem } = useShopContext();
+  const { products } = useShopContext();
+  console.log(products, "products");
   return (
     <div className="px-4 py-4">
       <Carousel

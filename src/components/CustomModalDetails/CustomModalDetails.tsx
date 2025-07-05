@@ -79,7 +79,7 @@ const CustomModalDetails = () => {
             <div className="flex gap-2">
               <h3 className="text-2xl font-bold">{selectedItem?.title}</h3>
               <p className="text-amber-600 text-[10px]">
-                {selectedItem?.is_available && "In Stock"}
+                {selectedItem?.is_available_product && "In Stock"}
               </p>
             </div>
             <div className="flex gap-3 items-center">

@@ -37,7 +37,7 @@ export const columns = (
           });
         }}
         aria-label="Select all"
-        className="mr-2 cursor-pointer"
+        className="mr-2 cursor-pointer border-black"
       />
     ),
     cell: ({ row }) => (
@@ -48,14 +48,16 @@ export const columns = (
           row.toggleSelected(!!value);
           setSelectedData((prev) => {
             if (prev.includes(row.original)) {
-              return prev.filter((item) => item.id !== row.original.id);
+              return prev.filter(
+                (item) => item.product_id !== row.original.product_id
+              );
             } else {
               return [...prev, row.original];
             }
           });
         }}
         aria-label="Select row"
-        className="mr-2 cursor-pointer"
+        className="mr-2 cursor-pointer border-black"
       />
     ),
     enableSorting: false,
@@ -80,11 +82,12 @@ export const columns = (
     ),
   },
   {
-    accessorKey: "category",
-    header: "Category",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("category")}</div>
-    ),
+    accessorKey: "categories",
+    header: "Categories",
+    cell: ({ row }) => {
+      const categories: string[] = row.getValue("categories");
+      return <div className="capitalize">{categories.join(", ")}</div>;
+    },
   },
   {
     accessorKey: "original_price",
@@ -101,11 +104,12 @@ export const columns = (
     ),
   },
   {
-    accessorKey: "size",
-    header: "Size",
+    accessorKey: "sizes",
+    header: "Sizes",
     cell: ({ row }) => {
-      const size: string[] = row.getValue("size");
-      return <div className="capitalize">{size.join(", ")}</div>;
+      const sizes: string[] = row.getValue("sizes");
+      console.log(sizes, "sizes");
+      return <div className="capitalize">{sizes.join(", ")}</div>;
     },
   },
   {
@@ -125,19 +129,21 @@ export const columns = (
     },
   },
   {
-    accessorKey: "is_available",
+    accessorKey: "is_available_product",
     header: "Available",
     cell: ({ row }) => {
-      const is_available: boolean = row.getValue("is_available");
+      const is_available_product: boolean = row.getValue(
+        "is_available_product"
+      );
       const url = import.meta.env.VITE_API_URL;
       const handleSwitchChange = async (newValue: boolean) => {
         const updatedData = await Promise.all(
           data.map(async (item) => {
-            if (item.id === row.original.id) {
+            if (item.product_id === row.original.product_id) {
               try {
                 const result = await axios.put(
-                  `${url}/products/update/${item.id}`,
-                  { is_available: newValue }
+                  `${url}/products/update/${item.product_id}`,
+                  { is_available_product: newValue }
                 );
                 if (result.status === 200) {
                   toast(`${result.data.message}`);
@@ -148,8 +154,8 @@ export const columns = (
               }
             }
             // Return the updated item
-            return item.id === row.original.id
-              ? { ...item, is_available: newValue }
+            return item.product_id === row.original.product_id
+              ? { ...item, is_available_product: newValue }
               : item;
           })
         );
@@ -160,7 +166,7 @@ export const columns = (
       return (
         <div className="flex items-center justify-center">
           <Switch
-            checked={is_available}
+            checked={is_available_product}
             className="cursor-pointer"
             onCheckedChange={handleSwitchChange}
           />
@@ -214,10 +220,10 @@ export const columns = (
       const handleSwitchChange = async (newValue: boolean) => {
         const updatedData = await Promise.all(
           data.map(async (item) => {
-            if (item.id === row.original.id) {
+            if (item.product_id === row.original.product_id) {
               try {
                 const result = await axios.put(
-                  `${url}/products/update/${item.id}`,
+                  `${url}/products/update/${item.product_id}`,
                   { visibility: newValue }
                 );
                 if (result.status === 200) {
@@ -229,7 +235,7 @@ export const columns = (
               }
             }
             // Return the updated item
-            return item.id === row.original.id
+            return item.product_id === row.original.product_id
               ? { ...item, visibility: newValue }
               : item;
           })

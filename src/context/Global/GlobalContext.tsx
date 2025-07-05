@@ -27,6 +27,7 @@ interface ShopContextType {
   user: IUser | undefined;
   logout: () => void;
   isLoading: boolean;
+  products: Product[];
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -53,6 +54,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   );
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,6 +66,14 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         console.log(res, "res");
         if (res.status === 200) {
           setUser(res.data.user);
+        }
+
+        // Products fetch
+        const res2 = await axios.get(`${url}/products`, {
+          withCredentials: true,
+        });
+        if (res2.status === 200) {
+          setProducts(res2.data ?? []);
         }
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -105,6 +115,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     user,
     logout,
     isLoading,
+    products,
   };
 
   return (
