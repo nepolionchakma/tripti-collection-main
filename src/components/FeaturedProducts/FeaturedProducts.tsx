@@ -38,7 +38,7 @@ const FeaturedProducts = () => {
               onClick={() => setSelectedItem(item)}
             >
               <div
-                key={item.id}
+                key={item.product_id}
                 className="shadow p-3 rounded-md hover:shadow-lg duration-300 cursor-pointer hover:bg-amber-100 hover:scale-105"
               >
                 <figure className="flex items-center justify-center relative">
@@ -61,22 +61,24 @@ const FeaturedProducts = () => {
                   <div className="flex flex-col gap-1">
                     <h3 className="font-semibold"> {item.title}</h3>
                     <div className="flex gap-3 items-center">
-                      {item["new_price"] && (
+                      {item.prices.new_price && (
                         <p className="text-amber-500 font-semibold">
-                          ${item["new_price"]}
+                          ${item.prices.new_price}
                         </p>
                       )}
                       <p
                         className={`${
-                          item["new_price"]
+                          item.prices.new_price
                             ? "line-through text-slate-500 text-[11px]"
                             : ""
                         }`}
                       >
-                        ${item["original_price"]}
+                        ${item.prices.original_price}
                       </p>
                     </div>
-                    <p className="text-sm text-slate-400">{item.category}</p>
+                    <p className="text-sm text-slate-400">
+                      {item.categories.join(", ")}
+                    </p>
                   </div>
                   <div className="flex items-end">
                     <button className="bg-amber-200 p-2 rounded-full">
