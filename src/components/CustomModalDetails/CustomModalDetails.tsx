@@ -79,23 +79,23 @@ const CustomModalDetails = () => {
             <div className="flex gap-2">
               <h3 className="text-2xl font-bold">{selectedItem?.title}</h3>
               <p className="text-amber-600 text-[10px]">
-                {selectedItem?.is_available && "In Stock"}
+                {selectedItem?.is_available_product && "In Stock"}
               </p>
             </div>
             <div className="flex gap-3 items-center">
-              {selectedItem?.new_price && (
+              {selectedItem?.prices.new_price && (
                 <p className="text-amber-500 font-semibold">
-                  ${selectedItem["new_price"]}
+                  ${selectedItem.prices.new_price}
                 </p>
               )}
               <p
                 className={`${
-                  selectedItem?.new_price
+                  selectedItem?.prices.new_price
                     ? "line-through text-slate-500 text-[11px]"
                     : ""
                 }`}
               >
-                ${selectedItem?.original_price}
+                ${selectedItem?.prices.original_price}
               </p>
             </div>
             {/* <p className="text-sm text-slate-400">{selectedItem?.category}</p> */}
@@ -155,8 +155,8 @@ const CustomModalDetails = () => {
               </div>
               <div className="flex gap-2">
                 <h5>Size:</h5>
-                {selectedItem?.size &&
-                  selectedItem?.size.map((s, index) => (
+                {selectedItem?.sizes &&
+                  selectedItem?.sizes.map((s, index) => (
                     <button
                       key={index}
                       className={`${
@@ -171,9 +171,9 @@ const CustomModalDetails = () => {
             </div>
             <div className="flex justify-between items-center">
               <button
-                disabled={selectedItem?.size && !size}
+                disabled={selectedItem?.sizes && !size}
                 className={`${
-                  selectedItem?.size && size.length === 0
+                  selectedItem?.sizes && size.length === 0
                     ? "cursor-not-allowed"
                     : "cursor-pointer"
                 } flex items-center justify-center gap-2 border px-3 py-1 rounded-full  bg-amber-200 hover:bg-amber-300 hover:shadow duration-300`}
@@ -188,7 +188,7 @@ const CustomModalDetails = () => {
           <div>
             <h3>
               Category:{" "}
-              <span className="text-slate-500">{selectedItem?.category}</span>
+              <span className="text-slate-500">{selectedItem?.categories}</span>
             </h3>
           </div>
         </div>

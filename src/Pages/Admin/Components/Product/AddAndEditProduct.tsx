@@ -25,6 +25,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext";
 import { Product } from "@/types/Types";
+import { Textarea } from "@/components/ui/textarea";
 
 interface IAddProductProps {
   setActionName: React.Dispatch<React.SetStateAction<string>>;
@@ -39,27 +40,42 @@ const AddAndEditProduct = ({
   const VITE_API_URL = import.meta.env.VITE_API_URL;
   const { setChangeState } = useAdminContext();
   const [isLoading, setIsLoading] = useState(false);
-  // title, category, original_price, new_price, size, colors, material, is_available, edition, offer, features, img, images, quantity, description, visibility,timestamp
+  // product_id, title, categories, collection,  prices, sizes, colors,  material, edition,  offer,  features, img,  images, stock_quantity, rating,  description, tags, visibility, is_available_product, is_featured_product,  created_at, updated_at,
   const formSchema = z.object({
     title: z.string(),
-    category: z.string(),
-    original_price: z.number(),
+    categories: z.array(z.string()),
+    collection: z.array(z.string()),
+    prices: z.object({
+      original_price: z.number(),
+      new_price: z.number(),
+    }),
+    // original_price: z.number(),
     // .min(1, { message: "Original price must be at least 0" }),
-    new_price: z.number(),
+    // new_price: z.number(),
     // .min(1, { message: "New price must be at least 0" }),
-    size: z.array(z.string()),
+    sizes: z.array(z.string()),
     colors: z.array(z.string()),
     material: z.array(z.string()),
-    is_available: z.boolean(),
     edition: z.array(z.string()),
-    offer: z.string(),
+    offer: z.object({
+      type: z.string(),
+      amount: z.number(),
+      expires_at: z.string(),
+    }),
     features: z.array(z.string()),
     img: z.string(),
     images: z.array(z.string()),
-    quantity: z.number().min(0, { message: "Quantity must be at least 0" }),
+    stock_quantity: z
+      .number()
+      .min(0, { message: "Quantity must be at least 0" }),
+    rating: z.object({ total_reviews: z.number(), average_rating: z.number() }),
     description: z.string(),
+    tags: z.array(z.string()),
     visibility: z.boolean(),
-    timestamp: z.string().optional(),
+    is_available_product: z.boolean(),
+    is_featured_product: z.boolean(),
+    created_at: z.string().optional(),
+    updated_at: z.string().optional(),
   });
 
   // Determine if we're in edit mode
@@ -71,34 +87,54 @@ const AddAndEditProduct = ({
     defaultValues: isEditMode
       ? {
           title: selectedData[0].title,
-          category: selectedData[0].category,
-          original_price: selectedData[0].original_price,
-          new_price: selectedData[0].new_price,
-          size: selectedData[0].size,
+          categories: selectedData[0].categories,
+          collection: selectedData[0].collection,
+          prices: {
+            original_price: selectedData[0].prices.original_price,
+            new_price: selectedData[0].prices.new_price,
+          },
+          sizes: selectedData[0].sizes,
           colors: selectedData[0].colors,
           material: selectedData[0].material,
-          is_available: selectedData[0].is_available,
           edition: selectedData[0].edition,
-          offer: selectedData[0].offer,
+          offer: {
+            type: selectedData[0].offer.type,
+            amount: selectedData[0].offer.amount,
+            expires_at: selectedData[0].offer.expires_at,
+          },
           features: selectedData[0].features,
           img: selectedData[0].img,
           images: selectedData[0].images,
-          quantity: selectedData[0].quantity,
+          stock_quantity: selectedData[0].stock_quantity,
+          rating: {
+            total_reviews: selectedData[0].rating.total_reviews,
+            average_rating: selectedData[0].rating.average_rating,
+          },
           description: selectedData[0].description,
+          tags: selectedData[0].tags,
           visibility: selectedData[0].visibility,
-          timestamp: selectedData[0].timestamp,
+          is_available_product: selectedData[0].is_available_product,
+          is_featured_product: selectedData[0].is_featured_product,
+          created_at: selectedData[0].created_at,
+          updated_at: new Date().toISOString(),
         }
       : {
           title: "Men T-Shirt",
-          category: "Men",
-          original_price: 10,
-          new_price: 9,
-          size: ["S", "M", "L", "XL"],
+          categories: ["Men", "Women", "Kids"],
+          collection: ["Summer", "Winter", "Fall", "Spring"],
+          prices: {
+            original_price: 10,
+            new_price: 9,
+          },
+          sizes: ["S", "M", "L", "XL"],
           colors: ["White", "Black", "Green", "Red", "Blue", "Yellow"],
           material: ["Cotton", "Leather", "Synthetic"],
-          is_available: true,
           edition: ["New", "Old"],
-          offer: "10% off",
+          offer: {
+            type: "10% off",
+            amount: 10,
+            expires_at: new Date().toISOString(),
+          },
           features: ["Breathable", "Lightweight", "Waterproof"],
           img: "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
           images: [
@@ -106,23 +142,32 @@ const AddAndEditProduct = ({
             "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
             "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
           ],
-          quantity: 10,
+          stock_quantity: 10,
+          rating: {
+            total_reviews: 0,
+            average_rating: 0,
+          },
           description: "This is a test description",
+          tags: ["tag1", "tag2", "tag3"],
           visibility: true,
-          timestamp: new Date().toLocaleString(),
+          is_available_product: true,
+          is_featured_product: false,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
         },
   });
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const data = { ...values, timestamp: new Date().toLocaleString() };
+    const data = { ...values };
+    console.log(data, "data");
     try {
       setIsLoading(true);
 
       // Use PUT if editing a product
       const res = isEditMode
         ? await axios.put(
-            `${VITE_API_URL}/products/update/${selectedData[0].id}`,
+            `${VITE_API_URL}/products/update/${selectedData[0].product_id}`,
             data
           )
         : await axios.post(`${VITE_API_URL}/products/create`, data);
@@ -165,20 +210,31 @@ const AddAndEditProduct = ({
               />
               <FormField
                 control={form.control}
-                name="category"
+                name="categories"
                 render={({ field }) => (
                   <FormItem className="col-span-3">
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>Categories</FormLabel>
                     <FormControl>
-                      <Input placeholder="Category" {...field} />
+                      <Input
+                        placeholder="Enter categories (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value.join(", ")}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
-                name="original_price"
+                name="prices.original_price"
                 render={({ field }) => (
                   <FormItem className="col-span-1">
                     <FormLabel>Original Price</FormLabel>
@@ -200,7 +256,7 @@ const AddAndEditProduct = ({
               />
               <FormField
                 control={form.control}
-                name="new_price"
+                name="prices.new_price"
                 render={({ field }) => (
                   <FormItem className="col-span-1">
                     <FormLabel>New Price</FormLabel>
@@ -222,13 +278,36 @@ const AddAndEditProduct = ({
               />
             </div>
 
-            <div className="grid grid-cols-8 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               <FormField
                 control={form.control}
-                name="size"
+                name="collection"
                 render={({ field }) => (
-                  <FormItem className="col-span-3">
-                    <FormLabel>Size</FormLabel>
+                  <FormItem className="col-span-1">
+                    <FormLabel>Collection</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter collection (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value.join(", ")}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="sizes"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Sizes</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter size (comma separated)"
@@ -250,7 +329,7 @@ const AddAndEditProduct = ({
                 control={form.control}
                 name="colors"
                 render={({ field }) => (
-                  <FormItem className="col-span-3">
+                  <FormItem className="col-span-1">
                     <FormLabel>Colors</FormLabel>
                     <FormControl>
                       <Input
@@ -269,31 +348,237 @@ const AddAndEditProduct = ({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="material"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Material</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter material (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value.join(", ")}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-8 gap-4">
+              <FormField
+                control={form.control}
+                name="edition"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>Edition</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter edition (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value.join(", ")}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="features"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>Features</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter features (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value.join(", ")}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem className="col-span-3">
+                    <FormLabel>Tags</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter tags (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value.join(", ")}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="stock_quantity"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Stock Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter stock quantity (comma separated)"
+                        {...field}
+                        type="number"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-8 gap-4">
+              {/* // offer  */}
+              <FormField
+                control={form.control}
+                name="offer.type"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Offer Type</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter offer type (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="offer.amount"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Offer Amount</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter offer amount (comma separated)"
+                        {...field}
+                        type="number"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
-                name="is_available"
+                name="offer.expires_at"
                 render={({ field }) => (
-                  <FormItem className="col-span-1 w-full">
-                    <FormLabel>Is Available</FormLabel>
+                  <FormItem className="col-span-1">
+                    <FormLabel>Offer Expires At</FormLabel>
                     <FormControl>
-                      <Select
-                        required
-                        onValueChange={(value) =>
-                          field.onChange(value === "true")
-                        }
-                        value={field.value ? "true" : "false"}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select True/False" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="true">True</SelectItem>
-                          <SelectItem value="false">False</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Input
+                        placeholder="Enter offer expires at (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="rating.average_rating"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Average Rating</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="0"
+                        type="number"
+                        {...field}
+                        min={1}
+                        onChange={(e) => {
+                          field.onChange(Number(e.target.value) || 0);
+                        }}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="rating.total_reviews"
+                render={({ field }) => (
+                  <FormItem className="col-span-1">
+                    <FormLabel>Total Reviews</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="0"
+                        {...field}
+                        type="number"
+                        min={1}
+                        onChange={(e) => {
+                          field.onChange(Number(e.target.value) || 0);
+                        }}
+                        value={field.value || ""}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -328,123 +613,85 @@ const AddAndEditProduct = ({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="is_available_product"
+                render={({ field }) => (
+                  <FormItem className="col-span-1 w-full">
+                    <FormLabel>Available Product</FormLabel>
+                    <FormControl>
+                      <Select
+                        required
+                        onValueChange={(value) =>
+                          field.onChange(value === "true")
+                        }
+                        value={field.value ? "true" : "false"}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select True/False" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="true">True</SelectItem>
+                          <SelectItem value="false">False</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="is_featured_product"
+                render={({ field }) => (
+                  <FormItem className="col-span-1 w-full">
+                    <FormLabel>Featured Product</FormLabel>
+                    <FormControl>
+                      <Select
+                        required
+                        onValueChange={(value) =>
+                          field.onChange(value === "true")
+                        }
+                        value={field.value ? "true" : "false"}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select True/False" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="true">True</SelectItem>
+                          <SelectItem value="false">False</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-
             <div className="grid grid-cols-8 gap-4">
-              <FormField
-                control={form.control}
-                name="material"
-                render={({ field }) => (
-                  <FormItem className="col-span-3">
-                    <FormLabel>Material</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter material (comma separated)"
-                        {...field}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          field.onChange(
-                            value.split(",").map((color) => color.trim())
-                          );
-                        }}
-                        value={field.value.join(", ")}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="edition"
-                render={({ field }) => (
-                  <FormItem className="col-span-3">
-                    <FormLabel>Edition</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter edition (comma separated)"
-                        {...field}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          field.onChange(
-                            value.split(",").map((color) => color.trim())
-                          );
-                        }}
-                        value={field.value.join(", ")}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="offer"
-                render={({ field }) => (
-                  <FormItem className="col-span-1 w-full">
-                    <FormLabel>Offer</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Offer" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="quantity"
-                render={({ field }) => (
-                  <FormItem className="col-span-1 w-full">
-                    <FormLabel>Quantity</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Quantity"
-                        {...field}
-                        type="number"
-                        min={0}
-                        onChange={(e) => {
-                          field.onChange(Number(e.target.value) || 0);
-                        }}
-                        value={field.value || ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-4 gap-4">
-              <FormField
-                control={form.control}
-                name="features"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Features</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter features (comma separated)"
-                        {...field}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          field.onChange(
-                            value.split(",").map((color) => color.trim())
-                          );
-                        }}
-                        value={field.value.join(", ")}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="img"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Image</FormLabel>
+                  <FormItem className="col-span-2">
+                    <FormLabel>Img</FormLabel>
                     <FormControl>
-                      <Input placeholder="Image" {...field} />
+                      <Textarea
+                        className="h-20"
+                        placeholder="Enter img (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -454,10 +701,11 @@ const AddAndEditProduct = ({
                 control={form.control}
                 name="images"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-3">
                     <FormLabel>Images</FormLabel>
                     <FormControl>
-                      <Input
+                      <Textarea
+                        className="h-20"
                         placeholder="Enter images (comma separated)"
                         {...field}
                         onChange={(e) => {
@@ -473,21 +721,32 @@ const AddAndEditProduct = ({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-3">
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Description" {...field} />
+                      <Textarea
+                        className="h-20"
+                        placeholder="Enter description (comma separated)"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value.split(",").map((color) => color.trim())
+                          );
+                        }}
+                        value={field.value}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
+
             <div className="flex justify-end">
               <Button type="submit" className="cursor-pointer">
                 {isLoading ? "Loading..." : "Submit"}

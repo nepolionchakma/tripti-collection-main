@@ -8,7 +8,7 @@ const Layout = () => {
         <nav className="sticky top-0 bg-white z-50">
           <Navigation />
         </nav>
-        <div className="full max-w-[1100px] mx-auto py-2 overflow-hidden">
+        <div className="max-w-[1100px] mx-auto py-2 overflow-y ">
           <Outlet />
         </div>
       </div>

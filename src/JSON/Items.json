@@ -1,399 +1,212 @@
 [
   {
-    "id": 1,
+    "product_id": 1,
     "title": "Men's T-Shirt",
-    "category": "Tops",
-    "original_price": 49.99,
-    "new_price": 11,
-    "colors": [
-      "Blue"
+    "categories": [
+      "Clothing",
+      "Tops"
     ],
-    "material": [
-      "Cotton"
+    "collection": [
+      "Summer",
+      "Casual"
     ],
-    "is_available": true,
-    "edition": [],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
+    "prices": {
+      "original_price": 10,
+      "new_price": 5
+    },
+    "sizes": [
       "S",
       "M",
       "L",
       "XL"
     ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 2,
-    "title": "Women's Jeans",
-    "category": "Bottoms",
-    "original_price": 49.99,
-    "new_price": 11,
     "colors": [
-      "Black"
+      "Blue",
+      "Red",
+      "Green"
     ],
     "material": [
-      "Denim"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 3,
-    "title": "Unisex Hoodie",
-    "category": "Outerwear",
-    "original_price": 39.99,
-    "new_price": 11,
-    "colors": [
-      "Gray"
-    ],
-    "material": [
-      "Polyester"
-    ],
-    "is_available": false,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 4,
-    "title": "Women's Dress",
-    "category": "Dresses",
-    "original_price": 59.99,
-    "new_price": 11,
-    "colors": [
-      "Red"
-    ],
-    "material": [
-      "Silk"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 5,
-    "title": "Men's Sneakers",
-    "category": "Footwear",
-    "original_price": 69.99,
-    "new_price": 11,
-    "colors": [
-      "White"
-    ],
-    "material": [
-      "Leather"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 6,
-    "title": "Women's Cardigan",
-    "category": "Outerwear",
-    "original_price": 29.99,
-    "new_price": 11,
-    "colors": [
-      "Pink"
-    ],
-    "material": [
-      "Wool"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 7,
-    "title": "Men's Leather Jacket",
-    "category": "Outerwear",
-    "original_price": 129.99,
-    "new_price": 11,
-    "colors": [
-      "Black"
-    ],
-    "material": [
-      "Leather"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending",
-      "Featured"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 8,
-    "title": "Women’s Sandals",
-    "category": "Footwear",
-    "original_price": 24.99,
-    "new_price": 11,
-    "colors": [
-      "Brown"
-    ],
-    "material": [
-      "Suede"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 9,
-    "title": "Unisex Baseball Cap",
-    "category": "Accessories",
-    "original_price": 14.99,
-    "new_price": 11,
-    "colors": [
-      "Black"
-    ],
-    "material": [
-      "Cotton"
-    ],
-    "is_available": true,
-    "edition": [
-      "New"
-    ],
-    "offer": "50% off",
-    "visibility": true,
-    "features": [
-      "All",
-      "Newest",
-      "Trending"
-    ],
-    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-    "images": [
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
-    ],
-    "quantity": 10,
-    "size": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
-  },
-  {
-    "id": 10,
-    "title": "Men's Swim Trunks",
-    "category": "Swimwear",
-    "original_price": 24.99,
-    "new_price": 11,
-    "colors": [
-      "Navy"
-    ],
-    "material": [
+      "Cotton",
+      "Polyester",
       "Spandex"
     ],
-    "is_available": false,
     "edition": [
       "New"
     ],
-    "offer": "50% off",
-    "visibility": true,
+    "offer": {
+      "type": "10% off",
+      "amount": 10,
+      "expires_at": "2023-12-31"
+    },
     "features": [
       "All",
       "Newest",
-      "Trending"
+      "Featured"
     ],
     "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
     "images": [
       "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
       "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
       "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
     ],
-    "quantity": 10,
-    "size": [
+    "stock_quantity": 10,
+    "rating": {
+      "average_rating": 4.5,
+      "total_reviews": 50
+    },
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "tags": [
+      "Casual",
+      "Summer",
+      "T-Shirt"
+    ],
+    "visibility": true,
+    "is_available_product": true,
+    "is_featured_product": true,
+    "created_at": "2023-01-01",
+    "updated_at": "2023-01-01"
+  },
+  {
+    "product_id": 2,
+    "title": "Men's T-Shirt 2",
+    "categories": [
+      "Clothing",
+      "Tops"
+    ],
+    "collection": [
+      "Summer",
+      "Casual"
+    ],
+    "prices": {
+      "original_price": 10,
+      "new_price": 5
+    },
+    "sizes": [
       "S",
       "M",
       "L",
       "XL"
     ],
+    "colors": [
+      "Blue",
+      "Red",
+      "Green"
+    ],
+    "material": [
+      "Cotton",
+      "Polyester",
+      "Spandex"
+    ],
+    "edition": [
+      "New"
+    ],
+    "offer": {
+      "type": "10% off",
+      "amount": 10,
+      "expires_at": "2023-12-31"
+    },
+    "features": [
+      "All",
+      "Newest",
+      "Featured"
+    ],
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "images": [
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
+    ],
+    "stock_quantity": 10,
+    "rating": {
+      "average_rating": 4.5,
+      "total_reviews": 50
+    },
     "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
-    "timestamp": "5/26/2025, 11:49:03 PM"
+    "tags": [
+      "Casual",
+      "Summer",
+      "T-Shirt"
+    ],
+    "visibility": true,
+    "is_available_product": true,
+    "is_featured_product": true,
+    "created_at": "2023-01-01",
+    "updated_at": "2023-01-01"
+  },
+  {
+    "product_id": 3,
+    "title": "Men's T-Shirt 3",
+    "categories": [
+      "Clothing",
+      "Tops"
+    ],
+    "collection": [
+      "Summer",
+      "Casual"
+    ],
+    "prices": {
+      "original_price": 10,
+      "new_price": 5
+    },
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "colors": [
+      "Blue",
+      "Red",
+      "Green"
+    ],
+    "material": [
+      "Cotton",
+      "Polyester",
+      "Spandex"
+    ],
+    "edition": [
+      "New"
+    ],
+    "offer": {
+      "type": "10% off",
+      "amount": 10,
+      "expires_at": "2023-12-31"
+    },
+    "features": [
+      "All",
+      "Newest",
+      "Featured"
+    ],
+    "img": "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+    "images": [
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
+      "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png"
+    ],
+    "stock_quantity": 10,
+    "rating": {
+      "average_rating": 4.5,
+      "total_reviews": 50
+    },
+    "description": "A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.A classic t-shirt for men.",
+    "tags": [
+      "Casual",
+      "Summer",
+      "T-Shirt"
+    ],
+    "visibility": true,
+    "is_available_product": true,
+    "is_featured_product": true,
+    "created_at": "2023-01-01",
+    "updated_at": "2023-01-01"
   }
 ]

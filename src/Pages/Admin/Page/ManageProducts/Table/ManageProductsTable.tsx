@@ -127,7 +127,9 @@ export function ManageProductsTable() {
     try {
       setIsLoading(true);
       selectedData.forEach(async (item) => {
-        const res = await axios.delete(`${url}/products/delete/${item.id}`);
+        const res = await axios.delete(
+          `${url}/products/delete/${item.product_id}`
+        );
         if (res.status === 200) {
           toast(`${res.data.message}`);
           setChangeState(() => Math.random() + 1000 * 100);
@@ -143,7 +145,7 @@ export function ManageProductsTable() {
   };
 
   return (
-    <div className=" ">
+    <div className="">
       {/* Action Modal*/}
       {actionName === "add" ? (
         <AddAndEditProduct setActionName={setActionName} />
@@ -249,7 +251,7 @@ export function ManageProductsTable() {
                   return (
                     <TableHead
                       key={header.id}
-                      className="border border-black bg-amber-200"
+                      className="border border-black bg-amber-400"
                     >
                       {header.isPlaceholder
                         ? null
