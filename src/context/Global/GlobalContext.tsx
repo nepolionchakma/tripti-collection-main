@@ -28,6 +28,8 @@ interface ShopContextType {
   logout: () => void;
   isLoading: boolean;
   products: Product[];
+  heroProducts: Product[];
+  featuredProducts: Product[];
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -55,6 +57,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
+  const [heroProducts, setHeroProducts] = useState<Product[]>([]);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -63,7 +67,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         const res = await axios.get(`${url}/auth/me`, {
           withCredentials: true,
         });
-        console.log(res, "res");
+
         if (res.status === 200) {
           setUser(res.data.user);
         }
@@ -74,6 +78,16 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         });
         if (res2.status === 200) {
           setProducts(res2.data ?? []);
+          setHeroProducts(
+            res2.data.filter((p: Product) =>
+              p.collection.map((c) => c.toUpperCase()).includes("HERO")
+            )
+          );
+          setFeaturedProducts(
+            res2.data.filter((p: Product) =>
+              p.collection.map((c) => c.toUpperCase()).includes("FEATURED")
+            )
+          );
         }
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -116,6 +130,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     logout,
     isLoading,
     products,
+    heroProducts,
+    featuredProducts,
   };
 
   return (

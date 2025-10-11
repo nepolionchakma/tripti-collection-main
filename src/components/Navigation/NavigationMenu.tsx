@@ -37,8 +37,8 @@ const Navigation = () => {
       icon: <Home size={16} />,
     },
     {
-      name: "Shop",
-      path: "/shop",
+      name: "Products",
+      path: "/products",
       icon: <ShoppingBag size={16} />,
     },
     {

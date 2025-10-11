@@ -5,38 +5,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useShopContext } from "@/context/Global/GlobalContext";
 import Autoplay from "embla-carousel-autoplay";
+import { NavLink } from "react-router";
 
-const HeroHeader = [
-  {
-    id: 1,
-    title: "First slide",
-    description:
-      "Nulla vitae elit libero, a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.",
-    price: "$19.99",
-    learMore: "Learn more",
-    img: "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-  },
-  {
-    id: 2,
-    title: "Second slide",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.",
-    price: "$29.99",
-    learMore: "Learn more",
-    img: "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-  },
-  {
-    id: 3,
-    title: "Third slide",
-    description:
-      "Praesent commodo cursus magna, vel scelerisque nisl consectetur.a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.Nulla vitae elit libero, a pharetra augue mollis interdum.",
-    price: "$39.99",
-    learMore: "Learn more",
-    img: "https://www.pngall.com/wp-content/uploads/2016/04/Women-Bag-PNG-HD.png",
-  },
-];
 const Hero = () => {
+  const { heroProducts } = useShopContext();
   return (
     <div className="py-9 bg-amber-100 mx-2 rounded">
       <Carousel
@@ -48,7 +22,7 @@ const Hero = () => {
         className=" "
       >
         <CarouselContent>
-          {HeroHeader.map((item, index) => (
+          {heroProducts.map((item, index) => (
             <CarouselItem key={index}>
               <div className="py-9 px-6 md:px-auto grid grid-cols-3 ">
                 <div
@@ -77,9 +51,26 @@ const Hero = () => {
                     <p className="hidden md:block">{item.description}</p>
                     <div className="flex gap-4 items-center">
                       <p className="bg-amber-300 text-white px-4 py-2 rounded cursor-pointer">
-                        {item.learMore}
+                        <NavLink to={`/product/${item.product_id}`}>
+                          Load More
+                        </NavLink>
                       </p>
-                      <p>{item.price}</p>
+                      <div className="flex gap-3 items-center">
+                        {item.prices.new_price && (
+                          <p className="text-amber-500 font-semibold">
+                            ${item.prices.new_price}
+                          </p>
+                        )}
+                        <p
+                          className={`${
+                            item.prices.new_price
+                              ? "line-through text-slate-500 text-[11px]"
+                              : ""
+                          }`}
+                        >
+                          ${item.prices.original_price}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
