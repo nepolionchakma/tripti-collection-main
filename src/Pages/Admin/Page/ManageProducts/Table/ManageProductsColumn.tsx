@@ -198,10 +198,10 @@ export const columns = (
     },
   },
   {
-    accessorKey: "quantity",
+    accessorKey: "stock_quantity",
     header: "Quantity",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("quantity")}</div>
+      <div className="capitalize">{row.getValue("stock_quantity")}</div>
     ),
   },
   {

@@ -1,11 +1,11 @@
 import FeaturesType from "../../JSON/FeaturesType.json";
 import { useState } from "react";
 import Product from "./Product";
-import { Button } from "../ui/button";
+import { NavLink } from "react-router";
 
 const OurProducts = () => {
   const [featureType, setFeatureType] = useState("All");
-  console.log(featureType, "featureType");
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-4">
       <h1 className="text-2xl uppercase">Our Products</h1>
@@ -38,7 +38,12 @@ const OurProducts = () => {
         <Product featureType={featureType} />
       </div>
       <div className="flex justify-center my-4">
-        <Button className="cursor-pointer bg-amber-300">Load More</Button>
+        <NavLink
+          to={"products"}
+          className="cursor-pointer bg-amber-300 px-2 py-1 rounded text-white"
+        >
+          Load More
+        </NavLink>
       </div>
     </div>
   );

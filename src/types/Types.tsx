@@ -56,7 +56,7 @@ interface Rating {
   average_rating: number;
 }
 export interface CartProduct {
-  product: Product | undefined;
+  product: Product | undefined | null;
   quantity: number;
   sizes?: string;
 }

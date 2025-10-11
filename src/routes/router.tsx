@@ -19,6 +19,8 @@ import { Reports } from "@/Pages/Admin/Page/Reports/Reports";
 import { ManageProducts } from "@/Pages/Admin/Page/ManageProducts/ManageProducts";
 import Features from "@/components/Features/Features";
 import { FeaturesProducts } from "@/Pages/FeaturesProducts/FeaturesProducts";
+import Products from "@/Pages/Products/Products";
+import ProductDetails from "@/Pages/Product/Product";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,23 @@ const router = createBrowserRouter([
       {
         path: "shop",
         element: <Shop />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+      {
+        path: "product",
+        children: [
+          {
+            path: "",
+            element: <Error />,
+          },
+          {
+            path: ":product_id",
+            element: <ProductDetails />,
+          },
+        ],
       },
       {
         path: "features",

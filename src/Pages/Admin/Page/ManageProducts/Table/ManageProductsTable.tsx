@@ -104,7 +104,7 @@ export function ManageProductsTable() {
       rowSelection,
     },
   });
-  console.log(selectedData, "selectedData");
+
   const hiddenColumns = [
     "original_price",
     "new_price",
