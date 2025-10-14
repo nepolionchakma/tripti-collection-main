@@ -16,12 +16,12 @@ const ProductCard = ({ item }: ProductCardProps) => {
         <img src={item.img} alt="Shoes" className="w-40" />
         <div>
           <div className="absolute top-0 right-0 inline">
-            {item.edition.map((a, i) => {
+            {item.editions.map((a, i) => {
               return (
                 <div
                   key={i}
                   className={`py-0.5 px-0.5 mr-0.5 rounded text-[9px] inline-block ${
-                    item.edition.length ? " bg-green-300" : ""
+                    item.editions.length ? " bg-green-300" : ""
                   }`}
                 >
                   {a}

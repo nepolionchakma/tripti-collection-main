@@ -12,7 +12,7 @@ const Product = ({ featureType }: Props) => {
         {products
           ?.slice(0, 8)
           .filter((item) =>
-            item["collection"]
+            item["collections"]
               .map((feature) => feature.toUpperCase())
               .includes(featureType.toUpperCase())
           )

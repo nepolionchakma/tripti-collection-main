@@ -55,8 +55,8 @@ const AddAndEditProduct = ({
     // .min(1, { message: "New price must be at least 0" }),
     sizes: z.array(z.string()),
     colors: z.array(z.string()),
-    material: z.array(z.string()),
-    edition: z.array(z.string()),
+    materials: z.array(z.string()),
+    editions: z.array(z.string()),
     offer: z.object({
       type: z.string(),
       amount: z.number(),
@@ -88,15 +88,15 @@ const AddAndEditProduct = ({
       ? {
           title: selectedData[0].title,
           categories: selectedData[0].categories,
-          collection: selectedData[0].collection,
+          collection: selectedData[0].collections,
           prices: {
             original_price: selectedData[0].prices.original_price,
             new_price: selectedData[0].prices.new_price,
           },
           sizes: selectedData[0].sizes,
           colors: selectedData[0].colors,
-          material: selectedData[0].material,
-          edition: selectedData[0].edition,
+          materials: selectedData[0].materials,
+          editions: selectedData[0].editions,
           offer: {
             type: selectedData[0].offer.type,
             amount: selectedData[0].offer.amount,
@@ -128,8 +128,8 @@ const AddAndEditProduct = ({
           },
           sizes: ["S", "M", "L", "XL"],
           colors: ["White", "Black", "Green", "Red", "Blue", "Yellow"],
-          material: ["Cotton", "Leather", "Synthetic"],
-          edition: ["New", "Old"],
+          materials: ["Cotton", "Leather", "Synthetic"],
+          editions: ["New", "Old"],
           offer: {
             type: "10% off",
             amount: 10,
@@ -350,7 +350,7 @@ const AddAndEditProduct = ({
               />
               <FormField
                 control={form.control}
-                name="material"
+                name="materials"
                 render={({ field }) => (
                   <FormItem className="col-span-1">
                     <FormLabel>Material</FormLabel>
@@ -375,7 +375,7 @@ const AddAndEditProduct = ({
             <div className="grid grid-cols-8 gap-4">
               <FormField
                 control={form.control}
-                name="edition"
+                name="editions"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
                     <FormLabel>Edition</FormLabel>

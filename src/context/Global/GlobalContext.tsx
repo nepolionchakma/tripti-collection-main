@@ -80,12 +80,12 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
           setProducts(res2.data ?? []);
           setHeroProducts(
             res2.data.filter((p: Product) =>
-              p.collection.map((c) => c.toUpperCase()).includes("HERO")
+              p.collections?.map((c) => c.toUpperCase()).includes("HERO")
             )
           );
           setFeaturedProducts(
             res2.data.filter((p: Product) =>
-              p.collection.map((c) => c.toUpperCase()).includes("FEATURED")
+              p.collections?.map((c) => c.toUpperCase()).includes("FEATURED")
             )
           );
         }
