@@ -39,6 +39,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import Spinner from "@/components/Spinner/Spinner";
 
 export type Category = {
   category_id: number;
@@ -136,14 +137,17 @@ export function CategoriesTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get(`${url}/products/categories`);
         setData(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
-  }, [changeState]);
+  }, [changeState, url]);
 
   const handleAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,6 +159,7 @@ export function CategoriesTable() {
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
+        table.toggleAllPageRowsSelected(false);
       })
       .catch((err) => {
         toast(err.response.data.message);
@@ -178,6 +183,7 @@ export function CategoriesTable() {
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
+        table.toggleAllPageRowsSelected(false);
       })
       .catch((err) => {
         toast(err.response.data.message);
@@ -190,27 +196,40 @@ export function CategoriesTable() {
   };
 
   const handleDeleteCategory = async () => {
-    setIsLoading(true);
-    await axios
-      .delete(
-        `${url}/products/categories/delete/${selectedData[0].category_id}`
-      )
-      .then((res) => {
-        console.log(res.data, "res.data");
-        toast(res.data.message);
-        setActionName("");
-        setSelectedData([]);
-      })
-      .catch((err) => {
-        toast(err.response.data.message);
-      })
-      .finally(() => {
-        setInputValue("");
-        setIsLoading(false);
-        setChangeState(() => Math.random() + 1000 * 100);
-      });
+    try {
+      setIsLoading(true);
+      const ids = selectedData.map((item) => item.category_id);
+      console.log(ids, "ids");
+      await axios
+        .delete(`${url}/products/categories/delete`, {
+          data: ids,
+        })
+        .then((res) => {
+          console.log(res.data, "res.data");
+          toast(res.data.message);
+          setActionName("");
+          setSelectedData([]);
+          table.toggleAllPageRowsSelected(false);
+        })
+        .catch((err) => {
+          toast(err.response.data.message);
+        })
+        .finally(() => {
+          setInputValue("");
+          setIsLoading(false);
+          setChangeState(() => Math.random() + 1000 * 100);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  const handleCloseModal = () => {
+    setActionName("");
+    setInputValue("");
+    // setSelectedData([]);
+    // table.toggleAllPageRowsSelected(false);
+  };
+  console.log(selectedData, "selectedData");
   return (
     <div className="w-full">
       {/* Action Modal*/}
@@ -218,7 +237,7 @@ export function CategoriesTable() {
         <CustomModal className="w-[40%] custom-scrollbar">
           <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
             <h1 className="font-semibold">Add Category</h1>
-            <X onClick={() => setActionName("")} className="cursor-pointer" />
+            <X onClick={handleCloseModal} className="cursor-pointer" />
           </div>
           <form
             action=""
@@ -231,7 +250,11 @@ export function CategoriesTable() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />
-            <Button type="submit" disabled={isLoading}>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="cursor-pointer"
+            >
               Save
             </Button>
           </form>
@@ -241,7 +264,7 @@ export function CategoriesTable() {
           <CustomModal className="w-[40%] custom-scrollbar">
             <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
               <h1 className="font-semibold">Edit Category</h1>
-              <X onClick={() => setActionName("")} className="cursor-pointer" />
+              <X onClick={handleCloseModal} className="cursor-pointer" />
             </div>
             <form
               action=""
@@ -276,7 +299,10 @@ export function CategoriesTable() {
           </button>
           <button disabled={selectedData.length !== 1}>
             <Edit
-              onClick={() => setActionName("edit")}
+              onClick={() => {
+                setActionName("edit");
+                setInputValue(selectedData[0].category_name);
+              }}
               className={`${
                 selectedData.length !== 1
                   ? "cursor-not-allowed text-slate-300"
@@ -306,8 +332,13 @@ export function CategoriesTable() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteCategory}>
+                <AlertDialogCancel className="cursor-pointer">
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={handleDeleteCategory}
+                  className="cursor-pointer"
+                >
                   Continue
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -322,7 +353,7 @@ export function CategoriesTable() {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="bg-[#fbf4d7]">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -336,31 +367,38 @@ export function CategoriesTable() {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
+            {isLoading ? (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
+                <TableCell colSpan={2} className="text-center h-30">
+                  <Spinner size="40" color="orange" speed="1.75" />
                 </TableCell>
               </TableRow>
+            ) : (
+              <>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={2} className="h-24 text-center">
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </>
             )}
           </TableBody>
         </Table>
