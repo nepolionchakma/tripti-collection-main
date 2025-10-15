@@ -21,6 +21,7 @@ import Features from "@/components/Features/Features";
 import { FeaturesProducts } from "@/Pages/FeaturesProducts/FeaturesProducts";
 import Products from "@/Pages/Products/Products";
 import ProductDetails from "@/Pages/Product/Product";
+import ManageCatalog from "@/Pages/Admin/Page/ManageCatalog/ManageCatalog";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: "manage-products",
         element: <ManageProducts />,
+      },
+      {
+        path: "manage-catalog",
+        element: <ManageCatalog />,
       },
       {
         path: "features-products",

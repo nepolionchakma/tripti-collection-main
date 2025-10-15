@@ -31,12 +31,12 @@ export interface Product {
   product_id: number;
   title: string;
   categories: string[];
-  collection: string[];
+  collections: string[];
   prices: Prices;
   sizes: string[];
   colors: string[];
-  material: string[];
-  edition: string[];
+  materials: string[];
+  editions: string[];
   offer: Offer;
   features: string[];
   img: string;
@@ -50,6 +50,7 @@ export interface Product {
   is_featured_product: boolean;
   created_at: string;
   updated_at: string;
+  sections: string[];
 }
 interface Rating {
   total_reviews: number;
@@ -70,4 +71,37 @@ export interface IUser {
   profile_type: string;
   access_token: string;
   create_at: string;
+}
+
+export interface Sections {
+  section_id: number;
+  section_name: string;
+}
+export interface Categories {
+  category_id: number;
+  category_name: string;
+}
+export interface Collections {
+  collection_id: number;
+  collection_name: string;
+}
+export interface Colors {
+  color_id: number;
+  color_name: string;
+}
+export interface Materials {
+  material_id: number;
+  material_name: string;
+}
+export interface Editions {
+  edition_id: number;
+  edition_name: string;
+}
+export interface Features {
+  feature_id: number;
+  feature_name: string;
+}
+export interface Sizes {
+  size_id: number;
+  size_name: string;
 }
