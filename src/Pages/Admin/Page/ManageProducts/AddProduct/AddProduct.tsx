@@ -102,7 +102,7 @@
 //   };
 
 //   return (
-//     <CustomModal className="w-[80%] custom-scrollbar">
+//     <CustomModal className="w-[80%] scrollbar-thin">
 //       <div className="flex items-center justify-between bg-amber-300 p-2 sticky top-0">
 //         <h1 className="font-semibold">Add Product</h1>
 //         <X onClick={() => setActionName("")} className="cursor-pointer" />

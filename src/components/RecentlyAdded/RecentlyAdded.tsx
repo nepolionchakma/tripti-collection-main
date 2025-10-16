@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -6,7 +5,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useShopContext } from "@/context/Global/GlobalContext";
+import { ShoppingCart } from "lucide-react";
 const RecentlyAdded = () => {
+  const { recentlyAddedProducts, setSelectedItem } = useShopContext();
+
   return (
     <div className="bg-amber-50 px-4 py-4">
       <Carousel
@@ -22,18 +25,62 @@ const RecentlyAdded = () => {
           </div>
         </div>
 
-        <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
+        <CarouselContent className="flex gap-5 p-6 mr-3">
+          {recentlyAddedProducts.map((item, index) => (
             <CarouselItem
               key={index}
-              className="basis-1/3 md:basis-1/5 lg:basis-1/6 p-3"
+              className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-0"
+              onClick={() => setSelectedItem(item)}
             >
-              <div className="p-1">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <span className="text-3xl font-semibold">{index + 1}</span>
-                  </CardContent>
-                </Card>
+              <div
+                key={item.product_id}
+                className="shadow p-3 rounded-md hover:shadow-lg duration-300 cursor-pointer hover:bg-amber-100 hover:scale-105"
+              >
+                <figure className="flex items-center justify-center relative">
+                  <img src={item.img} alt="Shoes" className="w-40" />
+                  <div>
+                    <p
+                      className={`absolute top-0 left-0 py-1 px-2 rounded text-[9px] ${
+                        item.editions?.length ? " bg-green-300" : ""
+                      }`}
+                    >
+                      {item.editions?.[0]}
+                    </p>
+
+                    {/* <button className="absolute top-0 right-2 cursor-pointer bg-amber-200 p-1 rounded-full ">
+                      <Star size={15} />
+                    </button> */}
+                  </div>
+                </figure>
+                <div className="flex justify-between gap-2 w-full">
+                  <div className="flex flex-col gap-1">
+                    <h3 className="font-semibold"> {item.title}</h3>
+                    <div className="flex gap-3 items-center">
+                      {item.prices.new_price && (
+                        <p className="text-amber-500 font-semibold">
+                          ${item.prices.new_price}
+                        </p>
+                      )}
+                      <p
+                        className={`${
+                          item.prices.new_price
+                            ? "line-through text-slate-500 text-[11px]"
+                            : ""
+                        }`}
+                      >
+                        ${item.prices.original_price}
+                      </p>
+                    </div>
+                    <p className="text-sm text-slate-400">
+                      {item.categories.join(", ")}
+                    </p>
+                  </div>
+                  <div className="flex items-end">
+                    <button className="bg-amber-200 p-2 rounded-full">
+                      <ShoppingCart size={15} />
+                    </button>
+                  </div>
+                </div>
               </div>
             </CarouselItem>
           ))}

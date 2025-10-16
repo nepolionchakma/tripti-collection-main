@@ -40,11 +40,8 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
+import { Collection } from "@/types/Types";
 
-export type Collection = {
-  collection_id: number;
-  collection_name: string;
-};
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Collection[]>>
 ): ColumnDef<Collection>[] => [
@@ -104,7 +101,6 @@ export function CollectionsTable() {
   const [selectedData, setSelectedData] = React.useState<Collection[]>([]);
   const [data, setData] = React.useState<Collection[]>([]);
   const [actionName, setActionName] = React.useState("");
-  console.log(selectedData, "selectedData");
   const [changeState, setChangeState] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
@@ -157,7 +153,6 @@ export function CollectionsTable() {
         collection_name: inputValue,
       })
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -184,7 +179,6 @@ export function CollectionsTable() {
         }
       )
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -204,13 +198,11 @@ export function CollectionsTable() {
     try {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.collection_id);
-      console.log(ids, "ids");
       await axios
         .delete(`${url}/products/collections/delete`, {
           data: ids,
         })
         .then((res) => {
-          console.log(res.data, "res.data");
           toast(res.data.message);
           setActionName("");
           setSelectedData([]);
@@ -234,12 +226,11 @@ export function CollectionsTable() {
     // setSelectedData([]);
     // table.toggleAllPageRowsSelected(false);
   };
-  console.log(selectedData, "selectedData");
   return (
     <div className="w-full">
       {/* Action Modal*/}
       {actionName === "add" ? (
-        <CustomModal className="w-[40%] custom-scrollbar">
+        <CustomModal className="w-[40%] scrollbar-thin">
           <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
             <h1 className="font-semibold">Add Collection</h1>
             <X onClick={handleCloseModal} className="cursor-pointer" />
@@ -266,7 +257,7 @@ export function CollectionsTable() {
         </CustomModal>
       ) : (
         actionName === "edit" && (
-          <CustomModal className="w-[40%] custom-scrollbar">
+          <CustomModal className="w-[40%] scrollbar-thin">
             <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
               <h1 className="font-semibold">Edit Collection</h1>
               <X onClick={handleCloseModal} className="cursor-pointer" />

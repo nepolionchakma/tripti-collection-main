@@ -40,11 +40,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
-
-export type Section = {
-  section_id: number;
-  section_name: string;
-};
+import { Section } from "@/types/Types";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Section[]>>
 ): ColumnDef<Section>[] => [
@@ -104,7 +100,7 @@ export function SectionsTable() {
   const [selectedData, setSelectedData] = React.useState<Section[]>([]);
   const [data, setData] = React.useState<Section[]>([]);
   const [actionName, setActionName] = React.useState("");
-  console.log(selectedData, "selectedData");
+
   const [changeState, setChangeState] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
@@ -155,7 +151,6 @@ export function SectionsTable() {
     await axios
       .post(`${url}/products/sections/create`, { section_name: inputValue })
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -179,7 +174,6 @@ export function SectionsTable() {
         section_name: inputValue,
       })
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -199,13 +193,11 @@ export function SectionsTable() {
     try {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.section_id);
-      console.log(ids, "ids");
       await axios
         .delete(`${url}/products/sections/delete`, {
           data: ids,
         })
         .then((res) => {
-          console.log(res.data, "res.data");
           toast(res.data.message);
           setActionName("");
           setSelectedData([]);
@@ -229,12 +221,11 @@ export function SectionsTable() {
     // setSelectedData([]);
     // table.toggleAllPageRowsSelected(false);
   };
-  console.log(selectedData, "selectedData");
   return (
     <div className="w-full">
       {/* Action Modal*/}
       {actionName === "add" ? (
-        <CustomModal className="w-[40%] custom-scrollbar">
+        <CustomModal className="w-[40%] scrollbar-thin">
           <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
             <h1 className="font-semibold">Add Section</h1>
             <X onClick={handleCloseModal} className="cursor-pointer" />
@@ -261,7 +252,7 @@ export function SectionsTable() {
         </CustomModal>
       ) : (
         actionName === "edit" && (
-          <CustomModal className="w-[40%] custom-scrollbar">
+          <CustomModal className="w-[40%] scrollbar-thin">
             <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
               <h1 className="font-semibold">Edit Section</h1>
               <X onClick={handleCloseModal} className="cursor-pointer" />

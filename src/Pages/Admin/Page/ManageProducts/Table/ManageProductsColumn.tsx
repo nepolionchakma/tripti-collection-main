@@ -108,7 +108,6 @@ export const columns = (
     header: "Sizes",
     cell: ({ row }) => {
       const sizes: string[] = row.getValue("sizes");
-      console.log(sizes, "sizes");
       return <div className="capitalize">{sizes.join(", ")}</div>;
     },
   },

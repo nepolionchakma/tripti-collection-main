@@ -30,6 +30,7 @@ interface ShopContextType {
   products: Product[];
   heroProducts: Product[];
   featuredProducts: Product[];
+  recentlyAddedProducts: Product[];
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -59,6 +60,9 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [heroProducts, setHeroProducts] = useState<Product[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [recentlyAddedProducts, setRecentlyAddedProducts] = useState<Product[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -71,24 +75,6 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         if (res.status === 200) {
           setUser(res.data.user);
         }
-
-        // Products fetch
-        const res2 = await axios.get(`${url}/products`, {
-          withCredentials: true,
-        });
-        if (res2.status === 200) {
-          setProducts(res2.data ?? []);
-          setHeroProducts(
-            res2.data.filter((p: Product) =>
-              p.collections?.map((c) => c.toUpperCase()).includes("HERO")
-            )
-          );
-          setFeaturedProducts(
-            res2.data.filter((p: Product) =>
-              p.collections?.map((c) => c.toUpperCase()).includes("FEATURED")
-            )
-          );
-        }
       } catch (error) {
         if (error instanceof AxiosError) {
           console.log("Failed to fetch user", error.message);
@@ -99,14 +85,41 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     };
 
     fetchUser();
-  }, [url]); // Only trigger the effect on `url` change, not `user`
+  }, [url]);
+
+  useEffect(() => {
+    (async () => {
+      // Products fetch
+      const res2 = await axios.get(`${url}/products`, {
+        withCredentials: true,
+      });
+      console.log(res2.data, "res2.data");
+      if (res2.status === 200) {
+        setProducts(res2.data ?? []);
+        setHeroProducts(
+          res2.data.filter((p: Product) =>
+            p.sections.map((c) => c.toUpperCase()).includes("HERO")
+          )
+        );
+        setFeaturedProducts(
+          res2.data.filter((p: Product) =>
+            p.sections.map((c) => c.toUpperCase()).includes("FEATURED")
+          )
+        );
+        setRecentlyAddedProducts(
+          res2.data.filter((p: Product) =>
+            p.sections.map((c) => c.toUpperCase()).includes("RECENT")
+          )
+        );
+      }
+    })();
+  }, [url]);
 
   const logout = async () => {
     try {
       const res = await axios.get(`${url}/auth/logout`, {
         withCredentials: true,
       });
-      console.log(res, "res");
       if (res.status === 200) {
         setUser(undefined);
         toast(`${res.data.message}`);
@@ -132,6 +145,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     products,
     heroProducts,
     featuredProducts,
+    recentlyAddedProducts,
   };
 
   return (

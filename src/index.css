@@ -123,34 +123,7 @@
   }
 }
 /* Add this CSS to your global stylesheet or component-specific styles */
-.custom-scrollbar {
-  max-height: 100%;
-  overflow: auto;
-  /* Optional: Add padding or margin to prevent content from touching edges */
-  /* padding-right: 10px; */
-}
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  /* Width of the scrollbar */
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-  /* Color of the track */
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #888;
-  /* Color of the scrollbar thumb */
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-  /* Color when hovering over the scrollbar thumb */
-}
 
 /* Custom scrollbar for whole page */
 html {
