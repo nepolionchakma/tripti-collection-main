@@ -49,7 +49,7 @@ export const columns = (
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        className="cursor-pointer"
+        className="cursor-pointer border-amber-500"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -344,7 +344,7 @@ export function MaterialsTable() {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="bg-[#fbf4d7]">
+                    <TableHead key={header.id} className="bg-amber-200">
                       {header.isPlaceholder
                         ? null
                         : flexRender(

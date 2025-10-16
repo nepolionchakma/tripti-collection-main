@@ -1,4 +1,4 @@
-import { CartProduct, IUser, Product } from "@/types/Types";
+import { CartProduct, IUser, Product, Collection } from "@/types/Types";
 import {
   createContext,
   ReactNode,
@@ -31,6 +31,7 @@ interface ShopContextType {
   heroProducts: Product[];
   featuredProducts: Product[];
   recentlyAddedProducts: Product[];
+  collections: Collection[];
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -63,6 +64,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   const [recentlyAddedProducts, setRecentlyAddedProducts] = useState<Product[]>(
     []
   );
+  const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -111,6 +113,40 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
             p.sections.map((c) => c.toUpperCase()).includes("RECENT")
           )
         );
+
+        // Extract collections from all products and remove duplicates
+        const allCollections = res2.data.flatMap(
+          (product: Product) => product.collections
+        );
+        const uniqueCollections = [...new Set(allCollections)];
+        const sequence = [
+          "ALL",
+          "NEWEST",
+          "TRENDING",
+          "BEST SELLERS",
+          "FEATURED",
+        ];
+
+        // Filter the unique collections based on the desired sequence
+        const sortedCollections = sequence.filter((item) =>
+          uniqueCollections.includes(item)
+        );
+
+        // Map to the desired format [{ id: 1, name: "NEWEST" }, ...]
+        const collectionsWithIds: Collection[] = sortedCollections.map(
+          (name, index) => ({
+            collection_id: index + 1,
+            collection_name: name,
+          })
+        );
+        // // Extract collections from all products
+        // const allCollections: string[] = res2.data.flatMap(
+        //   (product: Product) => product.collections
+        // );
+
+        // // Remove duplicates by converting to a Set and back to an array
+        // const uniqueCollections: string[] = [...new Set(allCollections)];
+        setCollections(collectionsWithIds);
       }
     })();
   }, [url]);
@@ -146,6 +182,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     heroProducts,
     featuredProducts,
     recentlyAddedProducts,
+    collections,
   };
 
   return (

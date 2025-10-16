@@ -49,7 +49,7 @@ export const columns = (
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        className="cursor-pointer"
+        className="cursor-pointer border-amber-500"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -59,7 +59,13 @@ export const columns = (
           setTimeout(() => {
             const selectedRows = table
               .getSelectedRowModel()
-              .rows.map((row) => row.original);
+              .rows.filter((row) => row.original.collection_name !== "ALL")
+              .map((row) => row.original);
+
+            // all select instead of row.getValue("collection_name") === "ALL" value
+            // const selectedRows = table
+            //   .getSelectedRowModel()
+            //   .rows.map((row) => row.original);
             setSelectedData(selectedRows);
           });
         }}
@@ -68,7 +74,13 @@ export const columns = (
     ),
     cell: ({ row }) => (
       <Checkbox
-        className="cursor-pointer"
+        // disable if row value is 'ALL'
+        disabled={row.getValue("collection_name") === "ALL"}
+        className={
+          row.getValue("collection_name") === "ALL"
+            ? "cursor-not-allowed bg-slate-100 border-slate-500"
+            : "cursor-pointer"
+        }
         checked={row.getIsSelected()}
         onCheckedChange={(value) => {
           row.toggleSelected(!!value);
@@ -297,7 +309,7 @@ export function CollectionsTable() {
             <Edit
               onClick={() => {
                 setActionName("edit");
-                setInputValue(selectedData[0].collection_name);
+                setInputValue(selectedData[0].collection_name as string);
               }}
               className={`${
                 selectedData.length !== 1
@@ -349,7 +361,7 @@ export function CollectionsTable() {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="bg-[#fbf4d7]">
+                    <TableHead key={header.id} className="bg-amber-200">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -376,6 +388,11 @@ export function CollectionsTable() {
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
+                      className={
+                        row.getValue("collection_name") === "ALL"
+                          ? "cursor-not-allowed bg-slate-50 hover:bg-slate-50"
+                          : ""
+                      }
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
