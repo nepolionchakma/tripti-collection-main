@@ -92,7 +92,7 @@ const Navigation = () => {
     },
   ];
   return (
-    <div className="border-b shadow px-9 py-2">
+    <div className="px-9 py-2 max-w-[1100px] mx-auto">
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
           <div className="md:hidden ">

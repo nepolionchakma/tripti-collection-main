@@ -336,7 +336,7 @@ export function SizesTable() {
           </AlertDialog>
         </div>
       </div>
-      <div className="overflow-hidden rounded-md border">
+      <div className="rounded-md border overflow-auto scrollbar-thin no-x-scroll">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
