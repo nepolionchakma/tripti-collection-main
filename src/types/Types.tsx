@@ -73,35 +73,35 @@ export interface IUser {
   create_at: string;
 }
 
-export interface Sections {
+export interface Section {
   section_id: number;
   section_name: string;
 }
-export interface Categories {
+export interface Category {
   category_id: number;
   category_name: string;
 }
-export interface Collections {
+export interface Collection {
   collection_id: number;
   collection_name: string;
 }
-export interface Colors {
+export interface Color {
   color_id: number;
   color_name: string;
 }
-export interface Materials {
+export interface Material {
   material_id: number;
   material_name: string;
 }
-export interface Editions {
+export interface Edition {
   edition_id: number;
   edition_name: string;
 }
-export interface Features {
+export interface Feature {
   feature_id: number;
   feature_name: string;
 }
-export interface Sizes {
+export interface Size {
   size_id: number;
   size_name: string;
 }

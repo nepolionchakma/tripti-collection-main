@@ -40,11 +40,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
+import { Collection } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 
-export type Collection = {
-  collection_id: number;
-  collection_name: string;
-};
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Collection[]>>
 ): ColumnDef<Collection>[] => [
@@ -52,7 +50,7 @@ export const columns = (
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        className="cursor-pointer"
+        className="cursor-pointer border-amber-500"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -62,7 +60,13 @@ export const columns = (
           setTimeout(() => {
             const selectedRows = table
               .getSelectedRowModel()
-              .rows.map((row) => row.original);
+              .rows.filter((row) => row.original.collection_name !== "ALL")
+              .map((row) => row.original);
+
+            // all select instead of row.getValue("collection_name") === "ALL" value
+            // const selectedRows = table
+            //   .getSelectedRowModel()
+            //   .rows.map((row) => row.original);
             setSelectedData(selectedRows);
           });
         }}
@@ -71,7 +75,13 @@ export const columns = (
     ),
     cell: ({ row }) => (
       <Checkbox
-        className="cursor-pointer"
+        // disable if row value is 'ALL'
+        disabled={row.getValue("collection_name") === "ALL"}
+        className={
+          row.getValue("collection_name") === "ALL"
+            ? "cursor-not-allowed bg-slate-100 border-slate-500"
+            : "cursor-pointer"
+        }
         checked={row.getIsSelected()}
         onCheckedChange={(value) => {
           row.toggleSelected(!!value);
@@ -100,11 +110,10 @@ export const columns = (
   },
 ];
 export function CollectionsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Collection[]>([]);
   const [data, setData] = React.useState<Collection[]>([]);
   const [actionName, setActionName] = React.useState("");
-  console.log(selectedData, "selectedData");
   const [changeState, setChangeState] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
@@ -138,7 +147,7 @@ export function CollectionsTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/collections`);
+        const res = await axios.get(`${url}/api/products/collections`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -153,11 +162,10 @@ export function CollectionsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/collections/create`, {
+      .post(`${url}/api/products/collections/create`, {
         collection_name: inputValue,
       })
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -178,13 +186,12 @@ export function CollectionsTable() {
     setIsLoading(true);
     await axios
       .put(
-        `${url}/products/collections/update/${selectedData[0].collection_id}`,
+        `${url}/api/products/collections/update/${selectedData[0].collection_id}`,
         {
           collection_name: inputValue,
         }
       )
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -204,13 +211,11 @@ export function CollectionsTable() {
     try {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.collection_id);
-      console.log(ids, "ids");
       await axios
-        .delete(`${url}/products/collections/delete`, {
+        .delete(`${url}/api/products/collections/delete`, {
           data: ids,
         })
         .then((res) => {
-          console.log(res.data, "res.data");
           toast(res.data.message);
           setActionName("");
           setSelectedData([]);
@@ -234,12 +239,11 @@ export function CollectionsTable() {
     // setSelectedData([]);
     // table.toggleAllPageRowsSelected(false);
   };
-  console.log(selectedData, "selectedData");
   return (
     <div className="w-full">
       {/* Action Modal*/}
       {actionName === "add" ? (
-        <CustomModal className="w-[40%] custom-scrollbar">
+        <CustomModal className="w-[40%] scrollbar-thin">
           <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
             <h1 className="font-semibold">Add Collection</h1>
             <X onClick={handleCloseModal} className="cursor-pointer" />
@@ -266,7 +270,7 @@ export function CollectionsTable() {
         </CustomModal>
       ) : (
         actionName === "edit" && (
-          <CustomModal className="w-[40%] custom-scrollbar">
+          <CustomModal className="w-[40%] scrollbar-thin">
             <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
               <h1 className="font-semibold">Edit Collection</h1>
               <X onClick={handleCloseModal} className="cursor-pointer" />
@@ -306,7 +310,7 @@ export function CollectionsTable() {
             <Edit
               onClick={() => {
                 setActionName("edit");
-                setInputValue(selectedData[0].collection_name);
+                setInputValue(selectedData[0].collection_name as string);
               }}
               className={`${
                 selectedData.length !== 1
@@ -351,14 +355,14 @@ export function CollectionsTable() {
           </AlertDialog>
         </div>
       </div>
-      <div className="overflow-hidden rounded-md border">
+      <div className="rounded-md border  overflow-auto scrollbar-thin no-x-scroll">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="bg-[#fbf4d7]">
+                    <TableHead key={header.id} className="bg-amber-200">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -385,6 +389,11 @@ export function CollectionsTable() {
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
+                      className={
+                        row.getValue("collection_name") === "ALL"
+                          ? "cursor-not-allowed bg-slate-50 hover:bg-slate-50"
+                          : ""
+                      }
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>

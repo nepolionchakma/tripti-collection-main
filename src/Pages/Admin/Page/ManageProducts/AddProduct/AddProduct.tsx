@@ -29,7 +29,7 @@
 //   setActionName: React.Dispatch<React.SetStateAction<string>>;
 // }
 // const AddProduct = ({ setActionName }: IAddProductProps) => {
-//   const VITE_API_URL = import.meta.env.VITE_API_URL;
+//   const VITE_API_URL = API_BASE_URL;
 //   const { setChangeState } = useAdminContext();
 //   const [isLoading, setIsLoading] = useState(false);
 //   // title, category, original_price, new_price, size, colors, material, is_available, edition, offer, features, img, images, quantity, description, visibility,timestamp
@@ -86,7 +86,7 @@
 //     const data = { ...values, timestamp: new Date().toLocaleString() };
 //     try {
 //       setIsLoading(true);
-//       const res = await axios.post(`${VITE_API_URL}/products/create`, data);
+//       const res = await axios.post(`${VITE_API_URL}/api/products/create`, data);
 //       console.log(res.data, "res");
 //       if (res.status === 200) {
 //         toast(`${res.data.message}`);
@@ -102,7 +102,7 @@
 //   };
 
 //   return (
-//     <CustomModal className="w-[80%] custom-scrollbar">
+//     <CustomModal className="w-[80%] scrollbar-thin">
 //       <div className="flex items-center justify-between bg-amber-300 p-2 sticky top-0">
 //         <h1 className="font-semibold">Add Product</h1>
 //         <X onClick={() => setActionName("")} className="cursor-pointer" />

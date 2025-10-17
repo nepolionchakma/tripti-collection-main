@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "./Scrollbar.css";
 import { RouterProvider } from "react-router";
 import router from "./routes/router";
 import { ShopContextProvider } from "./context/Global/GlobalContext";

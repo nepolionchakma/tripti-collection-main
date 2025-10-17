@@ -40,11 +40,8 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
-
-export type Feature = {
-  feature_id: number;
-  feature_name: string;
-};
+import { Feature } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Feature[]>>
 ): ColumnDef<Feature>[] => [
@@ -52,7 +49,7 @@ export const columns = (
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        className="cursor-pointer"
+        className="cursor-pointer border-amber-500"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -100,11 +97,10 @@ export const columns = (
   },
 ];
 export function FeaturesTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Feature[]>([]);
   const [data, setData] = React.useState<Feature[]>([]);
   const [actionName, setActionName] = React.useState("");
-  console.log(selectedData, "selectedData");
   const [changeState, setChangeState] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
@@ -138,7 +134,7 @@ export function FeaturesTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/features`);
+        const res = await axios.get(`${url}/api/products/features`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -153,9 +149,8 @@ export function FeaturesTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/features/create`, { feature_name: inputValue })
+      .post(`${url}/api/products/features/create`, { feature_name: inputValue })
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -175,11 +170,13 @@ export function FeaturesTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .put(`${url}/products/features/update/${selectedData[0].feature_id}`, {
-        feature_name: inputValue,
-      })
+      .put(
+        `${url}/api/products/features/update/${selectedData[0].feature_id}`,
+        {
+          feature_name: inputValue,
+        }
+      )
       .then((res) => {
-        console.log(res.data, "res.data");
         toast(res.data.message);
         setActionName("");
         setSelectedData([]);
@@ -199,13 +196,11 @@ export function FeaturesTable() {
     try {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.feature_id);
-      console.log(ids, "ids");
       await axios
-        .delete(`${url}/products/features/delete`, {
+        .delete(`${url}/api/products/features/delete`, {
           data: ids,
         })
         .then((res) => {
-          console.log(res.data, "res.data");
           toast(res.data.message);
           setActionName("");
           setSelectedData([]);
@@ -229,12 +224,11 @@ export function FeaturesTable() {
     // setSelectedData([]);
     // table.toggleAllPageRowsSelected(false);
   };
-  console.log(selectedData, "selectedData");
   return (
     <div className="w-full">
       {/* Action Modal*/}
       {actionName === "add" ? (
-        <CustomModal className="w-[40%] custom-scrollbar">
+        <CustomModal className="w-[40%] scrollbar-thin">
           <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
             <h1 className="font-semibold">Add Feature</h1>
             <X onClick={handleCloseModal} className="cursor-pointer" />
@@ -261,7 +255,7 @@ export function FeaturesTable() {
         </CustomModal>
       ) : (
         actionName === "edit" && (
-          <CustomModal className="w-[40%] custom-scrollbar">
+          <CustomModal className="w-[40%] scrollbar-thin">
             <div className="flex items-center justify-between bg-amber-300 py-0.5 px-1 sticky top-0">
               <h1 className="font-semibold">Edit Feature</h1>
               <X onClick={handleCloseModal} className="cursor-pointer" />
@@ -346,14 +340,14 @@ export function FeaturesTable() {
           </AlertDialog>
         </div>
       </div>
-      <div className="overflow-hidden rounded-md border">
+      <div className="rounded-md border overflow-auto scrollbar-thin no-x-scroll">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="bg-[#fbf4d7]">
+                    <TableHead key={header.id} className="bg-amber-200">
                       {header.isPlaceholder
                         ? null
                         : flexRender(

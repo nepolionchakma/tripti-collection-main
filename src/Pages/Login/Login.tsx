@@ -2,9 +2,10 @@ import { useShopContext } from "@/context/Global/GlobalContext";
 import Google from "/social-icons/google.svg";
 import Spinner from "@/components/Spinner/Spinner";
 import { Navigate } from "react-router";
+import { API_BASE_URL } from "@/api/config";
 
 const Login = () => {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const { user, isLoading } = useShopContext();
 
   if (isLoading) {
@@ -18,7 +19,7 @@ const Login = () => {
     return <Navigate state={location.pathname} to="/" replace />;
   }
   const handleLogin = () => {
-    window.location.href = `${url}/login/google`;
+    window.location.href = `${url}/api/login/google`;
   };
 
   return (

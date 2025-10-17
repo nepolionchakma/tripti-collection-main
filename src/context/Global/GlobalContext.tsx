@@ -1,4 +1,4 @@
-import { CartProduct, IUser, Product } from "@/types/Types";
+import { CartProduct, IUser, Product, Collection } from "@/types/Types";
 import {
   createContext,
   ReactNode,
@@ -10,6 +10,7 @@ import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { redirect } from "react-router";
 import { AdminContextProvider } from "../../Pages/Admin/Contexts/Admin/AdminContext";
+import { API_BASE_URL } from "@/api/config";
 
 interface ShopContextProps {
   children: ReactNode;
@@ -30,6 +31,8 @@ interface ShopContextType {
   products: Product[];
   heroProducts: Product[];
   featuredProducts: Product[];
+  recentlyAddedProducts: Product[];
+  collections: Collection[];
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -40,7 +43,7 @@ export const useShopContext = () => {
 };
 
 export const ShopContextProvider = ({ children }: ShopContextProps) => {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
 
   const [selectedItem, setSelectedItem] = useState<Product>();
   const [count, setCount] = useState<number>(1);
@@ -59,35 +62,21 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [heroProducts, setHeroProducts] = useState<Product[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [recentlyAddedProducts, setRecentlyAddedProducts] = useState<Product[]>(
+    []
+  );
+  const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/auth/me`, {
+        const res = await axios.get(`${url}/api/auth/me`, {
           withCredentials: true,
         });
 
         if (res.status === 200) {
           setUser(res.data.user);
-        }
-
-        // Products fetch
-        const res2 = await axios.get(`${url}/products`, {
-          withCredentials: true,
-        });
-        if (res2.status === 200) {
-          setProducts(res2.data ?? []);
-          setHeroProducts(
-            res2.data.filter((p: Product) =>
-              p.collections?.map((c) => c.toUpperCase()).includes("HERO")
-            )
-          );
-          setFeaturedProducts(
-            res2.data.filter((p: Product) =>
-              p.collections?.map((c) => c.toUpperCase()).includes("FEATURED")
-            )
-          );
         }
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -99,14 +88,75 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     };
 
     fetchUser();
-  }, [url]); // Only trigger the effect on `url` change, not `user`
+  }, [url]);
+
+  useEffect(() => {
+    (async () => {
+      // Products fetch
+      const res2 = await axios.get(`${url}/api/products`, {
+        withCredentials: true,
+      });
+      console.log(res2.data, "res2.data");
+      if (res2.status === 200) {
+        setProducts(res2.data ?? []);
+        setHeroProducts(
+          res2.data.filter((p: Product) =>
+            p.sections.map((c) => c.toUpperCase()).includes("HERO")
+          )
+        );
+        setFeaturedProducts(
+          res2.data.filter((p: Product) =>
+            p.sections.map((c) => c.toUpperCase()).includes("FEATURED")
+          )
+        );
+        setRecentlyAddedProducts(
+          res2.data.filter((p: Product) =>
+            p.sections.map((c) => c.toUpperCase()).includes("RECENT")
+          )
+        );
+
+        // Extract collections from all products and remove duplicates
+        const allCollections = res2.data.flatMap(
+          (product: Product) => product.collections
+        );
+        const uniqueCollections = [...new Set(allCollections)];
+        const sequence = [
+          "ALL",
+          "NEWEST",
+          "TRENDING",
+          "BEST SELLERS",
+          "FEATURED",
+        ];
+
+        // Filter the unique collections based on the desired sequence
+        const sortedCollections = sequence.filter((item) =>
+          uniqueCollections.includes(item)
+        );
+
+        // Map to the desired format [{ id: 1, name: "NEWEST" }, ...]
+        const collectionsWithIds: Collection[] = sortedCollections.map(
+          (name, index) => ({
+            collection_id: index + 1,
+            collection_name: name,
+          })
+        );
+        // // Extract collections from all products
+        // const allCollections: string[] = res2.data.flatMap(
+        //   (product: Product) => product.collections
+        // );
+
+        // // Remove duplicates by converting to a Set and back to an array
+        // const uniqueCollections: string[] = [...new Set(allCollections)];
+        setCollections(collectionsWithIds);
+      }
+    })();
+  }, [url]);
 
   const logout = async () => {
     try {
-      const res = await axios.get(`${url}/auth/logout`, {
+      const res = await axios.get(`${url}/api/auth/logout`, {
         withCredentials: true,
       });
-      console.log(res, "res");
       if (res.status === 200) {
         setUser(undefined);
         toast(`${res.data.message}`);
@@ -132,6 +182,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     products,
     heroProducts,
     featuredProducts,
+    recentlyAddedProducts,
+    collections,
   };
 
   return (

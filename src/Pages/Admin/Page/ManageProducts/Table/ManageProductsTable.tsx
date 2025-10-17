@@ -39,16 +39,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { columns as getColumns } from "./ManageProductsColumn";
-import { Product } from "@/types/Types";
+import {
+  Product,
+  Category,
+  Collection,
+  Color,
+  Edition,
+  Feature,
+  Material,
+  Section,
+  Size,
+} from "@/types/Types";
 import Pagination from "@/components/Pagination/Pagination";
 import axios from "axios";
 import Spinner from "@/components/Spinner/Spinner";
 import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext";
 import AddAndEditProduct from "@/Pages/Admin/Components/Product/AddAndEditProduct";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/api/config";
 
 export function ManageProductsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const { changeState, setChangeState } = useAdminContext();
   const [data, setData] = React.useState<Product[]>([]);
   const [page, setPage] = React.useState(1);
@@ -57,13 +68,21 @@ export function ManageProductsTable() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [actionName, setActionName] = React.useState("");
   const [selectedData, setSelectedData] = React.useState<Product[] | []>([]);
+  const [categories, setCategories] = React.useState<Category[]>([]);
+  const [collections, setCollections] = React.useState<Collection[]>([]);
+  const [colors, setColors] = React.useState<Color[]>([]);
+  const [editions, setEditions] = React.useState<Edition[]>([]);
+  const [features, setFeatures] = React.useState<Feature[]>([]);
+  const [materials, setMaterials] = React.useState<Material[]>([]);
+  const [sections, setSections] = React.useState<Section[]>([]);
+  const [sizes, setSizes] = React.useState<Size[]>([]);
 
   React.useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
         const response = await axios(
-          `${url}/products/lazyloading/${page}/${limit}`
+          `${url}/api/products/lazyloading/${page}/${limit}`
         );
         setData(response.data.result);
         setPage(response.data.page);
@@ -77,6 +96,38 @@ export function ManageProductsTable() {
       }
     })();
   }, [page, url, changeState]);
+
+  React.useEffect(() => {
+    (async () => {
+      const [
+        categories,
+        collections,
+        colors,
+        materials,
+        sections,
+        editions,
+        features,
+        sizes,
+      ] = await Promise.all([
+        axios.get(`${url}/api/products/categories`),
+        axios.get(`${url}/api/products/collections`),
+        axios.get(`${url}/api/products/colors`),
+        axios.get(`${url}/api/products/materials`),
+        axios.get(`${url}/api/products/sections`),
+        axios.get(`${url}/api/products/editions`),
+        axios.get(`${url}/api/products/features`),
+        axios.get(`${url}/api/products/sizes`),
+      ]);
+      setCategories(categories.data);
+      setCollections(collections.data);
+      setColors(colors.data);
+      setEditions(editions.data);
+      setFeatures(features.data);
+      setMaterials(materials.data);
+      setSections(sections.data);
+      setSizes(sizes.data);
+    })();
+  }, [changeState]);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -128,7 +179,7 @@ export function ManageProductsTable() {
       setIsLoading(true);
       selectedData.forEach(async (item) => {
         const res = await axios.delete(
-          `${url}/products/delete/${item.product_id}`
+          `${url}/api/products/delete/${item.product_id}`
         );
         if (res.status === 200) {
           toast(`${res.data.message}`);
@@ -148,13 +199,35 @@ export function ManageProductsTable() {
     <div className="">
       {/* Action Modal*/}
       {actionName === "add" ? (
-        <AddAndEditProduct setActionName={setActionName} />
+        <AddAndEditProduct
+          setActionName={setActionName}
+          catalogData={{
+            categories,
+            collections,
+            colors,
+            editions,
+            features,
+            materials,
+            sections,
+            sizes,
+          }}
+        />
       ) : (
         actionName === "edit" && (
           <AddAndEditProduct
             selectedData={selectedData}
             setSelectedData={setSelectedData}
             setActionName={setActionName}
+            catalogData={{
+              categories,
+              collections,
+              colors,
+              editions,
+              features,
+              materials,
+              sections,
+              sizes,
+            }}
           />
         )
       )}
@@ -242,7 +315,7 @@ export function ManageProductsTable() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="border">
+      <div className="border max-h-[60vh] overflow-auto scrollbar-thin no-x-scroll">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

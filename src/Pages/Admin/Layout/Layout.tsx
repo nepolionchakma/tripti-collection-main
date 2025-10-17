@@ -8,17 +8,17 @@ const Layout = () => {
   return (
     <div className=" ">
       <div>
-        <nav className="sticky top-0 z-50 bg-white">
+        <nav className="border-b sticky top-0 z-50 bg-white">
           <Navigation />
         </nav>
 
-        <div className="flex gap-4 ">
+        <div className="flex gap-4 max-w-[1100px] mx-auto">
           <SidebarMenu />
           <div
             className={
               isSidebarOpen
-                ? "w-[calc(101vw-18.2rem)] min-h-[calc(100vh-4rem)] duration-1000"
-                : "w-[calc(101vw-7.5rem)] min-h-[calc(100vh-4rem)] duration-1000"
+                ? "w-[calc(101vw-11.2rem)] min-h-[calc(100vh-4rem)] duration-1000"
+                : "w-[calc(101vw-3.5rem)] min-h-[calc(100vh-4rem)] duration-1000"
             }
           >
             <Outlet />
