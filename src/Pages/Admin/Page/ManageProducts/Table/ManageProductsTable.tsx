@@ -56,9 +56,10 @@ import Spinner from "@/components/Spinner/Spinner";
 import { useAdminContext } from "@/Pages/Admin/Contexts/Admin/AdminContext";
 import AddAndEditProduct from "@/Pages/Admin/Components/Product/AddAndEditProduct";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/api/config";
 
 export function ManageProductsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const { changeState, setChangeState } = useAdminContext();
   const [data, setData] = React.useState<Product[]>([]);
   const [page, setPage] = React.useState(1);
@@ -81,7 +82,7 @@ export function ManageProductsTable() {
       try {
         setIsLoading(true);
         const response = await axios(
-          `${url}/products/lazyloading/${page}/${limit}`
+          `${url}/api/products/lazyloading/${page}/${limit}`
         );
         setData(response.data.result);
         setPage(response.data.page);
@@ -108,14 +109,14 @@ export function ManageProductsTable() {
         features,
         sizes,
       ] = await Promise.all([
-        axios.get(`${url}/products/categories`),
-        axios.get(`${url}/products/collections`),
-        axios.get(`${url}/products/colors`),
-        axios.get(`${url}/products/materials`),
-        axios.get(`${url}/products/sections`),
-        axios.get(`${url}/products/editions`),
-        axios.get(`${url}/products/features`),
-        axios.get(`${url}/products/sizes`),
+        axios.get(`${url}/api/products/categories`),
+        axios.get(`${url}/api/products/collections`),
+        axios.get(`${url}/api/products/colors`),
+        axios.get(`${url}/api/products/materials`),
+        axios.get(`${url}/api/products/sections`),
+        axios.get(`${url}/api/products/editions`),
+        axios.get(`${url}/api/products/features`),
+        axios.get(`${url}/api/products/sizes`),
       ]);
       setCategories(categories.data);
       setCollections(collections.data);
@@ -178,7 +179,7 @@ export function ManageProductsTable() {
       setIsLoading(true);
       selectedData.forEach(async (item) => {
         const res = await axios.delete(
-          `${url}/products/delete/${item.product_id}`
+          `${url}/api/products/delete/${item.product_id}`
         );
         if (res.status === 200) {
           toast(`${res.data.message}`);

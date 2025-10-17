@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
 import { ArrowUpDown } from "lucide-react";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/api/config";
 export const columns = (
   data: Product[],
   setData: React.Dispatch<React.SetStateAction<Product[]>>,
@@ -134,14 +135,14 @@ export const columns = (
       const is_available_product: boolean = row.getValue(
         "is_available_product"
       );
-      const url = import.meta.env.VITE_API_URL;
+      const url = API_BASE_URL;
       const handleSwitchChange = async (newValue: boolean) => {
         const updatedData = await Promise.all(
           data.map(async (item) => {
             if (item.product_id === row.original.product_id) {
               try {
                 const result = await axios.put(
-                  `${url}/products/update/${item.product_id}`,
+                  `${url}/api/products/update/${item.product_id}`,
                   { is_available_product: newValue }
                 );
                 if (result.status === 200) {
@@ -215,14 +216,14 @@ export const columns = (
     header: "Visibility",
     cell: ({ row }) => {
       const visibility: boolean = row.getValue("visibility");
-      const url = import.meta.env.VITE_API_URL;
+      const url = API_BASE_URL;
       const handleSwitchChange = async (newValue: boolean) => {
         const updatedData = await Promise.all(
           data.map(async (item) => {
             if (item.product_id === row.original.product_id) {
               try {
                 const result = await axios.put(
-                  `${url}/products/update/${item.product_id}`,
+                  `${url}/api/products/update/${item.product_id}`,
                   { visibility: newValue }
                 );
                 if (result.status === 200) {

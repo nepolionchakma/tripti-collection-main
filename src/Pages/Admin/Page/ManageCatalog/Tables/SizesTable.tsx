@@ -41,6 +41,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Size } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Size[]>>
 ): ColumnDef<Size>[] => [
@@ -96,7 +97,7 @@ export const columns = (
   },
 ];
 export function SizesTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Size[]>([]);
   const [data, setData] = React.useState<Size[]>([]);
   const [actionName, setActionName] = React.useState("");
@@ -133,7 +134,7 @@ export function SizesTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/sizes`);
+        const res = await axios.get(`${url}/api/products/sizes`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -148,7 +149,7 @@ export function SizesTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/sizes/create`, { size_name: inputValue })
+      .post(`${url}/api/products/sizes/create`, { size_name: inputValue })
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -169,7 +170,7 @@ export function SizesTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .put(`${url}/products/sizes/update/${selectedData[0].size_id}`, {
+      .put(`${url}/api/products/sizes/update/${selectedData[0].size_id}`, {
         size_name: inputValue,
       })
       .then((res) => {
@@ -193,7 +194,7 @@ export function SizesTable() {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.size_id);
       await axios
-        .delete(`${url}/products/sizes/delete`, {
+        .delete(`${url}/api/products/sizes/delete`, {
           data: ids,
         })
         .then((res) => {

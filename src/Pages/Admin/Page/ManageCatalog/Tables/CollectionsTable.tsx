@@ -41,6 +41,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Collection } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Collection[]>>
@@ -109,7 +110,7 @@ export const columns = (
   },
 ];
 export function CollectionsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Collection[]>([]);
   const [data, setData] = React.useState<Collection[]>([]);
   const [actionName, setActionName] = React.useState("");
@@ -146,7 +147,7 @@ export function CollectionsTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/collections`);
+        const res = await axios.get(`${url}/api/products/collections`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -161,7 +162,7 @@ export function CollectionsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/collections/create`, {
+      .post(`${url}/api/products/collections/create`, {
         collection_name: inputValue,
       })
       .then((res) => {
@@ -185,7 +186,7 @@ export function CollectionsTable() {
     setIsLoading(true);
     await axios
       .put(
-        `${url}/products/collections/update/${selectedData[0].collection_id}`,
+        `${url}/api/products/collections/update/${selectedData[0].collection_id}`,
         {
           collection_name: inputValue,
         }
@@ -211,7 +212,7 @@ export function CollectionsTable() {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.collection_id);
       await axios
-        .delete(`${url}/products/collections/delete`, {
+        .delete(`${url}/api/products/collections/delete`, {
           data: ids,
         })
         .then((res) => {

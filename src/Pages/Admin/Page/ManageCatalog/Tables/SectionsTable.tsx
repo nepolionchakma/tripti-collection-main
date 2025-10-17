@@ -41,6 +41,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Section } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Section[]>>
 ): ColumnDef<Section>[] => [
@@ -96,7 +97,7 @@ export const columns = (
   },
 ];
 export function SectionsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Section[]>([]);
   const [data, setData] = React.useState<Section[]>([]);
   const [actionName, setActionName] = React.useState("");
@@ -134,7 +135,7 @@ export function SectionsTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/sections`);
+        const res = await axios.get(`${url}/api/products/sections`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -149,7 +150,7 @@ export function SectionsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/sections/create`, { section_name: inputValue })
+      .post(`${url}/api/products/sections/create`, { section_name: inputValue })
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -170,9 +171,12 @@ export function SectionsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .put(`${url}/products/sections/update/${selectedData[0].section_id}`, {
-        section_name: inputValue,
-      })
+      .put(
+        `${url}/api/products/sections/update/${selectedData[0].section_id}`,
+        {
+          section_name: inputValue,
+        }
+      )
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -194,7 +198,7 @@ export function SectionsTable() {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.section_id);
       await axios
-        .delete(`${url}/products/sections/delete`, {
+        .delete(`${url}/api/products/sections/delete`, {
           data: ids,
         })
         .then((res) => {

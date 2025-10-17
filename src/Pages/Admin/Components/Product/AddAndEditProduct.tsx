@@ -37,6 +37,7 @@ import {
 } from "@/types/Types";
 import { Textarea } from "@/components/ui/textarea";
 import ItemSelections from "../ItemSelections/ItemSelections";
+import { API_BASE_URL } from "@/api/config";
 
 interface IAddProductProps {
   setActionName: React.Dispatch<React.SetStateAction<string>>;
@@ -59,7 +60,7 @@ const AddAndEditProduct = ({
   setSelectedData,
   catalogData,
 }: IAddProductProps) => {
-  const VITE_API_URL = import.meta.env.VITE_API_URL;
+  const VITE_API_URL = API_BASE_URL;
   const { setChangeState } = useAdminContext();
   const [isLoading, setIsLoading] = useState(false);
   // product_id, title, categories, collection,  prices, sizes, colors,  material, edition,  offer,  features, img,  images, stock_quantity, rating,  description, tags, visibility, is_available_product, is_featured_product,  created_at, updated_at,
@@ -192,10 +193,10 @@ const AddAndEditProduct = ({
       // Use PUT if editing a product
       const res = isEditMode
         ? await axios.put(
-            `${VITE_API_URL}/products/update/${selectedData[0].product_id}`,
+            `${VITE_API_URL}/api/products/update/${selectedData[0].product_id}`,
             data
           )
-        : await axios.post(`${VITE_API_URL}/products/create`, data);
+        : await axios.post(`${VITE_API_URL}/api/products/create`, data);
       console.log(res, "res");
       if (res.status === 200) {
         toast(`${res.data.message}`);

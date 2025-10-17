@@ -13,9 +13,10 @@ import { Minus, Plus, ShoppingCart, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/api/config";
 
 const ProductDetails = () => {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const params = useParams().product_id;
   const [isLoading, setIsLoading] = useState(false);
   const [productData, setProductData] = useState<Product | null>(null);
@@ -23,7 +24,7 @@ const ProductDetails = () => {
     (async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/unique/${params}`);
+        const res = await axios.get(`${url}/api/products/unique/${params}`);
         console.log(res, "adasd");
         if (res) {
           setProductData(res.data);

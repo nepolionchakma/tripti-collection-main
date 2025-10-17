@@ -41,6 +41,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Color } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Color[]>>
 ): ColumnDef<Color>[] => [
@@ -96,7 +97,7 @@ export const columns = (
   },
 ];
 export function ColorsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Color[]>([]);
   const [data, setData] = React.useState<Color[]>([]);
   const [actionName, setActionName] = React.useState("");
@@ -133,7 +134,7 @@ export function ColorsTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/colors`);
+        const res = await axios.get(`${url}/api/products/colors`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -148,7 +149,7 @@ export function ColorsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/colors/create`, { color_name: inputValue })
+      .post(`${url}/api/products/colors/create`, { color_name: inputValue })
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -169,7 +170,7 @@ export function ColorsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .put(`${url}/products/colors/update/${selectedData[0].color_id}`, {
+      .put(`${url}/api/products/colors/update/${selectedData[0].color_id}`, {
         color_name: inputValue,
       })
       .then((res) => {
@@ -193,7 +194,7 @@ export function ColorsTable() {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.color_id);
       await axios
-        .delete(`${url}/products/colors/delete`, {
+        .delete(`${url}/api/products/colors/delete`, {
           data: ids,
         })
         .then((res) => {

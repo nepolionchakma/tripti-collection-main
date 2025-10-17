@@ -10,6 +10,7 @@ import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { redirect } from "react-router";
 import { AdminContextProvider } from "../../Pages/Admin/Contexts/Admin/AdminContext";
+import { API_BASE_URL } from "@/api/config";
 
 interface ShopContextProps {
   children: ReactNode;
@@ -42,7 +43,7 @@ export const useShopContext = () => {
 };
 
 export const ShopContextProvider = ({ children }: ShopContextProps) => {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
 
   const [selectedItem, setSelectedItem] = useState<Product>();
   const [count, setCount] = useState<number>(1);
@@ -70,7 +71,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     const fetchUser = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/auth/me`, {
+        const res = await axios.get(`${url}/api/auth/me`, {
           withCredentials: true,
         });
 
@@ -92,7 +93,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   useEffect(() => {
     (async () => {
       // Products fetch
-      const res2 = await axios.get(`${url}/products`, {
+      const res2 = await axios.get(`${url}/api/products`, {
         withCredentials: true,
       });
       console.log(res2.data, "res2.data");
@@ -153,7 +154,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
 
   const logout = async () => {
     try {
-      const res = await axios.get(`${url}/auth/logout`, {
+      const res = await axios.get(`${url}/api/auth/logout`, {
         withCredentials: true,
       });
       if (res.status === 200) {

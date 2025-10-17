@@ -41,6 +41,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Feature } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Feature[]>>
 ): ColumnDef<Feature>[] => [
@@ -96,7 +97,7 @@ export const columns = (
   },
 ];
 export function FeaturesTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Feature[]>([]);
   const [data, setData] = React.useState<Feature[]>([]);
   const [actionName, setActionName] = React.useState("");
@@ -133,7 +134,7 @@ export function FeaturesTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/features`);
+        const res = await axios.get(`${url}/api/products/features`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -148,7 +149,7 @@ export function FeaturesTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/features/create`, { feature_name: inputValue })
+      .post(`${url}/api/products/features/create`, { feature_name: inputValue })
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -169,9 +170,12 @@ export function FeaturesTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .put(`${url}/products/features/update/${selectedData[0].feature_id}`, {
-        feature_name: inputValue,
-      })
+      .put(
+        `${url}/api/products/features/update/${selectedData[0].feature_id}`,
+        {
+          feature_name: inputValue,
+        }
+      )
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -193,7 +197,7 @@ export function FeaturesTable() {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.feature_id);
       await axios
-        .delete(`${url}/products/features/delete`, {
+        .delete(`${url}/api/products/features/delete`, {
           data: ids,
         })
         .then((res) => {

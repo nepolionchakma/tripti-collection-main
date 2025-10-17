@@ -41,6 +41,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Material } from "@/types/Types";
+import { API_BASE_URL } from "@/api/config";
 
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Material[]>>
@@ -97,7 +98,7 @@ export const columns = (
   },
 ];
 export function MaterialsTable() {
-  const url = import.meta.env.VITE_API_URL;
+  const url = API_BASE_URL;
   const [selectedData, setSelectedData] = React.useState<Material[]>([]);
   const [data, setData] = React.useState<Material[]>([]);
   const [actionName, setActionName] = React.useState("");
@@ -134,7 +135,7 @@ export function MaterialsTable() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${url}/products/materials`);
+        const res = await axios.get(`${url}/api/products/materials`);
         setData(res.data);
       } catch (error) {
         console.log(error);
@@ -149,7 +150,9 @@ export function MaterialsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .post(`${url}/products/materials/create`, { material_name: inputValue })
+      .post(`${url}/api/products/materials/create`, {
+        material_name: inputValue,
+      })
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -170,9 +173,12 @@ export function MaterialsTable() {
     e.preventDefault();
     setIsLoading(true);
     await axios
-      .put(`${url}/products/materials/update/${selectedData[0].material_id}`, {
-        material_name: inputValue,
-      })
+      .put(
+        `${url}/api/products/materials/update/${selectedData[0].material_id}`,
+        {
+          material_name: inputValue,
+        }
+      )
       .then((res) => {
         toast(res.data.message);
         setActionName("");
@@ -194,7 +200,7 @@ export function MaterialsTable() {
       setIsLoading(true);
       const ids = selectedData.map((item) => item.material_id);
       await axios
-        .delete(`${url}/products/materials/delete`, {
+        .delete(`${url}/api/products/materials/delete`, {
           data: ids,
         })
         .then((res) => {
