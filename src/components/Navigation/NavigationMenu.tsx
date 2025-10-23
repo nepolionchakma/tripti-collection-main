@@ -27,9 +27,10 @@ import { IUser } from "@/types/Types";
 
 const Navigation = () => {
   const { cart, wishlist, user, logout } = useShopContext();
-  const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalCart = cart.length;
+  // const totalCart = cart.reduce((acc, item) => acc + item.quantity, 0);
   const searchParams = useLocation();
-
+  console.log("cart", cart);
   const navMenus = [
     {
       name: "Home",
@@ -120,10 +121,12 @@ const Navigation = () => {
               </PopoverContent>
             </Popover>
           </div>
-          <Avatar>
-            <AvatarImage src={Logo} className="w-5" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <Link to="/">
+            <Avatar>
+              <AvatarImage src={Logo} className="w-5" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </Link>
         </div>
         <div className="uppercase md:flex lg:*:flex gap-4 hidden">
           {navMenus.map((menu) => (

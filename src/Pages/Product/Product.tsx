@@ -20,6 +20,7 @@ const ProductDetails = () => {
   const params = useParams().product_id;
   const [isLoading, setIsLoading] = useState(false);
   const [productData, setProductData] = useState<Product | null>(null);
+  const { user } = useShopContext();
   useEffect(() => {
     (async () => {
       try {
@@ -59,20 +60,46 @@ const ProductDetails = () => {
     setSize(size);
   };
   const handleAddToCart = () => {
+    if (!productData) return;
     const cartItems = {
-      product: productData,
+      user_id: user?.id,
+      product_id: productData?.product_id,
+      title: productData?.title,
       quantity: count,
-      sizes: size,
+      price: productData?.prices.new_price * count,
+      sizes: [{ size_name: size, quantity: count }],
+      image: productData?.images[0],
     };
-    setCart([...cart, cartItems]);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    const newCart = cart.some(
+      (item) =>
+        item.product_id === cartItems.product_id && item.user_id === user?.id
+    )
+      ? cart.map((item) => {
+          const quantity = item.quantity + count;
+          const price = productData?.prices.new_price * quantity;
+          const sizes = item.sizes.some((s) => s.size_name === size)
+            ? item.sizes
+            : [...item.sizes, { size_name: size, quantity: count }];
+          return item.product_id === cartItems.product_id &&
+            item.user_id === user?.id
+            ? {
+                ...item,
+                quantity,
+                price,
+                sizes,
+              }
+            : item;
+        })
+      : [...cart, cartItems];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
     toast("Add cart successfully");
   };
   console.log(params, "params");
   return (
     <>
       {isLoading ? (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-[calc(90vh)]">
           <Spinner size="100" color="orange" speed="1.75" />
         </div>
       ) : (
@@ -102,7 +129,7 @@ const ProductDetails = () => {
                 <div className="flex gap-3 items-center">
                   {productData?.prices.new_price && (
                     <p className="text-amber-500 font-semibold">
-                      ${productData.prices.new_price}
+                      ${productData?.prices.new_price}
                     </p>
                   )}
                   <p
@@ -191,9 +218,9 @@ const ProductDetails = () => {
                     disabled={productData?.sizes && !size}
                     className={`${
                       productData?.sizes && size.length === 0
-                        ? "cursor-not-allowed"
-                        : "cursor-pointer"
-                    } flex items-center justify-center gap-2 border px-3 py-1 rounded-full  bg-amber-200 hover:bg-amber-300 hover:shadow duration-300`}
+                        ? "cursor-not-allowed bg-amber-100"
+                        : "cursor-pointer bg-amber-300 hover:bg-amber-300/80 hover:shadow"
+                    } flex items-center justify-center gap-2 border px-3 py-1 rounded-full duration-300`}
                     onClick={handleAddToCart}
                   >
                     <p>Add to Cart</p>
@@ -206,7 +233,7 @@ const ProductDetails = () => {
                 <h3>
                   Category:{" "}
                   <span className="text-slate-500">
-                    {productData?.categories}
+                    {productData?.categories.join(", ")}
                   </span>
                 </h3>
               </div>
