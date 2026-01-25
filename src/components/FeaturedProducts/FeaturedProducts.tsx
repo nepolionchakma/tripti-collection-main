@@ -95,7 +95,7 @@ const FeaturedProducts = () => {
         </CarouselContent>
       </Carousel>
       {selectedItem && (
-        <CustomModal w="sm:w-5/6 md:w-5/6" h="sm:h-6/7 md:h-6/7">
+        <CustomModal w="w-10/12 sm:w-5/6 md:w-5/6">
           <CustomModalDetails />
         </CustomModal>
       )}
