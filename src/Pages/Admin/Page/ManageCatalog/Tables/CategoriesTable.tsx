@@ -342,7 +342,7 @@ export function CategoriesTable() {
           </AlertDialog>
         </div>
       </div>
-      <div className="rounded-md border overflow-auto scrollbar-thin no-x-scroll">
+      <div className="rounded-md border max-h-[calc(35.2vh)] overflow-y-auto scrollbar-thin">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

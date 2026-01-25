@@ -35,31 +35,37 @@ const ProductCard = ({ item }: ProductCardProps) => {
       </button> */}
         </div>
       </figure>
-      <div className="flex justify-between gap-2 w-full">
-        <div className="flex flex-col gap-1">
-          <h3 className="font-semibold"> {item.title}</h3>
-          <div className="flex gap-3 items-center">
-            {item.prices.new_price && (
-              <p className="text-amber-500 font-semibold">
-                ${item.prices.new_price}
+      <div className="gap-2 w-full">
+        <h3 className="font-semibold">
+          {item.title.length > 20
+            ? item.title.slice(0, 20) + "..."
+            : item.title}
+        </h3>
+        <div className="flex justify-between ">
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-3 items-center">
+              {item.prices.new_price && (
+                <p className="text-amber-500 font-semibold">
+                  ${item.prices.new_price}
+                </p>
+              )}
+              <p
+                className={`${
+                  item.prices.new_price
+                    ? "line-through text-slate-500 text-[11px]"
+                    : ""
+                }`}
+              >
+                ${item.prices.original_price}
               </p>
-            )}
-            <p
-              className={`${
-                item.prices.new_price
-                  ? "line-through text-slate-500 text-[11px]"
-                  : ""
-              }`}
-            >
-              ${item.prices.original_price}
-            </p>
+            </div>
+            <p className="text-sm text-slate-400">{item.categories}</p>
           </div>
-          <p className="text-sm text-slate-400">{item.categories}</p>
-        </div>
-        <div className="flex items-end">
-          <button className="bg-amber-200 p-2 rounded-full">
-            <ShoppingCart size={15} />
-          </button>
+          <div className="flex flex-col items-end justify-end">
+            <button className="bg-amber-200 p-2 rounded-full">
+              <ShoppingCart size={15} />
+            </button>
+          </div>
         </div>
       </div>
     </NavLink>

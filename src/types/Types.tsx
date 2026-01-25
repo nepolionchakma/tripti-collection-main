@@ -56,10 +56,18 @@ interface Rating {
   total_reviews: number;
   average_rating: number;
 }
-export interface CartProduct {
-  product: Product | undefined | null;
+interface SizesWithQuantity {
+  size_name: string;
   quantity: number;
-  sizes?: string;
+}
+export interface CartProduct {
+  user_id: number | undefined;
+  product_id: number | undefined;
+  title: string | undefined;
+  price: number | undefined;
+  quantity: number;
+  sizes: SizesWithQuantity[];
+  image: string | undefined;
 }
 export interface IUser {
   id: number;

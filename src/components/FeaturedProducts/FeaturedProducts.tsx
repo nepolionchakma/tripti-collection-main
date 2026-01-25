@@ -57,7 +57,12 @@ const FeaturedProducts = () => {
                 </figure>
                 <div className="flex justify-between gap-2 w-full">
                   <div className="flex flex-col gap-1">
-                    <h3 className="font-semibold"> {item.title}</h3>
+                    <h3 className="font-semibold">
+                      {" "}
+                      {item.title.length > 20
+                        ? item.title.slice(0, 20) + "..."
+                        : item.title}
+                    </h3>
                     <div className="flex gap-3 items-center">
                       {item.prices.new_price && (
                         <p className="text-amber-500 font-semibold">

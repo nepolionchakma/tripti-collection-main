@@ -20,6 +20,7 @@ const CustomModalDetails = () => {
     setCart,
     wishlist,
     setWishlist,
+    user,
   } = useShopContext();
   const [size, setSize] = useState<string>("");
   console.log(cart, "cart");
@@ -42,13 +43,39 @@ const CustomModalDetails = () => {
     setSize(size);
   };
   const handleAddToCart = () => {
+    if (!selectedItem) return;
     const cartItems = {
-      product: selectedItem,
+      user_id: user?.id,
+      product_id: selectedItem.product_id,
+      title: selectedItem.title,
       quantity: count,
-      sizes: size,
+      price: selectedItem.prices.new_price * count,
+      sizes: [{ size_name: size, quantity: count }],
+      image: selectedItem.images[0],
     };
-    setCart([...cart, cartItems]);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    const newCart = cart.some(
+      (item) =>
+        item.product_id === cartItems.product_id && item.user_id === user?.id
+    )
+      ? cart.map((item) => {
+          const quantity = item.quantity + count;
+          const price = selectedItem?.prices.new_price * quantity;
+          const sizes = item.sizes.some((s) => s.size_name === size)
+            ? item.sizes
+            : [...item.sizes, { size_name: size, quantity: count }];
+          return item.product_id === cartItems.product_id &&
+            item.user_id === user?.id
+            ? {
+                ...item,
+                quantity,
+                price,
+                sizes,
+              }
+            : item;
+        })
+      : [...cart, cartItems];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
     toast("Add cart successfully");
   };
   return (
@@ -174,9 +201,9 @@ const CustomModalDetails = () => {
                 disabled={selectedItem?.sizes && !size}
                 className={`${
                   selectedItem?.sizes && size.length === 0
-                    ? "cursor-not-allowed"
-                    : "cursor-pointer"
-                } flex items-center justify-center gap-2 border px-3 py-1 rounded-full  bg-amber-200 hover:bg-amber-300 hover:shadow duration-300`}
+                    ? "cursor-not-allowed bg-amber-100"
+                    : "cursor-pointer bg-amber-300 hover:bg-amber-300/80 hover:shadow"
+                } flex items-center justify-center gap-2 border px-3 py-1 rounded-full duration-300`}
                 onClick={handleAddToCart}
               >
                 <p>Add to Cart</p>
