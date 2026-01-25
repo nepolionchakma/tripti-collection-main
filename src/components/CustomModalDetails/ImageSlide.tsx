@@ -15,7 +15,7 @@ const ImageSlide = () => {
       <div className="flex items-center justify-center">
         <img src={img} alt="Selected Image" className="w-64 md:w-72 lg:w-80" />
       </div>
-      <Carousel className="px-4 ">
+      <Carousel className="px-4">
         <CarouselContent className="px-8 py-4">
           {selectedItem?.images.map((img, index) => (
             <CarouselItem
