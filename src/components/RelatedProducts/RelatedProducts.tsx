@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
 import axios from "axios";
 import { API_BASE_URL } from "@/api/config";
 import { Product } from "@/types/Types";
-import { Star } from "lucide-react";
 import ProductCard from "../ProductCard/ProductCard";
 
 interface RelatedProductsProps {
@@ -57,15 +55,21 @@ const RelatedProducts = ({
     );
   }
 
-  if (relatedProducts.length === 0) {
-    return null; // Don't show anything if no related products found
-  }
+  // if (relatedProducts.length === 0) {
+  //   return null; // Don't show anything if no related products found
+  // }
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-      {relatedProducts.map((product) => {
-        return <ProductCard key={product.product_id} item={product} />;
-      })}
+      {relatedProducts.length > 0 ? (
+        relatedProducts.map((product) => {
+          return <ProductCard key={product.product_id} item={product} />;
+        })
+      ) : (
+        <div className="col-span-full text-center py-8">
+          No related products found
+        </div>
+      )}
     </div>
   );
 };

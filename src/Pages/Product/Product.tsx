@@ -15,6 +15,7 @@ import { useParams } from "react-router";
 import { toast } from "sonner";
 import { API_BASE_URL } from "@/api/config";
 import RelatedProducts from "@/components/RelatedProducts/RelatedProducts";
+import Comments from "@/components/Comments/Comments";
 
 const ProductDetails = () => {
   const url = API_BASE_URL;
@@ -239,13 +240,19 @@ const ProductDetails = () => {
           </div>
           {/* Related Products */}
           <div className="mt-12">
-            <h3 className="text-2xl font-bold mb-6">You May Also Like</h3>
+            <h3 className="text-2xl font-bold mb-6 border-b-1 border-slate-200">
+              You May Also Like
+            </h3>
             {productData && (
               <RelatedProducts
                 currentProductId={productData.product_id}
                 categories={productData.categories}
               />
             )}
+          </div>
+          {/* Comments Section */}
+          <div className="mt-12">
+            <Comments currentUser={user || null} />
           </div>
         </div>
       )}

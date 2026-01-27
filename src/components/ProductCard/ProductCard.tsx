@@ -59,7 +59,9 @@ const ProductCard = ({ item }: ProductCardProps) => {
                 ${item.prices.original_price}
               </p>
             </div>
-            <p className="text-sm text-slate-400">{item.categories}</p>
+            <p className="text-sm text-slate-400">
+              {item.categories.join(", ")}
+            </p>
           </div>
           <div className="flex flex-col items-end justify-end">
             <button className="bg-amber-200 p-2 rounded-full">
