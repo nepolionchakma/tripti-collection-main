@@ -6,7 +6,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useShopContext } from "@/context/Global/GlobalContext";
 const Categories = () => {
+  const { categories } = useShopContext();
+
   return (
     <div className="bg-amber-50 px-4 py-8">
       <Carousel

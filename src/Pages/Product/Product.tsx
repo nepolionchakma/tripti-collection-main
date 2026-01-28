@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 import { API_BASE_URL } from "@/api/config";
+import RelatedProducts from "@/components/RelatedProducts/RelatedProducts";
+import Comments from "@/components/Comments/Comments";
 
 const ProductDetails = () => {
   const url = API_BASE_URL;
@@ -72,7 +74,7 @@ const ProductDetails = () => {
     };
     const newCart = cart.some(
       (item) =>
-        item.product_id === cartItems.product_id && item.user_id === user?.id
+        item.product_id === cartItems.product_id && item.user_id === user?.id,
     )
       ? cart.map((item) => {
           const quantity = item.quantity + count;
@@ -97,15 +99,15 @@ const ProductDetails = () => {
   };
   console.log(params, "params");
   return (
-    <>
+    <div className="min-h-screen">
       {isLoading ? (
         <div className="flex items-center justify-center h-[calc(90vh)]">
           <Spinner size="100" color="orange" speed="1.75" />
         </div>
       ) : (
         <div className="p-2">
-          <div className="grid grid-cols-2">
-            <div className="col-span-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 scrollbar-thin p-4">
+            <div className="col-span-1  p-2">
               <ImageSlide data={productData!} />
             </div>
             <div className="col-span-1 flex flex-col gap-2">
@@ -145,13 +147,10 @@ const ProductDetails = () => {
                 {/* <p className="text-sm text-slate-400">{productData?.category}</p> */}
               </div>
               <hr />
-              <div>
-                <h3 className="text-lg font-semibold">Description</h3>
+              <h3 className="text-lg font-semibold">Description</h3>
+              <div className="h-[230px] overflow-auto scrollbar-thin">
                 <p className="sm:block">
                   {productData?.description.slice(0, 100)}
-                </p>
-                <p className="sm:block hidden">
-                  {productData?.description.slice(0, 200)}
                 </p>
                 <TooltipProvider>
                   <Tooltip>
@@ -164,7 +163,7 @@ const ProductDetails = () => {
                         </span>
                       </>
                     </TooltipTrigger>
-                    <TooltipContent className="w-80">
+                    <TooltipContent className="w-80 overflow-auto">
                       <p>{productData?.description}</p>
                     </TooltipContent>
                   </Tooltip>
@@ -213,7 +212,7 @@ const ProductDetails = () => {
                       ))}
                   </div>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-center md:justify-start items-center">
                   <button
                     disabled={productData?.sizes && !size}
                     className={`${
@@ -239,9 +238,25 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
+          {/* Related Products */}
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold mb-6 border-b-1 border-slate-200">
+              You May Also Like
+            </h3>
+            {productData && (
+              <RelatedProducts
+                currentProductId={productData.product_id}
+                categories={productData.categories}
+              />
+            )}
+          </div>
+          {/* Comments Section */}
+          <div className="mt-12">
+            <Comments currentUser={user || null} />
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default ProductDetails;

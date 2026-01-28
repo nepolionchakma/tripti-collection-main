@@ -28,25 +28,23 @@ const SidebarMenu = () => {
         transitionDuration={1000}
         className="
         h-[calc(100vh-3.1rem)]
-        text-[14px] "
+        text-[14px]"
       >
         <Menu>
-          <Menu>
-            {menuData.map((item) => (
-              <MenuItem
-                key={item.id}
-                component={<Link to={item.path}>{item.title}</Link>}
-                icon={item.icon}
-                className={`${
-                  item.path === searchParams.pathname
-                    ? "bg-amber-400 text-white font-bold"
-                    : " "
-                }`}
-              >
-                {item.title}
-              </MenuItem>
-            ))}
-          </Menu>
+          {menuData.map((item) => (
+            <MenuItem
+              key={item.id}
+              component={<Link to={item.path}>{item.title}</Link>}
+              icon={item.icon}
+              className={`${
+                item.path === searchParams.pathname
+                  ? "bg-amber-400 text-white font-bold"
+                  : " "
+              }`}
+            >
+              {item.title}
+            </MenuItem>
+          ))}
         </Menu>
       </Sidebar>
     </div>

@@ -23,7 +23,6 @@ const CustomModalDetails = () => {
     user,
   } = useShopContext();
   const [size, setSize] = useState<string>("");
-  console.log(cart, "cart");
   const handleAddWishlist = () => {
     if (selectedItem) {
       setWishlist((prev) => {
@@ -55,7 +54,7 @@ const CustomModalDetails = () => {
     };
     const newCart = cart.some(
       (item) =>
-        item.product_id === cartItems.product_id && item.user_id === user?.id
+        item.product_id === cartItems.product_id && item.user_id === user?.id,
     )
       ? cart.map((item) => {
           const quantity = item.quantity + count;
@@ -79,8 +78,8 @@ const CustomModalDetails = () => {
     toast("Add cart successfully");
   };
   return (
-    <div className="p-2">
-      <div className="flex flex-row-reverse items-center gap-2 rounded-md">
+    <div className="pb-4 md:pb-0">
+      <div className="flex flex-row-reverse items-center gap-2 rounded-md p-4 pb-0">
         <X
           size={19}
           onClick={() => setSelectedItem(undefined)}
@@ -97,8 +96,8 @@ const CustomModalDetails = () => {
           <Star size={15} className="cursor-pointer" />
         </div>
       </div>
-      <div className="grid grid-cols-2">
-        <div className="col-span-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 overflow-y-auto h-[72vh] scrollbar-thin p-4">
+        <div className="col-span-1 p-2">
           <ImageSlide />
         </div>
         <div className="col-span-1 flex flex-col gap-2">
@@ -128,13 +127,10 @@ const CustomModalDetails = () => {
             {/* <p className="text-sm text-slate-400">{selectedItem?.category}</p> */}
           </div>
           <hr />
-          <div>
-            <h3 className="text-lg font-semibold">Description</h3>
+          <h3 className="text-lg font-semibold">Description</h3>
+          <div className="h-[230px] overflow-auto scrollbar-thin">
             <p className="sm:block">
               {selectedItem?.description.slice(0, 100)}
-            </p>
-            <p className="sm:block hidden">
-              {selectedItem?.description.slice(0, 200)}
             </p>
             <TooltipProvider>
               <Tooltip>
@@ -147,7 +143,7 @@ const CustomModalDetails = () => {
                     </span>
                   </>
                 </TooltipTrigger>
-                <TooltipContent className="w-80">
+                <TooltipContent className="w-80 overflow-auto">
                   <p>{selectedItem?.description}</p>
                 </TooltipContent>
               </Tooltip>
@@ -196,7 +192,7 @@ const CustomModalDetails = () => {
                   ))}
               </div>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-center md:justify-start items-center">
               <button
                 disabled={selectedItem?.sizes && !size}
                 className={`${
@@ -215,7 +211,9 @@ const CustomModalDetails = () => {
           <div>
             <h3>
               Category:{" "}
-              <span className="text-slate-500">{selectedItem?.categories}</span>
+              <span className="text-slate-500">
+                {selectedItem?.categories?.join(", ")}
+              </span>
             </h3>
           </div>
         </div>

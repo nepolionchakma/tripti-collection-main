@@ -17,8 +17,8 @@ const Layout = () => {
           <div
             className={
               isSidebarOpen
-                ? "w-[calc(54vw)] min-h-[calc(100vh-4rem)] duration-1000"
-                : "w-[calc(65.1vw)] min-h-[calc(100vh-4rem)] duration-1000"
+                ? "w-[calc(67.5vw)] min-h-[calc(100vh-4rem)] duration-1000"
+                : "w-[calc(82vw)] min-h-[calc(100vh-4rem)] duration-1000"
             }
           >
             <Outlet />
