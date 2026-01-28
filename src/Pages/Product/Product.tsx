@@ -11,7 +11,7 @@ import { Product } from "@/types/Types";
 import axios from "axios";
 import { Minus, Plus, ShoppingCart, Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import { toast } from "sonner";
 import { API_BASE_URL } from "@/api/config";
 import RelatedProducts from "@/components/RelatedProducts/RelatedProducts";
@@ -124,9 +124,6 @@ const ProductDetails = () => {
                   >
                     <Star size={15} className="cursor-pointer" />
                   </div>
-                  <p className="text-amber-600 text-[10px]">
-                    {productData?.is_available_product && "In Stock"}
-                  </p>
                 </div>
                 <div className="flex gap-3 items-center">
                   {productData?.prices.new_price && (
@@ -144,6 +141,13 @@ const ProductDetails = () => {
                     ${productData?.prices.original_price}
                   </p>
                 </div>
+                <p
+                  className={`text-[15px] inline-block px-1   ${productData?.is_available_product ? "bg-amber-400 text-white" : "bg-red-200 text-red-600"}`}
+                >
+                  {productData?.is_available_product
+                    ? "In Stock"
+                    : "Out of Stock"}
+                </p>
                 {/* <p className="text-sm text-slate-400">{productData?.category}</p> */}
               </div>
               <hr />
@@ -232,7 +236,14 @@ const ProductDetails = () => {
                 <h3>
                   Category:{" "}
                   <span className="text-slate-500">
-                    {productData?.categories.join(", ")}
+                    {productData?.categories.map((cat, index) => {
+                      return (
+                        <NavLink to={`/categories/${cat}`} key={cat}>
+                          {cat}
+                          {index < productData?.categories.length - 1 && ", "}
+                        </NavLink>
+                      );
+                    })}
                   </span>
                 </h3>
               </div>

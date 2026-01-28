@@ -43,7 +43,7 @@ import Spinner from "@/components/Spinner/Spinner";
 import { Category } from "@/types/Types";
 import { API_BASE_URL } from "@/api/config";
 export const columns = (
-  setSelectedData: React.Dispatch<React.SetStateAction<Category[]>>
+  setSelectedData: React.Dispatch<React.SetStateAction<Category[]>>,
 ): ColumnDef<Category>[] => [
   {
     id: "select",
@@ -75,7 +75,7 @@ export const columns = (
           setSelectedData((prev) => {
             if (prev.includes(row.original)) {
               return prev.filter(
-                (item) => item.category_id !== row.original.category_id
+                (item) => item.category_id !== row.original.category_id,
               );
             } else {
               return [...prev, row.original];
@@ -103,10 +103,11 @@ export function CategoriesTable() {
   const [actionName, setActionName] = React.useState("");
   const [changeState, setChangeState] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState("");
+  const [categoryName, setCategoryName] = React.useState("");
+  const [categoryImage, setCategoryImage] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -150,7 +151,8 @@ export function CategoriesTable() {
     setIsLoading(true);
     await axios
       .post(`${url}/api/products/categories/create`, {
-        category_name: inputValue,
+        category_name: categoryName,
+        category_image: categoryImage,
       })
       .then((res) => {
         toast(res.data.message);
@@ -162,7 +164,8 @@ export function CategoriesTable() {
         toast(err.response.data.message);
       })
       .finally(() => {
-        setInputValue("");
+        setCategoryName("");
+        setCategoryImage("");
         setIsLoading(false);
         setChangeState(() => Math.random() + 1000 * 100);
       });
@@ -175,8 +178,9 @@ export function CategoriesTable() {
       .put(
         `${url}/api/products/categories/update/${selectedData[0].category_id}`,
         {
-          category_name: inputValue,
-        }
+          category_name: categoryName,
+          category_image: categoryImage,
+        },
       )
       .then((res) => {
         toast(res.data.message);
@@ -188,7 +192,8 @@ export function CategoriesTable() {
         toast(err.response.data.message);
       })
       .finally(() => {
-        setInputValue("");
+        setCategoryName("");
+        setCategoryImage("");
         setIsLoading(false);
         setChangeState(() => Math.random() + 1000 * 100);
       });
@@ -212,7 +217,8 @@ export function CategoriesTable() {
           toast(err.response.data.message);
         })
         .finally(() => {
-          setInputValue("");
+          setCategoryName("");
+          setCategoryImage("");
           setIsLoading(false);
           setChangeState(() => Math.random() + 1000 * 100);
         });
@@ -222,7 +228,8 @@ export function CategoriesTable() {
   };
   const handleCloseModal = () => {
     setActionName("");
-    setInputValue("");
+    setCategoryName("");
+    setCategoryImage("");
     // setSelectedData([]);
     // table.toggleAllPageRowsSelected(false);
   };
@@ -243,8 +250,14 @@ export function CategoriesTable() {
             <Input
               autoFocus
               placeholder="Category Name"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={categoryName}
+              onChange={(e) => setCategoryName(e.target.value)}
+            />
+            <Input
+              autoFocus
+              placeholder="Category Image"
+              value={categoryImage}
+              onChange={(e) => setCategoryImage(e.target.value)}
             />
             <Button
               type="submit"
@@ -270,8 +283,14 @@ export function CategoriesTable() {
               <Input
                 autoFocus
                 placeholder="Category Name"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
+              />
+              <Input
+                autoFocus
+                placeholder="Category Image"
+                value={categoryImage}
+                onChange={(e) => setCategoryImage(e.target.value)}
               />
               <Button
                 type="submit"
@@ -297,7 +316,7 @@ export function CategoriesTable() {
             <Edit
               onClick={() => {
                 setActionName("edit");
-                setInputValue(selectedData[0].category_name);
+                setCategoryName(selectedData[0].category_name);
               }}
               className={`${
                 selectedData.length !== 1
@@ -354,7 +373,7 @@ export function CategoriesTable() {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -381,7 +400,7 @@ export function CategoriesTable() {
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}

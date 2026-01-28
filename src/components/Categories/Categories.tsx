@@ -1,4 +1,3 @@
-import CategoryItems from "../../JSON/Categories.json";
 import {
   Carousel,
   CarouselContent,
@@ -7,6 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useShopContext } from "@/context/Global/GlobalContext";
+import { NavLink } from "react-router";
 const Categories = () => {
   const { categories } = useShopContext();
 
@@ -26,20 +26,26 @@ const Categories = () => {
         </div>
 
         <CarouselContent>
-          {CategoryItems.map((item, index) => (
+          {categories.map((item, index) => (
             <CarouselItem
               key={index}
-              className="basis-1/3 md:basis-1/5 lg:basis-1/6 p-3"
+              className="basis-1/3 md:basis-1/5 lg:basis-1/9 p-3 hover:scale-105 transition-transform duration-200 first:ml-4 last:mr-4 relative"
             >
-              <div>
+              <NavLink to={`/categories/${item.category_name}`}>
                 <div
-                  key={item.id}
-                  className="bg-amber-200 p-2 rounded flex flex-col items-center justify-center"
+                  key={item.category_id}
+                  className="group bg-amber-200 p-2 rounded flex flex-col items-center justify-center"
                 >
-                  <h1>{item.category}</h1>
-                  <img src={item.img} alt="Image" className="w-20 h-20" />
+                  <h1 className="font-bold absolute bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    {item.category_name}
+                  </h1>
+                  <img
+                    src={item.category_image}
+                    alt="Image"
+                    className="w-20 h-20 p-2 bg-amber-400"
+                  />
                 </div>
-              </div>
+              </NavLink>
             </CarouselItem>
           ))}
         </CarouselContent>

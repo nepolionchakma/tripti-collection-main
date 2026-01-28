@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IUser } from "../../types/Types";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 // Define the Comment interface
 export interface Comment {
@@ -24,7 +25,6 @@ interface CommentsProps {
 
 const Comments: React.FC<CommentsProps> = ({
   currentUser,
-  productId,
   initialComments = [],
 }) => {
   const [comments, setComments] = useState<Comment[]>(initialComments);
@@ -160,11 +160,13 @@ const Comments: React.FC<CommentsProps> = ({
     >
       <div className="flex items-start">
         <div className="flex-shrink-0 mr-3">
-          <img
-            className="h-10 w-10 rounded-full object-cover"
-            src={comment.user.avatar || "/default-avatar.png"}
-            alt={comment.user.name}
-          />
+          <Avatar className="w-8 h-8 bg-white">
+            <AvatarImage src={comment.user.avatar || "/default-avatar.png"} />
+            <AvatarFallback>
+              {comment.user.name.slice(0, 1)}
+              {/* {comment.user.last_name.slice(0, 1)} */}
+            </AvatarFallback>
+          </Avatar>
         </div>
         <div className="flex-1">
           <div className="bg-white p-3 rounded-lg shadow-sm">
@@ -260,17 +262,20 @@ const Comments: React.FC<CommentsProps> = ({
       {currentUser ? (
         <form onSubmit={handleAddComment} className="mb-8">
           <div className="flex items-start">
-            <img
-              className="h-10 w-10 rounded-full object-cover mr-3"
-              src={currentUser.picture || "/default-avatar.png"}
-              alt={currentUser.first_name}
-            />
+            <Avatar className="w-7 h-7 mr-2 bg-white">
+              <AvatarImage src={currentUser.picture || "/default-avatar.png"} />
+              <AvatarFallback>
+                {currentUser.first_name.slice(0, 1)}
+                {currentUser.last_name.slice(0, 1)}
+              </AvatarFallback>
+            </Avatar>
+
             <div className="flex-1">
               <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Add a comment..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-[90%] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 rows={3}
               />
               <div className="mt-2 flex justify-end">
