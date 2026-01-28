@@ -203,7 +203,7 @@ const Navigation = () => {
                           <span className="inline-block">{menu.icon}</span>
                           <span>{menu.name}</span>
                         </Link>
-                      ))
+                      )),
                   )}
                 </div>
               </PopoverContent>

@@ -1,4 +1,10 @@
-import { CartProduct, IUser, Product, Collection } from "@/types/Types";
+import {
+  CartProduct,
+  IUser,
+  Product,
+  Collection,
+  Category,
+} from "@/types/Types";
 import {
   createContext,
   ReactNode,
@@ -33,6 +39,7 @@ interface ShopContextType {
   featuredProducts: Product[];
   recentlyAddedProducts: Product[];
   collections: Collection[];
+  categories: Category[];
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -50,20 +57,21 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
   const [cart, setCart] = useState<CartProduct[]>(
     localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart") || "")
-      : []
+      : [],
   );
   const [wishlist, setWishlist] = useState<Product[]>(
     localStorage.getItem("wishlist")
       ? JSON.parse(localStorage.getItem("wishlist") || "")
-      : []
+      : [],
   );
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [heroProducts, setHeroProducts] = useState<Product[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [recentlyAddedProducts, setRecentlyAddedProducts] = useState<Product[]>(
-    []
+    [],
   );
   const [collections, setCollections] = useState<Collection[]>([]);
 
@@ -101,23 +109,23 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         setProducts(res2.data ?? []);
         setHeroProducts(
           res2.data.filter((p: Product) =>
-            p.sections.map((c) => c.toUpperCase()).includes("HERO")
-          )
+            p.sections.map((c) => c.toUpperCase()).includes("HERO"),
+          ),
         );
         setFeaturedProducts(
           res2.data.filter((p: Product) =>
-            p.sections.map((c) => c.toUpperCase()).includes("FEATURED")
-          )
+            p.sections.map((c) => c.toUpperCase()).includes("FEATURED"),
+          ),
         );
         setRecentlyAddedProducts(
           res2.data.filter((p: Product) =>
-            p.sections.map((c) => c.toUpperCase()).includes("RECENT")
-          )
+            p.sections.map((c) => c.toUpperCase()).includes("RECENT"),
+          ),
         );
 
         // Extract collections from all products and remove duplicates
         const allCollections = res2.data.flatMap(
-          (product: Product) => product.collections
+          (product: Product) => product.collections,
         );
         const uniqueCollections = [...new Set(allCollections)];
         const sequence = [
@@ -130,7 +138,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
 
         // Filter the unique collections based on the desired sequence
         const sortedCollections = sequence.filter((item) =>
-          uniqueCollections.includes(item)
+          uniqueCollections.includes(item),
         );
 
         // Map to the desired format [{ id: 1, name: "NEWEST" }, ...]
@@ -138,7 +146,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
           (name, index) => ({
             collection_id: index + 1,
             collection_name: name,
-          })
+          }),
         );
         // // Extract collections from all products
         // const allCollections: string[] = res2.data.flatMap(
@@ -149,6 +157,15 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         // const uniqueCollections: string[] = [...new Set(allCollections)];
         setCollections(collectionsWithIds);
       }
+    })();
+  }, [url]);
+
+  useEffect(() => {
+    (async () => {
+      const [categories] = await Promise.all([
+        axios.get(`${url}/api/products/categories`),
+      ]);
+      setCategories(categories.data);
     })();
   }, [url]);
 
@@ -184,6 +201,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     featuredProducts,
     recentlyAddedProducts,
     collections,
+    categories,
   };
 
   return (
