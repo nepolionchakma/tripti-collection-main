@@ -22,6 +22,7 @@ import { FeaturesProducts } from "@/Pages/FeaturesProducts/FeaturesProducts";
 import Products from "@/Pages/Products/Products";
 import ProductDetails from "@/Pages/Product/Product";
 import ManageCatalog from "@/Pages/Admin/Page/ManageCatalog/ManageCatalog";
+import CategoryDetails from "@/Pages/Category/Category";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,19 @@ const router = createBrowserRouter([
           {
             path: ":product_id",
             element: <ProductDetails />,
+          },
+        ],
+      },
+      {
+        path: "categories",
+        children: [
+          {
+            path: "",
+            element: <Error />,
+          },
+          {
+            path: ":category_name",
+            element: <CategoryDetails />,
           },
         ],
       },
