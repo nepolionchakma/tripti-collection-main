@@ -1,7 +1,7 @@
 /* Firefox */
 .ps-sidebar-container {
   scrollbar-width: thin;
-  scrollbar-color: #888 #f1f1f1;
+  scrollbar-color: #ffd230 #f1f1f1;
   overflow-y: auto;
   /* Ensure vertical scrolling is enabled */
 }
