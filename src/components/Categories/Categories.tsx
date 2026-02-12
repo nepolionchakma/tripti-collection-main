@@ -7,6 +7,9 @@ import {
 } from "@/components/ui/carousel";
 import { useShopContext } from "@/context/Global/GlobalContext";
 import { NavLink } from "react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import unknownProductImage from "../../assets/unknown-product-vector.jpg";
+
 const Categories = () => {
   const { categories } = useShopContext();
 
@@ -39,11 +42,14 @@ const Categories = () => {
                   <h1 className="font-bold absolute bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     {item.category_name}
                   </h1>
-                  <img
-                    src={item.category_image}
-                    alt="Image"
-                    className="w-20 h-20 p-2 bg-amber-400"
-                  />
+                  <Avatar className="w-15 h-15 bg-white">
+                    <AvatarImage
+                      src={item.category_image || unknownProductImage}
+                    />
+                    <AvatarFallback>
+                      <h4>{item.category_name.slice(0, 2)}</h4>
+                    </AvatarFallback>
+                  </Avatar>
                 </div>
               </NavLink>
             </CarouselItem>

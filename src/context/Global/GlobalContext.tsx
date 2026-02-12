@@ -40,6 +40,8 @@ interface ShopContextType {
   recentlyAddedProducts: Product[];
   collections: Collection[];
   categories: Category[];
+  changeState: number;
+  setChangeState: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ShopContext = createContext({} as ShopContextType);
@@ -74,6 +76,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     [],
   );
   const [collections, setCollections] = useState<Collection[]>([]);
+  const [changeState, setChangeState] = useState(0);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -158,7 +161,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
         setCollections(collectionsWithIds);
       }
     })();
-  }, [url]);
+  }, [url, changeState]);
 
   useEffect(() => {
     (async () => {
@@ -167,7 +170,7 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
       ]);
       setCategories(categories.data);
     })();
-  }, [url]);
+  }, [url, changeState]);
 
   const logout = async () => {
     try {
@@ -202,6 +205,8 @@ export const ShopContextProvider = ({ children }: ShopContextProps) => {
     recentlyAddedProducts,
     collections,
     categories,
+    changeState,
+    setChangeState,
   };
 
   return (

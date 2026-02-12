@@ -42,6 +42,13 @@ const CategoryDetails = () => {
           <h1 className="text-2xl text-amber-400">
             {params} category products
           </h1>
+          {productData?.length === 0 && (
+            <div className="flex items-center justify-center h-[calc(90vh)]">
+              <h1 className="text-2xl text-amber-400 text-center">
+                No products found
+              </h1>
+            </div>
+          )}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
             {productData?.map((item) => (
               <ProductCard key={item.product_id} item={item} />

@@ -42,6 +42,7 @@ import { useEffect } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import { Category } from "@/types/Types";
 import { API_BASE_URL } from "@/api/config";
+import { useShopContext } from "@/context/Global/GlobalContext";
 export const columns = (
   setSelectedData: React.Dispatch<React.SetStateAction<Category[]>>,
 ): ColumnDef<Category>[] => [
@@ -98,10 +99,10 @@ export const columns = (
 ];
 export function CategoriesTable() {
   const url = API_BASE_URL;
+  const { changeState, setChangeState } = useShopContext();
   const [selectedData, setSelectedData] = React.useState<Category[]>([]);
   const [data, setData] = React.useState<Category[]>([]);
   const [actionName, setActionName] = React.useState("");
-  const [changeState, setChangeState] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [categoryName, setCategoryName] = React.useState("");
   const [categoryImage, setCategoryImage] = React.useState("");
@@ -249,13 +250,14 @@ export function CategoriesTable() {
           >
             <Input
               autoFocus
+              required
               placeholder="Category Name"
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
             />
             <Input
-              autoFocus
-              placeholder="Category Image"
+              required
+              placeholder="https://example.com/example.png"
               value={categoryImage}
               onChange={(e) => setCategoryImage(e.target.value)}
             />
@@ -282,13 +284,14 @@ export function CategoriesTable() {
             >
               <Input
                 autoFocus
+                required
                 placeholder="Category Name"
                 value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
               />
               <Input
-                autoFocus
-                placeholder="Category Image"
+                required
+                placeholder="https://example.com/example.png"
                 value={categoryImage}
                 onChange={(e) => setCategoryImage(e.target.value)}
               />
