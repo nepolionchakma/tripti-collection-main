@@ -145,14 +145,17 @@ const Navigation = () => {
           <div className="bg-slate-200 p-1 rounded-full cursor-pointer">
             <Search size={18} />
           </div>
-          <div className="bg-slate-200 p-1 rounded-full cursor-pointer relative">
+          <Link
+            to="/cart-items"
+            className="bg-slate-200 p-1 rounded-full cursor-pointer relative"
+          >
             <ShoppingCart size={18} />
             {cart.length > 0 && (
               <span className="absolute -top-3 -right-1 rounded-full bg-amber-400 w-5 h-5 flex items-center justify-center font-semibold">
                 {totalCart}
               </span>
             )}
-          </div>
+          </Link>
           <div className="bg-slate-200 p-1 rounded-full cursor-pointer relative">
             <Star size={18} />
             {wishlist.length > 0 && (
